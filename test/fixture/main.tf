@@ -16,7 +16,7 @@ resource "azurerm_resource_group" "this" {
   location = var.location
 }
 
-module "my_module" {
+module "storage" {
   source = "../.."
 
   application = local.application

@@ -6,7 +6,7 @@ import (
 	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
-func TestTerraformFoobar(t *testing.T) {
+func TestTerraformStorage(t *testing.T) {
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: "./fixture",
 	})

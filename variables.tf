@@ -13,9 +13,63 @@ variable "location" {
   type        = string
 }
 
+variable "storage_account_name" {
+  description = "Specifies the name of the storage account."
+  type        = string
+  default     = null
+}
+
 variable "resource_group_name" {
   description = "The name of the resource group in which to create the resources."
   type        = string
+}
+
+variable "account_tier" {
+  description = "Defines the Tier to use for this storage account."
+  type        = string
+  default     = "Standard"
+}
+
+variable "account_replication_type" {
+  description = "Defines the type of replication to use for this storage account."
+  type        = string
+  default     = "LRS"
+}
+
+variable "access_tier" {
+  description = "Defines the access tier for the storage account."
+  type        = string
+  default     = "Hot"
+}
+
+variable "shared_access_key_enabled" {
+  description = "Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key."
+  type        = bool
+  default     = true
+}
+
+variable "blob_versioning_enabled" {
+  description = "Is versioning enabled for the storage account blob service?"
+  type        = bool
+  default     = false
+}
+
+variable "blob_change_feed_enabled" {
+  description = "Is change feed enabled for the storage account blob service?"
+  type        = bool
+  default     = false
+}
+
+variable "blob_delete_retention_policy" {
+  description = "Specifies the number of days that the blobs and containers should be retained."
+  type        = number
+  default     = 30
+}
+
+variable "network_ip_rules" {
+  description = "List of public IP or IP ranges in CIDR Format. Only IPV4 addresses are allowed."
+  type        = list(string)
+  default     = []
 }
 
 variable "tags" {
