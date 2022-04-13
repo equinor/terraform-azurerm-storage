@@ -1,6 +1,6 @@
-# terraform-azurerm-foobar
+# terraform-azurerm-storage
 
-Terraform module which creates an Azure foobar.
+Terraform module which creates an Azure Storage Account.
 
 ## Usage
 
@@ -19,14 +19,14 @@ resource "azurerm_resource_group" "example" {
   location = "northeurope"
 }
 
-module "foobar" {
-  source = "github.com/equinor/terraform-azurerm-foobar"
+module "storage" {
+  source = "github.com/equinor/terraform-azurerm-storage"
 
   application = local.application
   environment = local.environment
 
-  location            = azurerm_resource_group.this.location
-  resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
 }
 ```
 
