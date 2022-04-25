@@ -77,3 +77,63 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "user_assigned_identity_name" {
+  description = "The name of the User Assigned Identity."
+  type        = string
+  default     = null
+}
+
+variable "storage_account_contributor" {
+  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+  type        = list(string)
+  default     = []
+}
+
+variable "blob_data_contributor" {
+  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+  type        = list(string)
+  default     = []
+}
+
+variable "blob_data_reader" {
+  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+  type        = list(string)
+  default     = []
+}
+
+variable "queue_data_contributor" {
+  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+  type        = list(string)
+  default     = []
+}
+
+variable "queue_data_reader" {
+  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+  type        = list(string)
+  default     = []
+}
+
+variable "table_data_contributor" {
+  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+  type        = list(string)
+  default     = []
+}
+
+variable "table_data_reader" {
+  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+  type        = list(string)
+  default     = []
+}
+
+variable "smb_share_contributor" {
+  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+  type        = list(string)
+  default     = []
+}
+
+variable "smb_share_reader" {
+  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+  type        = list(string)
+  default     = []
+}
