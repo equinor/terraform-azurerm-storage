@@ -1,3 +1,9 @@
+variable "role_list" {
+  description = "List of object ID's"
+  type        = string
+  default     = ("25d23649-cc47-49fa-bfd8-12acafc353a2")
+}
+
 variable "application" {
   description = "The application to create the resources for."
   type        = string

@@ -37,4 +37,5 @@ module "storage" {
   smb_share_contributor       = [data.azurerm_client_config.current.object_id]
   smb_share_reader            = [data.azurerm_client_config.current.object_id]
 
+  role_list = var.role_list
 }
