@@ -27,15 +27,13 @@ module "storage" {
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
 
-  account_contributor   = [data.azurerm_client_config.current.object_id]
-  blob_contributor      = [data.azurerm_client_config.current.object_id]
-  blob_reader           = [data.azurerm_client_config.current.object_id]
-  queue_contributor     = [data.azurerm_client_config.current.object_id]
-  queue_reader          = [data.azurerm_client_config.current.object_id]
-  table_contributor     = [data.azurerm_client_config.current.object_id]
-  table_reader          = [data.azurerm_client_config.current.object_id]
-  smb_share_contributor = [data.azurerm_client_config.current.object_id]
-  smb_share_reader      = [data.azurerm_client_config.current.object_id]
-
-  role_list = var.role_list
+  account_contributors = [data.azurerm_client_config.current.object_id]
+  blob_contributors    = [data.azurerm_client_config.current.object_id]
+  blob_readers         = [data.azurerm_client_config.current.object_id]
+  queue_contributors   = [data.azurerm_client_config.current.object_id]
+  queue_readers        = [data.azurerm_client_config.current.object_id]
+  table_contributors   = [data.azurerm_client_config.current.object_id]
+  table_readers        = [data.azurerm_client_config.current.object_id]
+  file_contributors    = [data.azurerm_client_config.current.object_id]
+  file_readers         = [data.azurerm_client_config.current.object_id]
 }
