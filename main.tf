@@ -41,7 +41,7 @@ resource "azurerm_storage_account" "this" {
 }
 
 resource "azurerm_role_assignment" "account_contributor" {
-  for_each = toset(var.account_contributor)
+  for_each = toset(var.account_contributors)
 
   scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage Account Contributor"
@@ -49,7 +49,7 @@ resource "azurerm_role_assignment" "account_contributor" {
 }
 
 resource "azurerm_role_assignment" "blob_contributor" {
-  for_each = toset(var.blob_contributor)
+  for_each = toset(var.blob_contributors)
 
   scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage Blob Data Contributor"
@@ -57,7 +57,7 @@ resource "azurerm_role_assignment" "blob_contributor" {
 }
 
 resource "azurerm_role_assignment" "blob_reader" {
-  for_each = toset(var.blob_reader)
+  for_each = toset(var.blob_readers)
 
   scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage Blob Data Reader"
@@ -65,7 +65,7 @@ resource "azurerm_role_assignment" "blob_reader" {
 }
 
 resource "azurerm_role_assignment" "queue_contributor" {
-  for_each = toset(var.queue_contributor)
+  for_each = toset(var.queue_contributors)
 
   scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage Queue Data Contributor"
@@ -73,7 +73,7 @@ resource "azurerm_role_assignment" "queue_contributor" {
 }
 
 resource "azurerm_role_assignment" "queue_reader" {
-  for_each = toset(var.queue_reader)
+  for_each = toset(var.queue_readers)
 
   scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage Queue Data Reader"
@@ -82,7 +82,7 @@ resource "azurerm_role_assignment" "queue_reader" {
 
 
 resource "azurerm_role_assignment" "table_contributor" {
-  for_each = toset(var.table_contributor)
+  for_each = toset(var.table_contributors)
 
   scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage Table Data Contributor"
@@ -90,23 +90,23 @@ resource "azurerm_role_assignment" "table_contributor" {
 }
 
 resource "azurerm_role_assignment" "table_reader" {
-  for_each = toset(var.table_reader)
+  for_each = toset(var.table_readers)
 
   scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage Table Data Reader"
   principal_id         = each.value
 }
 
-resource "azurerm_role_assignment" "smb_share_contributor" {
-  for_each = toset(var.smb_share_contributor)
+resource "azurerm_role_assignment" "file_contributor" {
+  for_each = toset(var.file_contributors)
 
   scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage File Data SMB Share Contributor"
   principal_id         = each.value
 }
 
-resource "azurerm_role_assignment" "smb_share_reader" {
-  for_each = toset(var.smb_share_reader)
+resource "azurerm_role_assignment" "file_reader" {
+  for_each = toset(var.file_readers)
 
   scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage File Data SMB Share Reader"
