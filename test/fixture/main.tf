@@ -5,6 +5,8 @@ provider "azurerm" {
 locals {
   application = random_id.this.hex
   environment = "test"
+
+  object_ids = var.test_role_assignments ? [data.azurerm_client_config.current.object_id] : []
 }
 
 resource "random_id" "this" {
@@ -27,13 +29,13 @@ module "storage" {
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
 
-  account_contributors = [data.azurerm_client_config.current.object_id]
-  blob_contributors    = [data.azurerm_client_config.current.object_id]
-  blob_readers         = [data.azurerm_client_config.current.object_id]
-  queue_contributors   = [data.azurerm_client_config.current.object_id]
-  queue_readers        = [data.azurerm_client_config.current.object_id]
-  table_contributors   = [data.azurerm_client_config.current.object_id]
-  table_readers        = [data.azurerm_client_config.current.object_id]
-  file_contributors    = [data.azurerm_client_config.current.object_id]
-  file_readers         = [data.azurerm_client_config.current.object_id]
+  account_contributors = local.object_ids
+  blob_contributors    = local.object_ids
+  blob_readers         = local.object_ids
+  queue_contributors   = local.object_ids
+  queue_readers        = local.object_ids
+  table_contributors   = local.object_ids
+  table_readers        = local.object_ids
+  file_contributors    = local.object_ids
+  file_readers         = local.object_ids
 }
