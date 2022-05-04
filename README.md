@@ -98,7 +98,7 @@ No modules.
 | <a name="input_queue_contributor"></a> [queue\_contributor](#input\_queue\_contributor) | The ID's of the Principals that should be able to read and assign the User Assigned Identity. | `list(string)` | `[]` | no |
 | <a name="input_queue_reader"></a> [queue\_reader](#input\_queue\_reader) | The ID's of the Principals that should be able to read and assign the User Assigned Identity. | `list(string)` | `[]` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group in which to create the resources. | `string` | n/a | yes |
-| <a name="input_role_list"></a> [role\_list](#input\_role\_list) | List of object ID's | `string` | `"25d23649-cc47-49fa-bfd8-12acafc353a2"` | no |
+| <a name="input_role_list"></a> [role\_list](#input\_role\_list) | List of object ID's | `list(string)` | `[]` | no |
 | <a name="input_shared_access_key_enabled"></a> [shared\_access\_key\_enabled](#input\_shared\_access\_key\_enabled) | Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. | `bool` | `true` | no |
 | <a name="input_smb_share_contributor"></a> [smb\_share\_contributor](#input\_smb\_share\_contributor) | The ID's of the Principals that should be able to read and assign the User Assigned Identity. | `list(string)` | `[]` | no |
 | <a name="input_smb_share_reader"></a> [smb\_share\_reader](#input\_smb\_share\_reader) | The ID's of the Principals that should be able to read and assign the User Assigned Identity. | `list(string)` | `[]` | no |
