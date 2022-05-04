@@ -15,17 +15,3 @@ func TestTerraformStorage(t *testing.T) {
 
 	terraform.InitAndApply(t, terraformOptions)
 }
-
-func TestTerraformStorageRoles(t *testing.T) {
-	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: "./fixture",
-
-		Vars: map[string]interface{}{
-			"test_role_assignments": true,
-		},
-	})
-
-	defer terraform.Destroy(t, terraformOptions)
-
-	terraform.InitAndApply(t, terraformOptions)
-}
