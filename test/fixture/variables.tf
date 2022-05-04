@@ -1,7 +1,7 @@
 variable "role_list" {
   description = "List of object ID's"
-  type        = string
-  default     = ("25d23649-cc47-49fa-bfd8-12acafc353a2")
+  type        = list(string)
+  default     = []
 }
 
 variable "location" {
@@ -10,43 +10,43 @@ variable "location" {
   default     = "northeurope"
 }
 
-variable "storage_account_contributor" {
+variable "account_contributor" {
   description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
   type        = list(string)
   default     = []
 }
 
-variable "blob_data_contributor" {
+variable "blob_contributor" {
   description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
   type        = list(string)
   default     = []
 }
 
-variable "blob_data_reader" {
+variable "blob_reader" {
   description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
   type        = list(string)
   default     = []
 }
 
-variable "queue_data_contributor" {
+variable "queue_contributor" {
   description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
   type        = list(string)
   default     = []
 }
 
-variable "queue_data_reader" {
+variable "queue_reader" {
   description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
   type        = list(string)
   default     = []
 }
 
-variable "table_data_contributor" {
+variable "table_contributor" {
   description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
   type        = list(string)
   default     = []
 }
 
-variable "table_data_reader" {
+variable "table_reader" {
   description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
   type        = list(string)
   default     = []

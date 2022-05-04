@@ -40,83 +40,75 @@ resource "azurerm_storage_account" "this" {
   }
 }
 
-resource "azurerm_user_assigned_identity" "this" {
-  name                = coalesce(var.user_assigned_identity_name, "id-st-user-${var.application}-${var.environment}")
-  location            = var.location
-  resource_group_name = var.resource_group_name
+resource "azurerm_role_assignment" "account_contributor" {
+  for_each = toset(var.account_contributor)
 
-  tags = local.tags
-}
-
-resource "azurerm_role_assignment" "storage_account_contributor" {
-  for_each = toset(var.storage_account_contributor)
-
-  scope                = azurerm_user_assigned_identity.this.id
+  scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage Account Contributor"
   principal_id         = each.value
 }
 
-resource "azurerm_role_assignment" "storage_blob_data_contributor" {
-  for_each = toset(var.blob_data_contributor)
+resource "azurerm_role_assignment" "blob_contributor" {
+  for_each = toset(var.blob_contributor)
 
-  scope                = azurerm_user_assigned_identity.this.id
+  scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = each.value
 }
 
-resource "azurerm_role_assignment" "storage_blob_data_reader" {
-  for_each = toset(var.blob_data_reader)
+resource "azurerm_role_assignment" "blob_reader" {
+  for_each = toset(var.blob_reader)
 
-  scope                = azurerm_user_assigned_identity.this.id
+  scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage Blob Data Reader"
   principal_id         = each.value
 }
 
-resource "azurerm_role_assignment" "storage_queue_data_contributor" {
-  for_each = toset(var.queue_data_contributor)
+resource "azurerm_role_assignment" "queue_contributor" {
+  for_each = toset(var.queue_contributor)
 
-  scope                = azurerm_user_assigned_identity.this.id
+  scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage Queue Data Contributor"
   principal_id         = each.value
 }
 
-resource "azurerm_role_assignment" "storage_queue_data_reader" {
-  for_each = toset(var.queue_data_reader)
+resource "azurerm_role_assignment" "queue_reader" {
+  for_each = toset(var.queue_reader)
 
-  scope                = azurerm_user_assigned_identity.this.id
+  scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage Queue Data Reader"
   principal_id         = each.value
 }
 
 
-resource "azurerm_role_assignment" "storage_table_data_contributor" {
-  for_each = toset(var.table_data_contributor)
+resource "azurerm_role_assignment" "table_contributor" {
+  for_each = toset(var.table_contributor)
 
-  scope                = azurerm_user_assigned_identity.this.id
+  scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage Table Data Contributor"
   principal_id         = each.value
 }
 
-resource "azurerm_role_assignment" "storage_table_data_reader" {
-  for_each = toset(var.table_data_reader)
+resource "azurerm_role_assignment" "table_reader" {
+  for_each = toset(var.table_reader)
 
-  scope                = azurerm_user_assigned_identity.this.id
+  scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage Table Data Reader"
   principal_id         = each.value
 }
 
-resource "azurerm_role_assignment" "storage_file_data_smb_share_contributor" {
+resource "azurerm_role_assignment" "smb_share_contributor" {
   for_each = toset(var.smb_share_contributor)
 
-  scope                = azurerm_user_assigned_identity.this.id
+  scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage File Data SMB Share Contributor"
   principal_id         = each.value
 }
 
-resource "azurerm_role_assignment" "storage_file_data_smb_share_reader" {
+resource "azurerm_role_assignment" "smb_share_reader" {
   for_each = toset(var.smb_share_reader)
 
-  scope                = azurerm_user_assigned_identity.this.id
+  scope                = azurerm_storage_account.this.id
   role_definition_name = "Storage File Data SMB Share Reader"
   principal_id         = each.value
 }
