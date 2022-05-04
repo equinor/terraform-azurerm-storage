@@ -100,7 +100,6 @@ No modules.
 | <a name="input_queue_contributors"></a> [queue\_contributors](#input\_queue\_contributors) | A list of IDs of the Azure AD objects that should be able to read and write Queues. | `list(string)` | `[]` | no |
 | <a name="input_queue_readers"></a> [queue\_readers](#input\_queue\_readers) | A list of IDs of the Azure AD objects that should be able to read Queues. | `list(string)` | `[]` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group in which to create the resources. | `string` | n/a | yes |
-| <a name="input_role_list"></a> [role\_list](#input\_role\_list) | List of object ID's | `list(string)` | `[]` | no |
 | <a name="input_shared_access_key_enabled"></a> [shared\_access\_key\_enabled](#input\_shared\_access\_key\_enabled) | Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. | `bool` | `true` | no |
 | <a name="input_storage_account_name"></a> [storage\_account\_name](#input\_storage\_account\_name) | Specifies the name of the storage account. | `string` | `null` | no |
 | <a name="input_table_contributors"></a> [table\_contributors](#input\_table\_contributors) | A list of IDs of the Azure AD objects that should be able to read and write Tables. | `list(string)` | `[]` | no |
