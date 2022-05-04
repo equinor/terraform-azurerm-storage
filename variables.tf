@@ -1,9 +1,3 @@
-variable "role_list" {
-  description = "List of object ID's"
-  type        = list(string)
-  default     = []
-}
-
 variable "application" {
   description = "The application to create the resources for."
   type        = string
