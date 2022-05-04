@@ -85,7 +85,7 @@ variable "tags" {
 }
 
 variable "account_contributors" {
-  description = "..."
+  description = "A list of IDs of the Azure AD objects that should be able to manage this Storage Account."
   type        = list(string)
   default     = []
 }
