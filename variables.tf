@@ -1,9 +1,3 @@
-variable "role_list" {
-  description = "List of object ID's"
-  type        = list(string)
-  default     = []
-}
-
 variable "application" {
   description = "The application to create the resources for."
   type        = string
@@ -84,56 +78,56 @@ variable "tags" {
   default     = {}
 }
 
-variable "account_contributor" {
-  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+variable "account_contributors" {
+  description = "A list of IDs of the Azure AD objects that should be able to manage this Storage Account."
   type        = list(string)
   default     = []
 }
 
-variable "blob_contributor" {
-  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+variable "blob_contributors" {
+  description = "A list of IDs of the Azure AD objects that should be able to read and write Blobs."
   type        = list(string)
   default     = []
 }
 
-variable "blob_reader" {
-  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+variable "blob_readers" {
+  description = "A list of IDs of the Azure AD objects that should be able to read Blobs."
   type        = list(string)
   default     = []
 }
 
-variable "queue_contributor" {
-  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+variable "queue_contributors" {
+  description = "A list of IDs of the Azure AD objects that should be able to read and write Queues."
   type        = list(string)
   default     = []
 }
 
-variable "queue_reader" {
-  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+variable "queue_readers" {
+  description = "A list of IDs of the Azure AD objects that should be able to read Queues."
   type        = list(string)
   default     = []
 }
 
-variable "table_contributor" {
-  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+variable "table_contributors" {
+  description = "A list of IDs of the Azure AD objects that should be able to read and write Tables."
   type        = list(string)
   default     = []
 }
 
-variable "table_reader" {
-  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+variable "table_readers" {
+  description = "A list of IDs of the Azure AD objects that should be able to read Tables."
   type        = list(string)
   default     = []
 }
 
-variable "smb_share_contributor" {
-  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+variable "file_contributors" {
+  description = "A list of IDs of the Azure AD objects that should be able to read and write Files."
   type        = list(string)
   default     = []
 }
 
-variable "smb_share_reader" {
-  description = "The ID's of the Principals that should be able to read and assign the User Assigned Identity."
+variable "file_readers" {
+  description = "A list of IDs of the Azure AD objects that should be able to read Files."
   type        = list(string)
   default     = []
 }
