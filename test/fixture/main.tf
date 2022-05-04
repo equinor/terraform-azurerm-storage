@@ -11,6 +11,8 @@ resource "random_id" "this" {
   byte_length = 8
 }
 
+data "azurerm_client_config" "current" {}
+
 resource "azurerm_resource_group" "this" {
   name     = "rg-${local.application}-${local.environment}"
   location = var.location
@@ -24,4 +26,14 @@ module "storage" {
 
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
+
+  account_contributors = [data.azurerm_client_config.current.object_id]
+  blob_contributors    = [data.azurerm_client_config.current.object_id]
+  blob_readers         = [data.azurerm_client_config.current.object_id]
+  queue_contributors   = [data.azurerm_client_config.current.object_id]
+  queue_readers        = [data.azurerm_client_config.current.object_id]
+  table_contributors   = [data.azurerm_client_config.current.object_id]
+  table_readers        = [data.azurerm_client_config.current.object_id]
+  file_contributors    = [data.azurerm_client_config.current.object_id]
+  file_readers         = [data.azurerm_client_config.current.object_id]
 }
