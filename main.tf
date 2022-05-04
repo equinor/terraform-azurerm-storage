@@ -80,7 +80,6 @@ resource "azurerm_role_assignment" "queue_reader" {
   principal_id         = each.value
 }
 
-
 resource "azurerm_role_assignment" "table_contributor" {
   for_each = toset(var.table_contributors)
 
