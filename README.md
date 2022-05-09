@@ -84,6 +84,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_tier"></a> [access\_tier](#input\_access\_tier) | Defines the access tier for the storage account. | `string` | `"Hot"` | no |
 | <a name="input_account_contributors"></a> [account\_contributors](#input\_account\_contributors) | A list of IDs of the Azure AD objects that should be able to manage this Storage Account. | `list(string)` | `[]` | no |
+| <a name="input_account_name"></a> [account\_name](#input\_account\_name) | Specifies the name of the storage account. | `string` | `null` | no |
 | <a name="input_account_replication_type"></a> [account\_replication\_type](#input\_account\_replication\_type) | Defines the type of replication to use for this storage account. | `string` | `"LRS"` | no |
 | <a name="input_account_tier"></a> [account\_tier](#input\_account\_tier) | Defines the Tier to use for this storage account. | `string` | `"Standard"` | no |
 | <a name="input_application"></a> [application](#input\_application) | The application to create the resources for. | `string` | n/a | yes |
@@ -101,7 +102,6 @@ No modules.
 | <a name="input_queue_readers"></a> [queue\_readers](#input\_queue\_readers) | A list of IDs of the Azure AD objects that should be able to read Queues. | `list(string)` | `[]` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group in which to create the resources. | `string` | n/a | yes |
 | <a name="input_shared_access_key_enabled"></a> [shared\_access\_key\_enabled](#input\_shared\_access\_key\_enabled) | Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. | `bool` | `true` | no |
-| <a name="input_storage_account_name"></a> [storage\_account\_name](#input\_storage\_account\_name) | Specifies the name of the storage account. | `string` | `null` | no |
 | <a name="input_table_contributors"></a> [table\_contributors](#input\_table\_contributors) | A list of IDs of the Azure AD objects that should be able to read and write Tables. | `list(string)` | `[]` | no |
 | <a name="input_table_readers"></a> [table\_readers](#input\_table\_readers) | A list of IDs of the Azure AD objects that should be able to read Tables. | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resources. | `map(string)` | `{}` | no |
