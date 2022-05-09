@@ -1,43 +1,53 @@
 output "account_id" {
-  value = azurerm_storage_account.this.id
+  description = "The ID of this Storage Account."
+  value       = azurerm_storage_account.this.id
 }
 
 output "account_name" {
-  value = azurerm_storage_account.this.name
+  description = "The name of this Storage Account."
+  value       = azurerm_storage_account.this.name
 }
 
 output "blob_endpoint" {
-  value = azurerm_storage_account.this.primary_blob_endpoint
+  description = "The endpoint URL for this Blob Storage."
+  value       = azurerm_storage_account.this.primary_blob_endpoint
 }
 
 output "queue_endpoint" {
-  value = azurerm_storage_account.this.primary_queue_endpoint
+  description = "The endpoint URL for this Queue Storage."
+  value       = azurerm_storage_account.this.primary_queue_endpoint
 }
 
 output "table_endpoint" {
-  value = azurerm_storage_account.this.primary_table_endpoint
+  description = "The endpoint URL for this Table Storage."
+  value       = azurerm_storage_account.this.primary_table_endpoint
 }
 
 output "file_endpoint" {
-  value = azurerm_storage_account.this.primary_file_endpoint
+  description = "The endpoint URL of this File Storage."
+  value       = azurerm_storage_account.this.primary_file_endpoint
 }
 
 output "primary_access_key" {
-  value     = azurerm_storage_account.this.primary_access_key
-  sensitive = true
+  description = "The primary access key for this Storage Account."
+  value       = azurerm_storage_account.this.primary_access_key
+  sensitive   = true
 }
 
 output "secondary_access_key" {
-  value     = azurerm_storage_account.this.secondary_access_key
-  sensitive = true
+  description = "The secondary access key for this Storage Account."
+  value       = azurerm_storage_account.this.secondary_access_key
+  sensitive   = true
 }
 
 output "primary_connection_string" {
-  value     = azurerm_storage_account.this.primary_connection_string
-  sensitive = true
+  description = "The primary connection string for this Storage Account."
+  value       = azurerm_storage_account.this.primary_connection_string
+  sensitive   = true
 }
 
 output "secondary_connection_string" {
-  value     = azurerm_storage_account.this.secondary_connection_string
-  sensitive = true
+  description = "The secondary connection string for this Storage Account."
+  value       = azurerm_storage_account.this.secondary_connection_string
+  sensitive   = true
 }
