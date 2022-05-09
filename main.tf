@@ -41,7 +41,7 @@ resource "azurerm_storage_account" "this" {
 }
 
 resource "azurerm_monitor_diagnostic_setting" "this" {
-  name                       = "logs-${var.application}-${var.environment}"
+  name                       = "${azurerm_storage_account.this.name}-logs"
   target_resource_id         = azurerm_storage_account.this.id
   storage_account_id         = azurerm_storage_account.this.id
   log_analytics_workspace_id = var.log_analytics_workspace_id
