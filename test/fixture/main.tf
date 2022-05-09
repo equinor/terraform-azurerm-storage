@@ -18,6 +18,13 @@ resource "azurerm_resource_group" "this" {
   location = var.location
 }
 
+resource "azurerm_log_analytics_workspace" "this" {
+  name                = "log-${local.application}-${local.environment}"
+  location            = azurerm_resource_group.this.location
+  resource_group_name = azurerm_resource_group.this.name
+  sku                 = "Free"
+}
+
 module "storage" {
   source = "../.."
 
@@ -26,6 +33,8 @@ module "storage" {
 
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
+
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
 
   account_contributors = [data.azurerm_client_config.current.object_id]
   blob_contributors    = [data.azurerm_client_config.current.object_id]

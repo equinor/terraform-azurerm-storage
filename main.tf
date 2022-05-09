@@ -40,6 +40,23 @@ resource "azurerm_storage_account" "this" {
   }
 }
 
+resource "azurerm_monitor_diagnostic_setting" "this" {
+  name                       = "logs-${var.application}-${var.environment}"
+  target_resource_id         = azurerm_storage_account.this.id
+  storage_account_id         = azurerm_storage_account.this.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+
+  metric {
+    category = "AllMetrics"
+    enabled  = true
+
+    retention_policy {
+      days    = 0
+      enabled = false
+    }
+  }
+}
+
 resource "azurerm_role_assignment" "account_contributor" {
   for_each = toset(var.account_contributors)
 

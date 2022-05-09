@@ -78,6 +78,11 @@ variable "tags" {
   default     = {}
 }
 
+variable "log_analytics_workspace_id" {
+  description = "The ID of the Log Analytics Workspace to send diagnostics to."
+  type        = string
+}
+
 variable "account_contributors" {
   description = "A list of IDs of the Azure AD objects that should be able to manage this Storage Account."
   type        = list(string)
