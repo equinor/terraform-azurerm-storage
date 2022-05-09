@@ -13,7 +13,7 @@ variable "location" {
   type        = string
 }
 
-variable "storage_account_name" {
+variable "account_name" {
   description = "Specifies the name of the storage account."
   type        = string
   default     = null

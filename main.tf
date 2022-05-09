@@ -5,7 +5,7 @@ locals {
 }
 
 resource "azurerm_storage_account" "this" {
-  name                = coalesce(var.storage_account_name, "st${local.application_alnum}${var.environment}")
+  name                = coalesce(var.account_name, "st${local.application_alnum}${var.environment}")
   resource_group_name = var.resource_group_name
   location            = var.location
 
