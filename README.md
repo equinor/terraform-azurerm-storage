@@ -67,6 +67,7 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [azurerm_monitor_diagnostic_setting.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting) | resource |
 | [azurerm_role_assignment.account_contributor](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_role_assignment.blob_contributor](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_role_assignment.blob_reader](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
@@ -96,6 +97,7 @@ No modules.
 | <a name="input_file_contributors"></a> [file\_contributors](#input\_file\_contributors) | A list of IDs of the Azure AD objects that should be able to read and write Files. | `list(string)` | `[]` | no |
 | <a name="input_file_readers"></a> [file\_readers](#input\_file\_readers) | A list of IDs of the Azure AD objects that should be able to read Files. | `list(string)` | `[]` | no |
 | <a name="input_location"></a> [location](#input\_location) | Specifies the supported Azure location where the resources exist. | `string` | n/a | yes |
+| <a name="input_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#input\_log\_analytics\_workspace\_id) | The ID of the Log Analytics Workspace to send diagnostics to. | `string` | n/a | yes |
 | <a name="input_network_ip_rules"></a> [network\_ip\_rules](#input\_network\_ip\_rules) | List of public IP or IP ranges in CIDR Format. Only IPV4 addresses are allowed. | `list(string)` | `[]` | no |
 | <a name="input_queue_contributors"></a> [queue\_contributors](#input\_queue\_contributors) | A list of IDs of the Azure AD objects that should be able to read and write Queues. | `list(string)` | `[]` | no |
 | <a name="input_queue_readers"></a> [queue\_readers](#input\_queue\_readers) | A list of IDs of the Azure AD objects that should be able to read Queues. | `list(string)` | `[]` | no |
