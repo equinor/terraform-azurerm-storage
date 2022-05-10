@@ -33,6 +33,10 @@ resource "azurerm_storage_account" "this" {
     }
   }
 
+  share_properties {
+    retention_policy = var.file_storage_retention_policy
+  }
+
   network_rules {
     default_action = length(var.network_ip_rules) == 0 ? "Allow" : "Deny"
     bypass         = ["AzureServices"]
