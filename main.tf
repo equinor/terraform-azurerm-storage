@@ -34,7 +34,9 @@ resource "azurerm_storage_account" "this" {
   }
 
   share_properties {
-    retention_policy = var.file_storage_retention_policy
+    retention_policy {
+      days = var.file_retention_policy
+    }
   }
 
   network_rules {

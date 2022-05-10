@@ -66,7 +66,7 @@ variable "blob_delete_retention_policy" {
   default     = 30
 }
 
-variable "file_storage_retention_policy" {
+variable "file_retention_policy" {
   description = "The number of days that files should be retained"
   type        = number
   default     = 30
