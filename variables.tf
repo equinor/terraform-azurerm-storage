@@ -67,7 +67,7 @@ variable "blob_delete_retention_policy" {
 }
 
 variable "network_ip_rules" {
-  description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage Account."
+  description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage Account. Only IPv4 addresses are allowed."
   type        = list(string)
   default     = []
 }
@@ -79,14 +79,9 @@ variable "tags" {
 }
 
 variable "containers" {
-  description = "The names of the Storage Containers to create in this Storage Account."
+  description = "The names of the Storage Containers to create in this Storage Account. Only lowercase alphanumeric characters and hyphens are allowed."
   type        = list(string)
   default     = []
-
-  validation {
-    condition     = alltrue([for c in var.containers : can(regex("[a-z0-9\\-]+", c))])
-    error_message = "Only lowercase alphanumeric characters and hyphens are allowed."
-  }
 }
 
 variable "account_contributors" {
