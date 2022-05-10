@@ -8,7 +8,7 @@ locals {
 }
 
 data "http" "public_ip" {
-  url = "https://ifconfig.me/"
+  url = "https://ifconfig.me"
 }
 
 data "azurerm_client_config" "current" {}
@@ -20,6 +20,13 @@ resource "random_id" "this" {
 resource "azurerm_resource_group" "this" {
   name     = "rg-${local.application}-${local.environment}"
   location = var.location
+}
+
+resource "azurerm_log_analytics_workspace" "this" {
+  name                = "log-${local.application}-${local.environment}"
+  location            = azurerm_resource_group.this.location
+  resource_group_name = azurerm_resource_group.this.name
+  sku                 = "Free"
 }
 
 module "storage" {
@@ -34,6 +41,8 @@ module "storage" {
   network_ip_rules = [data.http.public_ip.body]
 
   containers = ["container", "container1", "container-2"]
+
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
 
   account_contributors = [data.azurerm_client_config.current.object_id]
   blob_contributors    = [data.azurerm_client_config.current.object_id]

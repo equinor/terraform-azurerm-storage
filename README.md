@@ -19,6 +19,13 @@ resource "azurerm_resource_group" "example" {
   location = "northeurope"
 }
 
+resource "azurerm_log_analytics_workspace" "example" {
+  name                = "log-${local.application}-${local.environment}"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  sku                 = "Free"
+}
+
 module "storage" {
   source = "github.com/equinor/terraform-azurerm-storage"
 
@@ -27,6 +34,8 @@ module "storage" {
 
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
+
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.example.id
 }
 ```
 
@@ -67,6 +76,7 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [azurerm_monitor_diagnostic_setting.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting) | resource |
 | [azurerm_role_assignment.account_contributor](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_role_assignment.blob_contributor](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_role_assignment.blob_reader](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
@@ -99,6 +109,7 @@ No modules.
 | <a name="input_file_contributors"></a> [file\_contributors](#input\_file\_contributors) | The IDs of the Azure AD objects that should have Contributor access to this File Storage. | `list(string)` | `[]` | no |
 | <a name="input_file_readers"></a> [file\_readers](#input\_file\_readers) | The IDs of the Azure AD objects that should have Reader access to this File Storage. | `list(string)` | `[]` | no |
 | <a name="input_location"></a> [location](#input\_location) | The supported Azure location where the resources exist. | `string` | n/a | yes |
+| <a name="input_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#input\_log\_analytics\_workspace\_id) | The ID of the Log Analytics Workspace to send diagnostics to. | `string` | n/a | yes |
 | <a name="input_network_ip_rules"></a> [network\_ip\_rules](#input\_network\_ip\_rules) | The public IPs or IP ranges in CIDR format that should be able to access this Storage Account. Only IPv4 addresses are allowed. | `list(string)` | `[]` | no |
 | <a name="input_queue_contributors"></a> [queue\_contributors](#input\_queue\_contributors) | The IDs of the Azure AD objects that should have Contributor access to this Queue Storage. | `list(string)` | `[]` | no |
 | <a name="input_queue_readers"></a> [queue\_readers](#input\_queue\_readers) | The IDs of the Azure AD objects that should have Reader access to this Queue Storage. | `list(string)` | `[]` | no |
