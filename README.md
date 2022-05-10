@@ -77,6 +77,7 @@ No modules.
 | [azurerm_role_assignment.table_contributor](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_role_assignment.table_reader](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_storage_account.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
+| [azurerm_storage_container.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 
 ## Inputs
 
@@ -93,11 +94,12 @@ No modules.
 | <a name="input_blob_delete_retention_policy"></a> [blob\_delete\_retention\_policy](#input\_blob\_delete\_retention\_policy) | The number of days that blobs and containers should be retained. | `number` | `30` | no |
 | <a name="input_blob_readers"></a> [blob\_readers](#input\_blob\_readers) | The IDs of the Azure AD objects that should have Reader access to this Blob Storage. | `list(string)` | `[]` | no |
 | <a name="input_blob_versioning_enabled"></a> [blob\_versioning\_enabled](#input\_blob\_versioning\_enabled) | Is versioning enabled for this Blob Storage? | `bool` | `false` | no |
+| <a name="input_containers"></a> [containers](#input\_containers) | The names of the Storage Containers to create in this Storage Account. Only lowercase alphanumeric characters and hyphens are allowed. | `list(string)` | `[]` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment to create the resources for. | `string` | n/a | yes |
 | <a name="input_file_contributors"></a> [file\_contributors](#input\_file\_contributors) | The IDs of the Azure AD objects that should have Contributor access to this File Storage. | `list(string)` | `[]` | no |
 | <a name="input_file_readers"></a> [file\_readers](#input\_file\_readers) | The IDs of the Azure AD objects that should have Reader access to this File Storage. | `list(string)` | `[]` | no |
 | <a name="input_location"></a> [location](#input\_location) | The supported Azure location where the resources exist. | `string` | n/a | yes |
-| <a name="input_network_ip_rules"></a> [network\_ip\_rules](#input\_network\_ip\_rules) | The public IPs or IP ranges in CIDR format that should be able to access this Storage Account. | `list(string)` | `[]` | no |
+| <a name="input_network_ip_rules"></a> [network\_ip\_rules](#input\_network\_ip\_rules) | The public IPs or IP ranges in CIDR format that should be able to access this Storage Account. Only IPv4 addresses are allowed. | `list(string)` | `[]` | no |
 | <a name="input_queue_contributors"></a> [queue\_contributors](#input\_queue\_contributors) | The IDs of the Azure AD objects that should have Contributor access to this Queue Storage. | `list(string)` | `[]` | no |
 | <a name="input_queue_readers"></a> [queue\_readers](#input\_queue\_readers) | The IDs of the Azure AD objects that should have Reader access to this Queue Storage. | `list(string)` | `[]` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group in which to create the resources. | `string` | n/a | yes |
