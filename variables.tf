@@ -84,6 +84,11 @@ variable "containers" {
   default     = []
 }
 
+variable "log_analytics_workspace_id" {
+  description = ""
+  type        = string
+}
+
 variable "account_contributors" {
   description = "The IDs of the Azure AD objects that should have Contributor access to this Storage Account."
   type        = list(string)

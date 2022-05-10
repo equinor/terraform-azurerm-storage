@@ -19,6 +19,13 @@ resource "azurerm_resource_group" "example" {
   location = "northeurope"
 }
 
+resource "azurerm_log_analytics_workspace" "example" {
+  name                = "log-${local.application}-${local.environment}"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  sku                 = "Free"
+}
+
 module "storage" {
   source = "github.com/equinor/terraform-azurerm-storage"
 
@@ -27,6 +34,8 @@ module "storage" {
 
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
+
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.example.id
 }
 ```
 
