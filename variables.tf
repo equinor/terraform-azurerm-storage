@@ -84,7 +84,7 @@ variable "containers" {
   default     = []
 
   validation {
-    condition     = alltrue([for c in var.containers : can(regex("[a-z]-", c))])
+    condition     = alltrue([for c in var.containers : can(regex("[a-z0-9]-", c))])
     error_message = "Only lowercase alphanumeric characters and hyphens are allowed."
   }
 }
