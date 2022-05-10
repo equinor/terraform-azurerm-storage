@@ -78,6 +78,17 @@ variable "tags" {
   default     = {}
 }
 
+variable "containers" {
+  description = "The names of the Storage Containers to create in this Storage Account."
+  type        = list(string)
+  default     = []
+
+  validation {
+    condition     = alltrue([for c in var.containers : can(regex("[a-z]-", c))])
+    error_message = "Only lowercase alphanumeric characters and hyphens are allowed."
+  }
+}
+
 variable "account_contributors" {
   description = "The IDs of the Azure AD objects that should have Contributor access to this Storage Account."
   type        = list(string)

@@ -40,6 +40,14 @@ resource "azurerm_storage_account" "this" {
   }
 }
 
+resource "azurerm_storage_container" "this" {
+  for_each = toset(var.containers)
+
+  name                  = each.value
+  storage_account_name  = azurerm_storage_account.this.name
+  container_access_type = "private"
+}
+
 resource "azurerm_role_assignment" "account_contributor" {
   for_each = toset(var.account_contributors)
 

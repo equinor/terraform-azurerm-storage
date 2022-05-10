@@ -27,6 +27,8 @@ module "storage" {
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
 
+  containers = ["container-1", "container-2"]
+
   account_contributors = [data.azurerm_client_config.current.object_id]
   blob_contributors    = [data.azurerm_client_config.current.object_id]
   blob_readers         = [data.azurerm_client_config.current.object_id]
