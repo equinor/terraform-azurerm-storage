@@ -5,7 +5,7 @@ locals {
 }
 
 resource "azurerm_storage_account" "this" {
-  name                = coalesce(var.storage_account_name, "st${local.application_alnum}${var.environment}")
+  name                = coalesce(var.account_name, "st${local.application_alnum}${var.environment}")
   resource_group_name = var.resource_group_name
   location            = var.location
 
@@ -55,6 +55,15 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
       enabled = false
     }
   }
+}
+
+resource "azurerm_storage_container" "this" {
+  for_each = toset(var.containers)
+
+  name                  = each.value
+  storage_account_name  = azurerm_storage_account.this.name
+  container_access_type = "private"
+
 }
 
 resource "azurerm_role_assignment" "account_contributor" {
