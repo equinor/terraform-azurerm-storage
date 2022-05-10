@@ -7,11 +7,15 @@ locals {
   environment = "test"
 }
 
-resource "random_id" "this" {
-  byte_length = 8
+data "http" "public_ip" {
+  url = "https://ifconfig.me/"
 }
 
 data "azurerm_client_config" "current" {}
+
+resource "random_id" "this" {
+  byte_length = 8
+}
 
 resource "azurerm_resource_group" "this" {
   name     = "rg-${local.application}-${local.environment}"
@@ -26,6 +30,8 @@ module "storage" {
 
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
+
+  network_ip_rules = [data.http.public_ip.body]
 
   containers = ["container", "container1", "container-2"]
 
