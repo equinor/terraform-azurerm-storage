@@ -85,7 +85,7 @@ variable "containers" {
 }
 
 variable "log_analytics_workspace_id" {
-  description = ""
+  description = "The ID of the Log Analytics Workspace to send diagnostics to."
   type        = string
 }
 
