@@ -1,4 +1,6 @@
 provider "azurerm" {
+  storage_use_azuread = true
+
   features {}
 }
 
@@ -10,8 +12,6 @@ locals {
 data "http" "public_ip" {
   url = "https://ifconfig.me"
 }
-
-data "azurerm_client_config" "current" {}
 
 resource "random_id" "this" {
   byte_length = 8
@@ -45,14 +45,4 @@ module "storage" {
   containers = ["container", "container1", "container-2"]
 
   log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
-
-  account_contributors = [data.azurerm_client_config.current.object_id]
-  blob_contributors    = [data.azurerm_client_config.current.object_id]
-  blob_readers         = [data.azurerm_client_config.current.object_id]
-  queue_contributors   = [data.azurerm_client_config.current.object_id]
-  queue_readers        = [data.azurerm_client_config.current.object_id]
-  table_contributors   = [data.azurerm_client_config.current.object_id]
-  table_readers        = [data.azurerm_client_config.current.object_id]
-  file_contributors    = [data.azurerm_client_config.current.object_id]
-  file_readers         = [data.azurerm_client_config.current.object_id]
 }

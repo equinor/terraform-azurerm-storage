@@ -4,6 +4,8 @@ locals {
   tags = merge({ application = var.application, environment = var.environment }, var.tags)
 }
 
+data "azurerm_client_config" "current" {}
+
 resource "azurerm_storage_account" "this" {
   name                = coalesce(var.account_name, "st${local.application_alnum}${var.environment}")
   resource_group_name = var.resource_group_name
@@ -33,6 +35,12 @@ resource "azurerm_storage_account" "this" {
     }
   }
 
+  share_properties {
+    retention_policy {
+      days = var.file_retention_policy
+    }
+  }
+
   network_rules {
     default_action = length(var.network_ip_rules) == 0 ? "Allow" : "Deny"
     bypass         = ["AzureServices"]
@@ -57,6 +65,12 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
   }
 }
 
+resource "azurerm_role_assignment" "blob_client" {
+  scope                = azurerm_storage_account.this.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = data.azurerm_client_config.current.object_id
+}
+
 resource "azurerm_storage_container" "this" {
   for_each = toset(var.containers)
 
@@ -64,6 +78,10 @@ resource "azurerm_storage_container" "this" {
   storage_account_name  = azurerm_storage_account.this.name
   container_access_type = "private"
 
+  depends_on = [
+    # Client must have access to Blob Storage before creating Containers.
+    azurerm_role_assignment.blob_client
+  ]
 }
 
 resource "azurerm_monitor_diagnostic_setting" "this" {

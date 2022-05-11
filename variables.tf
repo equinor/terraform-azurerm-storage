@@ -45,7 +45,7 @@ variable "access_tier" {
 variable "shared_access_key_enabled" {
   description = "Is authorization with access key enabled for this Storage Account?"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "blob_versioning_enabled" {
@@ -62,6 +62,12 @@ variable "blob_change_feed_enabled" {
 
 variable "blob_delete_retention_policy" {
   description = "The number of days that blobs and containers should be retained."
+  type        = number
+  default     = 30
+}
+
+variable "file_retention_policy" {
+  description = "The number of days that files should be retained."
   type        = number
   default     = 30
 }
