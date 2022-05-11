@@ -91,6 +91,11 @@ variable "containers" {
 
 }
 
+variable "log_analytics_workspace_id" {
+  description = "The ID of the Log Analytics Workspace to send diagnostics to."
+  type        = string
+}
+
 variable "account_contributors" {
   description = "The IDs of the Azure AD objects that should have Contributor access to this Storage Account."
   type        = list(string)

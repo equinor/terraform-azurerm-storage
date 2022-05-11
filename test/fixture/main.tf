@@ -8,7 +8,7 @@ locals {
 }
 
 data "http" "public_ip" {
-  url = "https://ifconfig.me/"
+  url = "https://ifconfig.me"
 }
 
 data "azurerm_client_config" "current" {}
@@ -44,6 +44,7 @@ module "storage" {
 
   containers = ["container", "container1", "container-2"]
 
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
 
   account_contributors = [data.azurerm_client_config.current.object_id]
   blob_contributors    = [data.azurerm_client_config.current.object_id]

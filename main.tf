@@ -66,6 +66,44 @@ resource "azurerm_storage_container" "this" {
 
 }
 
+resource "azurerm_monitor_diagnostic_setting" "this" {
+  for_each = toset(["blob", "queue", "table", "file"])
+
+  name                       = "${azurerm_storage_account.this.name}-${each.value}-logs"
+  target_resource_id         = "${azurerm_storage_account.this.id}/${each.value}Services/default"
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+
+  log {
+    category = "StorageRead"
+    enabled  = true
+
+    retention_policy {
+      days    = 0
+      enabled = false
+    }
+  }
+
+  log {
+    category = "StorageWrite"
+    enabled  = true
+
+    retention_policy {
+      days    = 0
+      enabled = false
+    }
+  }
+
+  log {
+    category = "StorageDelete"
+    enabled  = true
+
+    retention_policy {
+      days    = 0
+      enabled = false
+    }
+  }
+}
+
 resource "azurerm_role_assignment" "account_contributor" {
   for_each = toset(var.account_contributors)
 
