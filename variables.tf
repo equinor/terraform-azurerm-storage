@@ -90,6 +90,12 @@ variable "containers" {
   default     = []
 }
 
+variable "tables" {
+  description = "The names of the Storage Tables to create in this Storage Account. Only alphanumeric characters are allowed."
+  type        = list(string)
+  default     = []
+}
+
 variable "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics Workspace to send diagnostics to."
   type        = string

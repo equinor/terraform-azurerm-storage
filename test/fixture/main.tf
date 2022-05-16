@@ -42,5 +42,7 @@ module "storage" {
 
   containers = ["container", "container1", "container-2"]
 
+  tables = ["FirstTable", "secondTable", "THIRD"]
+
   log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
 }
