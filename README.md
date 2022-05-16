@@ -91,6 +91,7 @@ No modules.
 | [azurerm_role_assignment.table_reader](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_storage_account.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
 | [azurerm_storage_container.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
+| [azurerm_storage_table.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_table) | resource |
 
 ## Inputs
 
@@ -118,9 +119,10 @@ No modules.
 | <a name="input_queue_contributors"></a> [queue\_contributors](#input\_queue\_contributors) | The IDs of the Azure AD objects that should have Contributor access to this Queue Storage. | `list(string)` | `[]` | no |
 | <a name="input_queue_readers"></a> [queue\_readers](#input\_queue\_readers) | The IDs of the Azure AD objects that should have Reader access to this Queue Storage. | `list(string)` | `[]` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group in which to create the resources. | `string` | n/a | yes |
-| <a name="input_shared_access_key_enabled"></a> [shared\_access\_key\_enabled](#input\_shared\_access\_key\_enabled) | Is authorization with access key enabled for this Storage Account? | `bool` | `false` | no |
+| <a name="input_shared_access_key_enabled"></a> [shared\_access\_key\_enabled](#input\_shared\_access\_key\_enabled) | Is authorization with access key enabled for this Storage Account? | `bool` | `true` | no |
 | <a name="input_table_contributors"></a> [table\_contributors](#input\_table\_contributors) | The IDs of the Azure AD objects that should have Contributor access to this Table Storage. | `list(string)` | `[]` | no |
 | <a name="input_table_readers"></a> [table\_readers](#input\_table\_readers) | The IDs of the Azure AD objects that should have Reader access to this Table Storage. | `list(string)` | `[]` | no |
+| <a name="input_tables"></a> [tables](#input\_tables) | The names of the Storage Tables to create in this Storage Account. Only alphanumeric characters are allowed. | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resources. | `map(string)` | `{}` | no |
 
 ## Outputs
