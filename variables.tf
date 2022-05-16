@@ -45,7 +45,7 @@ variable "access_tier" {
 variable "shared_access_key_enabled" {
   description = "Is authorization with access key enabled for this Storage Account?"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "blob_versioning_enabled" {
