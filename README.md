@@ -1,5 +1,10 @@
 # terraform-azurerm-storage
 
+![][version-image]
+![][workflows-badge-image]
+[![Release date][release-date-image]][release-url]
+[![semantic-release][semantic-image]][semantic-url]
+
 Terraform module which creates an Azure Storage Account.
 
 ## Usage
