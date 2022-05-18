@@ -90,6 +90,12 @@ variable "containers" {
   default     = []
 }
 
+variable "queues" {
+  description = "The names of the Queues to create in this Storage Account. Only lowercase alphanumeric characters and hyphens are allowed."
+  type        = list(string)
+  default     = []
+}
+
 variable "tables" {
   description = "The names of the Storage Tables to create in this Storage Account. Only alphanumeric characters are allowed."
   type        = list(string)
