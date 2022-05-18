@@ -1,0 +1,33 @@
+name: Lint PR
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  main:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: amannn/action-semantic-pull-request@v4
+        with:
+          types: |
+            fix
+            feat
+            docs
+            ci
+            chore
+          requireScope: false
+          disallowScopes: |
+            release
+          subjectPattern: ^[A-Z].+$ # Ensure that the subject starts with an uppercase character.
+          subjectPatternError: |
+            The subject "{subject}" found in the pull request title "{title}"
+            didn't match the configured pattern. Please ensure that the subject
+            starts with an uppercase character.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
