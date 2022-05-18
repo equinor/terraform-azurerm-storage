@@ -8,24 +8,25 @@ on:
       - synchronize
 
 jobs:
-  main:
-    name: Validate PR title
+  lint-pr:
     runs-on: ubuntu-latest
-
     steps:
       - uses: amannn/action-semantic-pull-request@v4
         with:
           types: |
-            fix
             feat
-            docs
+            fix
             ci
+            docs
+            style
+            refactor
+            perf
+            test
             chore
           requireScope: false
-          disallowScopes: |
-            release
+          disallowScopes: release
           subjectPattern: ^[A-Z].+$ # Ensure that the subject starts with an uppercase character.
-          subjectPatternError: |
+          subjectPatternError: >
             The subject "{subject}" found in the pull request title "{title}"
             didn't match the configured pattern. Please ensure that the subject
             starts with an uppercase character.
