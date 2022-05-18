@@ -24,7 +24,7 @@ jobs:
           requireScope: false
           disallowScopes: release
           subjectPattern: ^[A-Z].+$ # Ensure that the subject starts with an uppercase character.
-          subjectPatternError: |
+          subjectPatternError: >
             The subject "{subject}" found in the pull request title "{title}"
             didn't match the configured pattern. Please ensure that the subject
             starts with an uppercase character.
