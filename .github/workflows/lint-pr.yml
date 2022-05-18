@@ -1,5 +1,3 @@
-name: Lint PR
-
 on:
   pull_request_target:
     types:
@@ -24,8 +22,7 @@ jobs:
             test
             chore
           requireScope: false
-          disallowScopes: |
-            release
+          disallowScopes: release
           subjectPattern: ^[A-Z].+$ # Ensure that the subject starts with an uppercase character.
           subjectPatternError: |
             The subject "{subject}" found in the pull request title "{title}"
