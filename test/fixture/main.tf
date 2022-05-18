@@ -46,5 +46,7 @@ module "storage" {
 
   tables = ["FirstTable", "secondTable", "THIRD"]
 
+  file_shares = ["share", "share1", "share-2"]
+
   log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
 }

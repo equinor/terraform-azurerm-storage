@@ -68,6 +68,14 @@ resource "azurerm_storage_table" "this" {
   storage_account_name = azurerm_storage_account.this.name
 }
 
+resource "azurerm_storage_share" "this" {
+  for_each = toset(var.file_shares)
+
+  name                 = each.value
+  storage_account_name = azurerm_storage_account.this.name
+  quota                = 5120
+}
+
 resource "azurerm_monitor_diagnostic_setting" "this" {
   for_each = toset(["blob", "queue", "table", "file"])
 
