@@ -1,4 +1,4 @@
-name: Lint PR
+name: Lint PR title
 
 on:
   pull_request_target:
@@ -16,10 +16,16 @@ jobs:
       - uses: amannn/action-semantic-pull-request@v4
         with:
           types: |
-            fix
             feat
-            docs
+            fix
+            wip
+            build
             ci
+            docs
+            style
+            refactor
+            perf
+            test
             chore
           requireScope: false
           disallowScopes: |
