@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: "lts/*"
       - name: Install plugins
-        run: npm install conventional-changelog-conventionalcommits
+        run: npm install conventional-changelog-conventionalcommits -D
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
