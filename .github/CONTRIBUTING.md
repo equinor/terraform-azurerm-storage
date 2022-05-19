@@ -1,7 +1,5 @@
 # Contributing guidelines
 
-
-
 ## Semantic commits
 
 Use the [Conventional Commits](https://www.conventionalcommits.org) specification for semantic commits.
