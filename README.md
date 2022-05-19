@@ -6,9 +6,6 @@ Terraform module which creates an Azure Storage Account.
 
 ```terraform
 provider "azurerm" {
-  # Required unless shared access key is explicitly enabled.
-  storage_use_azuread = true
-
   features {}
 }
 
