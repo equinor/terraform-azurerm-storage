@@ -72,7 +72,7 @@ variable "file_retention_policy" {
   default     = 30
 }
 
-variable "network_ip_rules" {
+variable "firewall_ip_rules" {
   description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage Account. Only IPv4 addresses are allowed."
   type        = list(string)
   default     = []

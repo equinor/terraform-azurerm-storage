@@ -40,9 +40,9 @@ resource "azurerm_storage_account" "this" {
   }
 
   network_rules {
-    default_action = length(var.network_ip_rules) == 0 ? "Allow" : "Deny"
+    default_action = length(var.firewall_ip_rules) == 0 ? "Allow" : "Deny"
     bypass         = ["AzureServices"]
-    ip_rules       = var.network_ip_rules
+    ip_rules       = var.firewall_ip_rules
   }
 }
 
