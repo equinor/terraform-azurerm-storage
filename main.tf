@@ -1,11 +1,12 @@
 locals {
-  application_alnum = join("", regexall("[a-z0-9]", lower(var.application)))
+  suffix       = "${var.application}-${var.environment}"
+  suffix_alnum = join("", regexall("[a-z0-9]", lower(local.suffix)))
 
   tags = merge({ application = var.application, environment = var.environment }, var.tags)
 }
 
 resource "azurerm_storage_account" "this" {
-  name                = coalesce(var.account_name, "st${local.application_alnum}${var.environment}")
+  name                = coalesce(var.account_name, "st${local.suffix_alnum}")
   resource_group_name = var.resource_group_name
   location            = var.location
 
