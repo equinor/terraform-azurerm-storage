@@ -53,6 +53,7 @@ resource "azurerm_storage_container" "this" {
   name                  = each.value
   storage_account_name  = azurerm_storage_account.this.name
   container_access_type = "private"
+  metadata              = {}
 }
 
 resource "azurerm_storage_queue" "this" {
@@ -60,6 +61,7 @@ resource "azurerm_storage_queue" "this" {
 
   name                 = each.value
   storage_account_name = azurerm_storage_account.this.name
+  metadata             = {}
 }
 
 resource "azurerm_storage_table" "this" {
@@ -75,6 +77,7 @@ resource "azurerm_storage_share" "this" {
   name                 = each.value
   storage_account_name = azurerm_storage_account.this.name
   quota                = 5120
+  metadata             = {}
 }
 
 resource "azurerm_monitor_diagnostic_setting" "this" {
