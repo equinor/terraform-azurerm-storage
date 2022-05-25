@@ -113,6 +113,26 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
       enabled = false
     }
   }
+
+  metric {
+    category = "Capacity"
+    enabled  = false
+
+    retention_policy {
+      days    = 0
+      enabled = false
+    }
+  }
+
+  metric {
+    category = "Transaction"
+    enabled  = false
+
+    retention_policy {
+      days    = 0
+      enabled = false
+    }
+  }
 }
 
 resource "azurerm_role_assignment" "account_contributor" {
