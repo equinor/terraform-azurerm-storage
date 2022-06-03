@@ -63,6 +63,30 @@ resource "azapi_update_resource" "this" {
   })
 }
 
+resource "azurerm_storage_management_policy" "this" {
+  storage_account_id = azurerm_storage_account.this.id
+
+  rule {
+    name    = "delete-previous-versions"
+    enabled = true
+
+    filters {
+      blob_types = [
+        "blockBlob",
+        "appendBlob"
+      ]
+
+      prefix_match = []
+    }
+
+    actions {
+      version {
+        delete_after_days_since_creation = 14
+      }
+    }
+  }
+}
+
 resource "azurerm_storage_container" "this" {
   for_each = toset(var.containers)
 
