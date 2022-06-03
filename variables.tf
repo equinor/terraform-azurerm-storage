@@ -24,12 +24,6 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "account_tier" {
-  description = "The SKU tier to use for this Storage Account."
-  type        = string
-  default     = "Standard"
-}
-
 variable "account_replication_type" {
   description = "The type of replication to use for this Storage Account."
   type        = string
@@ -46,24 +40,6 @@ variable "shared_access_key_enabled" {
   description = "Is authorization with access key enabled for this Storage Account?"
   type        = bool
   default     = true
-}
-
-variable "blob_versioning_enabled" {
-  description = "Is versioning enabled for this Blob Storage?"
-  type        = bool
-  default     = false
-}
-
-variable "blob_change_feed_enabled" {
-  description = "Is change feed enabled for this Blob Storage?"
-  type        = bool
-  default     = false
-}
-
-variable "blob_delete_retention_policy" {
-  description = "The number of days that blobs and containers should be retained."
-  type        = number
-  default     = 30
 }
 
 variable "file_retention_policy" {

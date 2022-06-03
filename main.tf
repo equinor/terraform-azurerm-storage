@@ -1,8 +1,7 @@
 locals {
   suffix       = "${var.application}-${var.environment}"
   suffix_alnum = join("", regexall("[a-z0-9]", lower(local.suffix)))
-
-  tags = merge({ application = var.application, environment = var.environment }, var.tags)
+  tags         = merge({ application = var.application, environment = var.environment }, var.tags)
 }
 
 resource "azurerm_storage_account" "this" {
@@ -11,7 +10,7 @@ resource "azurerm_storage_account" "this" {
   location            = var.location
 
   account_kind             = "StorageV2"
-  account_tier             = var.account_tier
+  account_tier             = "Standard"
   account_replication_type = var.account_replication_type
   access_tier              = var.access_tier
 
@@ -22,15 +21,15 @@ resource "azurerm_storage_account" "this" {
   tags = local.tags
 
   blob_properties {
-    versioning_enabled  = var.blob_versioning_enabled
-    change_feed_enabled = var.blob_change_feed_enabled
+    versioning_enabled  = true
+    change_feed_enabled = true
 
     delete_retention_policy {
-      days = var.blob_delete_retention_policy
+      days = 14
     }
 
     container_delete_retention_policy {
-      days = var.blob_delete_retention_policy
+      days = 14
     }
   }
 
@@ -45,6 +44,23 @@ resource "azurerm_storage_account" "this" {
     bypass         = ["AzureServices"]
     ip_rules       = var.firewall_ip_rules
   }
+}
+
+# Enable point-in-time restore (PITR) for this Blob Storage.
+# This feature is not yet supported by the AzureRM provider.
+resource "azapi_update_resource" "this" {
+  type      = "Microsoft.Storage/storageAccounts/blobServices@2021-09-01"
+  parent_id = azurerm_storage_account.this.id
+  name      = "default"
+
+  body = jsonencode({
+    properties = {
+      restorePolicy = {
+        enabled = true
+        days    = 7
+      }
+    }
+  })
 }
 
 resource "azurerm_storage_container" "this" {
