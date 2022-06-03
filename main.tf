@@ -2,6 +2,14 @@ locals {
   suffix       = "${var.application}-${var.environment}"
   suffix_alnum = join("", regexall("[a-z0-9]", lower(local.suffix)))
   tags         = merge({ application = var.application, environment = var.environment }, var.tags)
+
+  # TODO: Write a comment.
+  # Ref: https://docs.microsoft.com/en-us/azure/backup/blob-backup-configure-manage#create-a-backup-policy
+  blob_pitr_days = 30
+
+  # TODO: Write a coment.
+  # Ref: https://docs.microsoft.com/en-us/azure/backup/blob-backup-overview#protection
+  blob_delete_days = local.blob_pitr_days + 5
 }
 
 resource "azurerm_storage_account" "this" {
@@ -25,11 +33,11 @@ resource "azurerm_storage_account" "this" {
     change_feed_enabled = true
 
     delete_retention_policy {
-      days = 14
+      days = local.blob_delete_days
     }
 
     container_delete_retention_policy {
-      days = 14
+      days = local.blob_delete_days
     }
   }
 
@@ -57,12 +65,14 @@ resource "azapi_update_resource" "this" {
     properties = {
       restorePolicy = {
         enabled = true
-        days    = 7
+        days    = local.blob_pitr_days
       }
     }
   })
 }
 
+# Delete previous blob versions to optimize costs.
+# Ref: https://docs.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview
 resource "azurerm_storage_management_policy" "this" {
   storage_account_id = azurerm_storage_account.this.id
 
@@ -73,7 +83,6 @@ resource "azurerm_storage_management_policy" "this" {
     filters {
       blob_types = [
         "blockBlob",
-        "appendBlob"
       ]
 
       prefix_match = []
@@ -81,7 +90,7 @@ resource "azurerm_storage_management_policy" "this" {
 
     actions {
       version {
-        delete_after_days_since_creation = 14
+        delete_after_days_since_creation = local.blob_delete_days
       }
     }
   }
