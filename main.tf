@@ -9,7 +9,7 @@ locals {
 
   # TODO: Write a coment.
   # Ref: https://docs.microsoft.com/en-us/azure/backup/blob-backup-overview#protection
-  blob_delete_days = local.blob_pitr_days + 5
+  blob_retention_days = local.blob_pitr_days + 5
 }
 
 resource "azurerm_storage_account" "this" {
@@ -33,11 +33,11 @@ resource "azurerm_storage_account" "this" {
     change_feed_enabled = true
 
     delete_retention_policy {
-      days = local.blob_delete_days
+      days = local.blob_retention_days
     }
 
     container_delete_retention_policy {
-      days = local.blob_delete_days
+      days = local.blob_retention_days
     }
   }
 
@@ -90,7 +90,7 @@ resource "azurerm_storage_management_policy" "this" {
 
     actions {
       version {
-        delete_after_days_since_creation = local.blob_delete_days
+        delete_after_days_since_creation = local.blob_retention_days
       }
     }
   }
