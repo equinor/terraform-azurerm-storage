@@ -3,12 +3,8 @@ locals {
   suffix_alnum = join("", regexall("[a-z0-9]", lower(local.suffix)))
   tags         = merge({ application = var.application, environment = var.environment }, var.tags)
 
-  # TODO: Write a comment.
-  # Ref: https://docs.microsoft.com/en-us/azure/backup/blob-backup-configure-manage#create-a-backup-policy
-  blob_pitr_days = 30
-
-  # TODO: Write a coment.
-  # Ref: https://docs.microsoft.com/en-us/azure/backup/blob-backup-overview#protection
+  # Set values for PITR and delete retention policies.
+  blob_pitr_days      = 30
   blob_retention_days = local.blob_pitr_days + 5
 }
 
@@ -72,7 +68,6 @@ resource "azapi_update_resource" "this" {
 }
 
 # Delete previous blob versions to optimize costs.
-# Ref: https://docs.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview
 resource "azurerm_storage_management_policy" "this" {
   storage_account_id = azurerm_storage_account.this.id
 
@@ -81,16 +76,14 @@ resource "azurerm_storage_management_policy" "this" {
     enabled = true
 
     filters {
-      blob_types = [
-        "blockBlob",
-      ]
-
+      blob_types   = ["blockBlob"]
       prefix_match = []
     }
 
     actions {
       version {
-        delete_after_days_since_creation = local.blob_retention_days
+        # Previous versions should be shortlived.
+        delete_after_days_since_creation = 7
       }
     }
   }
