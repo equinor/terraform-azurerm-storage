@@ -5,9 +5,19 @@ Terraform module which creates an Azure Storage Account.
 ## Usage
 
 ```terraform
+terraform {
+  required_providers {
+    azapi = {
+      source = "azure/azapi
+    }
+  }
+}
+
 provider "azurerm" {
   features {}
 }
+
+provider "azapi" {}
 
 locals {
   application = "my-app"
@@ -60,13 +70,17 @@ go test -v -timeout 60m
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) | >= 0.1.0 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 2.74.0 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
+| <a name="provider_azapi"></a> [azapi](#provider\_azapi) | >= 0.1.0 |
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 2.74.0 |
+| <a name="provider_time"></a> [time](#provider\_time) | >= 0.5.0 |
 
 ## Modules
 
@@ -76,6 +90,8 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [azapi_update_resource.this](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/update_resource) | resource |
+| [azurerm_management_lock.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/management_lock) | resource |
 | [azurerm_monitor_diagnostic_setting.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting) | resource |
 | [azurerm_role_assignment.account_contributor](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_role_assignment.blob_contributor](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
@@ -88,9 +104,11 @@ No modules.
 | [azurerm_role_assignment.table_reader](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_storage_account.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
 | [azurerm_storage_container.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
+| [azurerm_storage_management_policy.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_management_policy) | resource |
 | [azurerm_storage_queue.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_queue) | resource |
 | [azurerm_storage_share.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_share) | resource |
 | [azurerm_storage_table.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_table) | resource |
+| [time_sleep.this](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 
 ## Inputs
 
@@ -100,13 +118,9 @@ No modules.
 | <a name="input_account_contributors"></a> [account\_contributors](#input\_account\_contributors) | The IDs of the Azure AD objects that should have Contributor access to this Storage Account. | `list(string)` | `[]` | no |
 | <a name="input_account_name"></a> [account\_name](#input\_account\_name) | A custom name for this Storage Account. | `string` | `null` | no |
 | <a name="input_account_replication_type"></a> [account\_replication\_type](#input\_account\_replication\_type) | The type of replication to use for this Storage Account. | `string` | `"LRS"` | no |
-| <a name="input_account_tier"></a> [account\_tier](#input\_account\_tier) | The SKU tier to use for this Storage Account. | `string` | `"Standard"` | no |
 | <a name="input_application"></a> [application](#input\_application) | The application to create the resources for. | `string` | n/a | yes |
-| <a name="input_blob_change_feed_enabled"></a> [blob\_change\_feed\_enabled](#input\_blob\_change\_feed\_enabled) | Is change feed enabled for this Blob Storage? | `bool` | `false` | no |
 | <a name="input_blob_contributors"></a> [blob\_contributors](#input\_blob\_contributors) | The IDs of the Azure AD objects that should have Contributor access to this Blob Storage. | `list(string)` | `[]` | no |
-| <a name="input_blob_delete_retention_policy"></a> [blob\_delete\_retention\_policy](#input\_blob\_delete\_retention\_policy) | The number of days that blobs and containers should be retained. | `number` | `30` | no |
 | <a name="input_blob_readers"></a> [blob\_readers](#input\_blob\_readers) | The IDs of the Azure AD objects that should have Reader access to this Blob Storage. | `list(string)` | `[]` | no |
-| <a name="input_blob_versioning_enabled"></a> [blob\_versioning\_enabled](#input\_blob\_versioning\_enabled) | Is versioning enabled for this Blob Storage? | `bool` | `false` | no |
 | <a name="input_containers"></a> [containers](#input\_containers) | The names of the Storage Containers to create in this Storage Account. Only lowercase alphanumeric characters and hyphens are allowed. | `list(string)` | `[]` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment to create the resources for. | `string` | n/a | yes |
 | <a name="input_file_contributors"></a> [file\_contributors](#input\_file\_contributors) | The IDs of the Azure AD objects that should have Contributor access to this File Storage. | `list(string)` | `[]` | no |

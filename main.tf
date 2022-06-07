@@ -1,8 +1,11 @@
 locals {
   suffix       = "${var.application}-${var.environment}"
   suffix_alnum = join("", regexall("[a-z0-9]", lower(local.suffix)))
+  tags         = merge({ application = var.application, environment = var.environment }, var.tags)
 
-  tags = merge({ application = var.application, environment = var.environment }, var.tags)
+  # Set values for PITR and delete retention policies.
+  blob_pitr_days      = 30
+  blob_retention_days = local.blob_pitr_days + 5
 }
 
 resource "azurerm_storage_account" "this" {
@@ -11,7 +14,7 @@ resource "azurerm_storage_account" "this" {
   location            = var.location
 
   account_kind             = "StorageV2"
-  account_tier             = var.account_tier
+  account_tier             = "Standard"
   account_replication_type = var.account_replication_type
   access_tier              = var.access_tier
 
@@ -22,15 +25,15 @@ resource "azurerm_storage_account" "this" {
   tags = local.tags
 
   blob_properties {
-    versioning_enabled  = var.blob_versioning_enabled
-    change_feed_enabled = var.blob_change_feed_enabled
+    versioning_enabled  = true
+    change_feed_enabled = true
 
     delete_retention_policy {
-      days = var.blob_delete_retention_policy
+      days = local.blob_retention_days
     }
 
     container_delete_retention_policy {
-      days = var.blob_delete_retention_policy
+      days = local.blob_retention_days
     }
   }
 
@@ -44,6 +47,45 @@ resource "azurerm_storage_account" "this" {
     default_action = length(var.firewall_ip_rules) == 0 ? "Allow" : "Deny"
     bypass         = ["AzureServices"]
     ip_rules       = var.firewall_ip_rules
+  }
+}
+
+# Enable point-in-time restore (PITR) for this Blob Storage.
+# This feature is not yet supported by the AzureRM provider.
+resource "azapi_update_resource" "this" {
+  type      = "Microsoft.Storage/storageAccounts/blobServices@2021-09-01"
+  parent_id = azurerm_storage_account.this.id
+  name      = "default"
+
+  body = jsonencode({
+    properties = {
+      restorePolicy = {
+        enabled = true
+        days    = local.blob_pitr_days
+      }
+    }
+  })
+}
+
+# Delete previous blob versions to optimize costs.
+resource "azurerm_storage_management_policy" "this" {
+  storage_account_id = azurerm_storage_account.this.id
+
+  rule {
+    name    = "delete-previous-versions"
+    enabled = true
+
+    filters {
+      blob_types   = ["blockBlob"]
+      prefix_match = []
+    }
+
+    actions {
+      version {
+        # Previous versions should be shortlived.
+        delete_after_days_since_creation = 7
+      }
+    }
   }
 }
 
@@ -136,6 +178,31 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
       enabled = false
     }
   }
+}
+
+resource "time_sleep" "this" {
+  depends_on = [
+    # Resources that should wait for delete-lock to be deleted first.
+    azurerm_storage_account.this,
+    azurerm_storage_management_policy.this,
+    azurerm_monitor_diagnostic_setting.this
+  ]
+
+  destroy_duration = "30s"
+}
+
+resource "azurerm_management_lock" "this" {
+  name       = "storage-lock"
+  scope      = azurerm_storage_account.this.id
+  lock_level = "CanNotDelete"
+  notes      = "Prevent accidental deletion of storage account."
+
+  depends_on = [
+    # Wait for delete-lock to be deleted in Azure.
+    # This is a workaround for an issue where even though destruction is complete in Terraform,
+    # it can still take a while for the delete-lock to be deleted in Azure.
+    time_sleep.this
+  ]
 }
 
 resource "azurerm_role_assignment" "account_contributor" {
