@@ -180,6 +180,31 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
   }
 }
 
+resource "time_sleep" "this" {
+  depends_on = [
+    # Resources that should wait for delete-lock to be deleted first.
+    azurerm_storage_account.this,
+    azurerm_storage_management_policy.this,
+    azurerm_monitor_diagnostic_setting.this
+  ]
+
+  destroy_duration = "30s"
+}
+
+resource "azurerm_management_lock" "this" {
+  name       = "storage-lock"
+  scope      = azurerm_storage_account.this.id
+  lock_level = "CanNotDelete"
+  notes      = "Prevent accidental deletion of storage account."
+
+  depends_on = [
+    # Wait for delete-lock to be deleted in Azure.
+    # This is a workaround for an issue where even though destruction is complete in Terraform,
+    # it can still take a while for the delete-lock to be deleted in Azure.
+    time_sleep.this
+  ]
+}
+
 resource "azurerm_role_assignment" "account_contributor" {
   for_each = toset(var.account_contributors)
 
