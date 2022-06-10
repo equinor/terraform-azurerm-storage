@@ -172,3 +172,9 @@ variable "file_readers" {
   type        = list(string)
   default     = []
 }
+
+variable "create_delete_lock" {
+  description = "Create a cannot-delete lock to prevent accidental or malicious deletion of this Storage Account?"
+  type        = bool
+  default     = true
+}

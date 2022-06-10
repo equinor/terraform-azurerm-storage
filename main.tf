@@ -1,7 +1,8 @@
 locals {
-  suffix       = "${var.application}-${var.environment}"
-  suffix_alnum = join("", regexall("[a-z0-9]", lower(local.suffix)))
-  tags         = merge({ application = var.application, environment = var.environment }, var.tags)
+  suffix            = "${var.application}-${var.environment}"
+  suffix_alnum      = join("", regexall("[a-z0-9]", lower(local.suffix)))
+  tags              = merge({ application = var.application, environment = var.environment }, var.tags)
+  delete_lock_count = var.create_delete_lock ? 1 : 0
 }
 
 resource "azurerm_storage_account" "this" {
@@ -253,8 +254,12 @@ resource "azurerm_role_assignment" "file_reader" {
 }
 
 resource "time_sleep" "this" {
+  count = local.delete_lock_count
+
   depends_on = [
-    # Resources that should wait for delete-lock to be deleted first.
+    # Resources that should wait for the cannot-delete lock to be deleted in Azure first.
+    # This is a workaround for an issue where even though the cannot-delete lock has been destroyed in Terraform,
+    # it can still take a while before it has actually been deleted in Azure.
     azurerm_storage_account.this,
     azurerm_storage_management_policy.this,
     azurerm_advanced_threat_protection.this,
@@ -274,15 +279,14 @@ resource "time_sleep" "this" {
 }
 
 resource "azurerm_management_lock" "this" {
+  count = local.delete_lock_count
+
   name       = "storage-lock"
   scope      = azurerm_storage_account.this.id
   lock_level = "CanNotDelete"
   notes      = "Prevent accidental deletion of storage account."
 
   depends_on = [
-    # Wait for delete-lock to be deleted in Azure.
-    # This is a workaround for an issue where even though destruction is complete in Terraform,
-    # it can still take a while for the delete-lock to be deleted in Azure.
     time_sleep.this
   ]
 }
