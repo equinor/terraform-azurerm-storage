@@ -71,7 +71,7 @@ go test -v -timeout 60m
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) | >= 0.1.0 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 2.74.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.0.0 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.5.0 |
 
 ## Providers
@@ -79,7 +79,7 @@ go test -v -timeout 60m
 | Name | Version |
 |------|---------|
 | <a name="provider_azapi"></a> [azapi](#provider\_azapi) | >= 0.1.0 |
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 2.74.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 3.0.0 |
 | <a name="provider_time"></a> [time](#provider\_time) | >= 0.5.0 |
 
 ## Modules
@@ -118,6 +118,7 @@ No modules.
 | <a name="input_account_contributors"></a> [account\_contributors](#input\_account\_contributors) | The IDs of the Azure AD objects that should have Contributor access to this Storage Account. | `list(string)` | `[]` | no |
 | <a name="input_account_name"></a> [account\_name](#input\_account\_name) | A custom name for this Storage Account. | `string` | `null` | no |
 | <a name="input_account_replication_type"></a> [account\_replication\_type](#input\_account\_replication\_type) | The type of replication to use for this Storage Account. | `string` | `"LRS"` | no |
+| <a name="input_allow_blob_public_access"></a> [allow\_blob\_public\_access](#input\_allow\_blob\_public\_access) | Allow public access to this Blob Storage? | `bool` | `false` | no |
 | <a name="input_application"></a> [application](#input\_application) | The application to create the resources for. | `string` | n/a | yes |
 | <a name="input_blob_contributors"></a> [blob\_contributors](#input\_blob\_contributors) | The IDs of the Azure AD objects that should have Contributor access to this Blob Storage. | `list(string)` | `[]` | no |
 | <a name="input_blob_readers"></a> [blob\_readers](#input\_blob\_readers) | The IDs of the Azure AD objects that should have Reader access to this Blob Storage. | `list(string)` | `[]` | no |
