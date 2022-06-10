@@ -102,8 +102,7 @@ resource "azurerm_storage_management_policy" "this" {
     enabled = true
 
     filters {
-      blob_types   = ["blockBlob"]
-      prefix_match = []
+      blob_types = ["blockBlob"]
     }
 
     actions {
