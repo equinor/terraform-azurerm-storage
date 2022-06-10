@@ -2,10 +2,6 @@ locals {
   suffix       = "${var.application}-${var.environment}"
   suffix_alnum = join("", regexall("[a-z0-9]", lower(local.suffix)))
   tags         = merge({ application = var.application, environment = var.environment }, var.tags)
-
-  # Set values for PITR and delete retention policies.
-  blob_pitr_days      = 30
-  blob_retention_days = local.blob_pitr_days + 5
 }
 
 resource "azurerm_storage_account" "this" {
@@ -30,11 +26,11 @@ resource "azurerm_storage_account" "this" {
     change_feed_enabled = true
 
     delete_retention_policy {
-      days = local.blob_retention_days
+      days = var.blob_delete_retention_days
     }
 
     container_delete_retention_policy {
-      days = local.blob_retention_days
+      days = var.blob_delete_retention_days
     }
   }
 
@@ -62,7 +58,7 @@ resource "azapi_update_resource" "this" {
     properties = {
       restorePolicy = {
         enabled = true
-        days    = local.blob_pitr_days
+        days    = var.blob_pitr_days
       }
     }
   })
@@ -83,8 +79,7 @@ resource "azurerm_storage_management_policy" "this" {
 
     actions {
       version {
-        # Previous versions should be shortlived.
-        delete_after_days_since_creation = 7
+        delete_after_days_since_creation = var.blob_version_retention_days
       }
     }
   }

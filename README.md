@@ -121,7 +121,10 @@ No modules.
 | <a name="input_allow_blob_public_access"></a> [allow\_blob\_public\_access](#input\_allow\_blob\_public\_access) | Allow public access to this Blob Storage? | `bool` | `false` | no |
 | <a name="input_application"></a> [application](#input\_application) | The application to create the resources for. | `string` | n/a | yes |
 | <a name="input_blob_contributors"></a> [blob\_contributors](#input\_blob\_contributors) | The IDs of the Azure AD objects that should have Contributor access to this Blob Storage. | `list(string)` | `[]` | no |
+| <a name="input_blob_delete_retention_days"></a> [blob\_delete\_retention\_days](#input\_blob\_delete\_retention\_days) | The number of days that deleted blobs and containers should be retained. | `number` | `35` | no |
+| <a name="input_blob_pitr_days"></a> [blob\_pitr\_days](#input\_blob\_pitr\_days) | The number of days in the past to set the maximum point-in-time restore point for containers. Must be less than 'blob\_delete\_retention\_days'. | `number` | `30` | no |
 | <a name="input_blob_readers"></a> [blob\_readers](#input\_blob\_readers) | The IDs of the Azure AD objects that should have Reader access to this Blob Storage. | `list(string)` | `[]` | no |
+| <a name="input_blob_version_retention_days"></a> [blob\_version\_retention\_days](#input\_blob\_version\_retention\_days) | The number of days that previous versions of blobs should be retained. | `number` | `7` | no |
 | <a name="input_containers"></a> [containers](#input\_containers) | The names of the Storage Containers to create in this Storage Account. Only lowercase alphanumeric characters and hyphens are allowed. | `list(string)` | `[]` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment to create the resources for. | `string` | n/a | yes |
 | <a name="input_file_contributors"></a> [file\_contributors](#input\_file\_contributors) | The IDs of the Azure AD objects that should have Contributor access to this File Storage. | `list(string)` | `[]` | no |
