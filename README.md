@@ -91,6 +91,7 @@ No modules.
 | Name | Type |
 |------|------|
 | [azapi_update_resource.this](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/update_resource) | resource |
+| [azurerm_advanced_threat_protection.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/advanced_threat_protection) | resource |
 | [azurerm_management_lock.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/management_lock) | resource |
 | [azurerm_monitor_diagnostic_setting.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting) | resource |
 | [azurerm_role_assignment.account_contributor](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
@@ -143,6 +144,7 @@ No modules.
 | <a name="input_table_readers"></a> [table\_readers](#input\_table\_readers) | The IDs of the Azure AD objects that should have Reader access to this Table Storage. | `list(string)` | `[]` | no |
 | <a name="input_tables"></a> [tables](#input\_tables) | The names of the Storage Tables to create in this Storage Account. Only alphanumeric characters are allowed. | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resources. | `map(string)` | `{}` | no |
+| <a name="input_threat_protection_enabled"></a> [threat\_protection\_enabled](#input\_threat\_protection\_enabled) | Is threat protection (Microsoft Defender for Storage) enabled for this Storage Account? | `bool` | `true` | no |
 
 ## Outputs
 
