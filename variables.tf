@@ -78,6 +78,12 @@ variable "firewall_ip_rules" {
   default     = []
 }
 
+variable "threat_protection_enabled" {
+  description = "Is threat protection (Microsoft Defender for Storage) enabled for this Storage Account?"
+  type        = bool
+  default     = true
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to the resources."
   type        = map(string)

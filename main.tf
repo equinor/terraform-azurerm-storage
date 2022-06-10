@@ -85,6 +85,11 @@ resource "azurerm_storage_management_policy" "this" {
   }
 }
 
+resource "azurerm_advanced_threat_protection" "this" {
+  target_resource_id = azurerm_storage_account.this.id
+  enabled            = var.threat_protection_enabled
+}
+
 resource "azurerm_storage_container" "this" {
   for_each = toset(var.containers)
 
@@ -181,6 +186,7 @@ resource "time_sleep" "this" {
     # Resources that should wait for delete-lock to be deleted first.
     azurerm_storage_account.this,
     azurerm_storage_management_policy.this,
+    azurerm_advanced_threat_protection.this,
     azurerm_monitor_diagnostic_setting.this
   ]
 
