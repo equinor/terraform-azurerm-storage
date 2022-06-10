@@ -13,6 +13,8 @@ data "http" "public_ip" {
   url = "https://ifconfig.me"
 }
 
+data "azurerm_client_config" "current" {}
+
 resource "random_id" "this" {
   byte_length = 8
 }
@@ -40,13 +42,16 @@ module "storage" {
 
   firewall_ip_rules = [data.http.public_ip.body]
 
-  containers = ["container", "container1", "container-2"]
-
-  queues = ["queue", "queue1", "queue-2"]
-
-  tables = ["FirstTable", "secondTable", "THIRD"]
-
-  file_shares = ["share", "share1", "share-2"]
+  containers  = ["container1", "container2", "container3"]
+  queues      = ["queue1", "queue2", "queue3"]
+  tables      = ["tableOne", "tableTwo", "tableThree"]
+  file_shares = ["share1", "share2", "share3"]
 
   log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
+
+  account_contributors = [data.azurerm_client_config.current.object_id]
+  blob_contributors    = [data.azurerm_client_config.current.object_id]
+  queue_contributors   = [data.azurerm_client_config.current.object_id]
+  table_contributors   = [data.azurerm_client_config.current.object_id]
+  file_contributors    = [data.azurerm_client_config.current.object_id]
 }
