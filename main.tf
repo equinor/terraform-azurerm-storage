@@ -133,51 +133,16 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
   log {
     category = "StorageRead"
     enabled  = true
-
-    retention_policy {
-      days    = 0
-      enabled = false
-    }
   }
 
   log {
     category = "StorageWrite"
     enabled  = true
-
-    retention_policy {
-      days    = 0
-      enabled = false
-    }
   }
 
   log {
     category = "StorageDelete"
     enabled  = true
-
-    retention_policy {
-      days    = 0
-      enabled = false
-    }
-  }
-
-  metric {
-    category = "Capacity"
-    enabled  = false
-
-    retention_policy {
-      days    = 0
-      enabled = false
-    }
-  }
-
-  metric {
-    category = "Transaction"
-    enabled  = false
-
-    retention_policy {
-      days    = 0
-      enabled = false
-    }
   }
 }
 
