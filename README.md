@@ -8,7 +8,7 @@ Terraform module which creates an Azure Storage Account.
 terraform {
   required_providers {
     azapi = {
-      source = "azure/azapi
+      source = "azure/azapi"
     }
   }
 }
