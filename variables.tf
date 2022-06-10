@@ -42,6 +42,12 @@ variable "shared_access_key_enabled" {
   default     = true
 }
 
+variable "allow_blob_public_access" {
+  description = "Allow public access to this Blob Storage?"
+  type        = bool
+  default     = false
+}
+
 variable "file_retention_policy" {
   description = "The number of days that files should be retained."
   type        = number
