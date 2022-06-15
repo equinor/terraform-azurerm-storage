@@ -27,7 +27,7 @@ variable "resource_group_name" {
 variable "account_replication_type" {
   description = "The type of replication to use for this Storage Account."
   type        = string
-  default     = "LRS"
+  default     = "RAGRS"
 }
 
 variable "access_tier" {
