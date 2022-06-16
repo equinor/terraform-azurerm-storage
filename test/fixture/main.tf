@@ -9,10 +9,6 @@ locals {
   environment = "test"
 }
 
-data "http" "public_ip" {
-  url = "https://ifconfig.me"
-}
-
 resource "random_id" "this" {
   byte_length = 8
 }
@@ -38,7 +34,11 @@ module "storage" {
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
 
-  firewall_ip_rules = [data.http.public_ip.body]
+  firewall_ip_rules = [
+    "1.1.1.1",
+    "2.2.2.2",
+    "3.3.3.3"
+  ]
 
   log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
 }
