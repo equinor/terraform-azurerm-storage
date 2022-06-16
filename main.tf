@@ -90,39 +90,6 @@ resource "azurerm_advanced_threat_protection" "this" {
   enabled            = var.threat_protection_enabled
 }
 
-resource "azurerm_storage_container" "this" {
-  for_each = toset(var.containers)
-
-  name                  = each.value
-  storage_account_name  = azurerm_storage_account.this.name
-  container_access_type = "private"
-  metadata              = {}
-}
-
-resource "azurerm_storage_queue" "this" {
-  for_each = toset(var.queues)
-
-  name                 = each.value
-  storage_account_name = azurerm_storage_account.this.name
-  metadata             = {}
-}
-
-resource "azurerm_storage_table" "this" {
-  for_each = toset(var.tables)
-
-  name                 = each.value
-  storage_account_name = azurerm_storage_account.this.name
-}
-
-resource "azurerm_storage_share" "this" {
-  for_each = toset(var.file_shares)
-
-  name                 = each.value
-  storage_account_name = azurerm_storage_account.this.name
-  quota                = 5120
-  metadata             = {}
-}
-
 resource "azurerm_monitor_diagnostic_setting" "this" {
   for_each = toset(["blob", "queue", "table", "file"])
 
@@ -179,30 +146,4 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
       enabled = false
     }
   }
-}
-
-resource "time_sleep" "this" {
-  depends_on = [
-    # Resources that should wait for delete-lock to be deleted first.
-    azurerm_storage_account.this,
-    azurerm_storage_management_policy.this,
-    azurerm_advanced_threat_protection.this,
-    azurerm_monitor_diagnostic_setting.this
-  ]
-
-  destroy_duration = "30s"
-}
-
-resource "azurerm_management_lock" "this" {
-  name       = "storage-lock"
-  scope      = azurerm_storage_account.this.id
-  lock_level = "CanNotDelete"
-  notes      = "Prevent accidental deletion of storage account."
-
-  depends_on = [
-    # Wait for delete-lock to be deleted in Azure.
-    # This is a workaround for an issue where even though destruction is complete in Terraform,
-    # it can still take a while for the delete-lock to be deleted in Azure.
-    time_sleep.this
-  ]
 }
