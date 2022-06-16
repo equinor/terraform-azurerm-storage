@@ -90,30 +90,6 @@ variable "tags" {
   default     = {}
 }
 
-variable "containers" {
-  description = "The names of the Storage Containers to create in this Storage Account. Only lowercase alphanumeric characters and hyphens are allowed."
-  type        = list(string)
-  default     = []
-}
-
-variable "queues" {
-  description = "The names of the Queues to create in this Storage Account. Only lowercase alphanumeric characters and hyphens are allowed."
-  type        = list(string)
-  default     = []
-}
-
-variable "tables" {
-  description = "The names of the Storage Tables to create in this Storage Account. Only alphanumeric characters are allowed."
-  type        = list(string)
-  default     = []
-}
-
-variable "file_shares" {
-  description = "The names of the File Shared to create in this Storage Account. Only lowercase alphanumeric characters and hyphens are allowed."
-  type        = list(string)
-  default     = []
-}
-
 variable "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics Workspace to send diagnostics to."
   type        = string
