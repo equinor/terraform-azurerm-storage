@@ -40,13 +40,5 @@ module "storage" {
 
   firewall_ip_rules = [data.http.public_ip.body]
 
-  containers = ["container", "container1", "container-2"]
-
-  queues = ["queue", "queue1", "queue-2"]
-
-  tables = ["FirstTable", "secondTable", "THIRD"]
-
-  file_shares = ["share", "share1", "share-2"]
-
   log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
 }

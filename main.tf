@@ -90,39 +90,6 @@ resource "azurerm_advanced_threat_protection" "this" {
   enabled            = var.threat_protection_enabled
 }
 
-resource "azurerm_storage_container" "this" {
-  for_each = toset(var.containers)
-
-  name                  = each.value
-  storage_account_name  = azurerm_storage_account.this.name
-  container_access_type = "private"
-  metadata              = {}
-}
-
-resource "azurerm_storage_queue" "this" {
-  for_each = toset(var.queues)
-
-  name                 = each.value
-  storage_account_name = azurerm_storage_account.this.name
-  metadata             = {}
-}
-
-resource "azurerm_storage_table" "this" {
-  for_each = toset(var.tables)
-
-  name                 = each.value
-  storage_account_name = azurerm_storage_account.this.name
-}
-
-resource "azurerm_storage_share" "this" {
-  for_each = toset(var.file_shares)
-
-  name                 = each.value
-  storage_account_name = azurerm_storage_account.this.name
-  quota                = 5120
-  metadata             = {}
-}
-
 resource "azurerm_monitor_diagnostic_setting" "this" {
   for_each = toset(["blob", "queue", "table", "file"])
 
