@@ -72,7 +72,6 @@ go test -v -timeout 60m
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) | >= 0.1.0 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.0.0 |
-| <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.5.0 |
 
 ## Providers
 
