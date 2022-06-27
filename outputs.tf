@@ -13,9 +13,19 @@ output "blob_endpoint" {
   value       = azurerm_storage_account.this.primary_blob_endpoint
 }
 
+output "secondary_blob_endpoint" {
+  description = "The secondary endpoint URL for this Blob Storage."
+  value       = azurerm_storage_account.this.secondary_blob_endpoint
+}
+
 output "queue_endpoint" {
   description = "The endpoint URL for this Queue Storage."
   value       = azurerm_storage_account.this.primary_queue_endpoint
+}
+
+output "secondary_queue_endpoint" {
+  description = "The secondary endpoint URL for this Queue Storage."
+  value       = azurerm_storage_account.this.secondary_queue_endpoint
 }
 
 output "table_endpoint" {
@@ -23,9 +33,19 @@ output "table_endpoint" {
   value       = azurerm_storage_account.this.primary_table_endpoint
 }
 
+output "secondary_table_endpoint" {
+  description = "The secondary endpoint URL for this Table Storage."
+  value       = azurerm_storage_account.this.secondary_table_endpoint
+}
+
 output "file_endpoint" {
   description = "The endpoint URL of this File Storage."
   value       = azurerm_storage_account.this.primary_file_endpoint
+}
+
+output "secondary_file_endpoint" {
+  description = "The secondary endpoint URL of this File Storage."
+  value       = azurerm_storage_account.this.secondary_file_endpoint
 }
 
 output "primary_access_key" {
