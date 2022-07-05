@@ -22,8 +22,8 @@ resource "azurerm_storage_account" "this" {
   tags = local.tags
 
   blob_properties {
-    versioning_enabled  = true
-    change_feed_enabled = true
+    versioning_enabled  = var.blob_versioning_enabled
+    change_feed_enabled = var.blob_change_feed_enabled
 
     delete_retention_policy {
       days = var.blob_delete_retention_days
@@ -57,7 +57,7 @@ resource "azapi_update_resource" "this" {
   body = jsonencode({
     properties = {
       restorePolicy = {
-        enabled = true
+        enabled = var.blob_pitr_enabled
         days    = var.blob_pitr_days
       }
     }
