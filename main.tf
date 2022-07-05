@@ -64,27 +64,6 @@ resource "azapi_update_resource" "this" {
   })
 }
 
-# Delete previous blob versions to optimize costs.
-resource "azurerm_storage_management_policy" "this" {
-  storage_account_id = azurerm_storage_account.this.id
-
-  rule {
-    name    = "delete-previous-versions"
-    enabled = true
-
-    filters {
-      blob_types   = ["blockBlob"]
-      prefix_match = []
-    }
-
-    actions {
-      version {
-        delete_after_days_since_creation = var.blob_version_retention_days
-      }
-    }
-  }
-}
-
 resource "azurerm_advanced_threat_protection" "this" {
   target_resource_id = azurerm_storage_account.this.id
   enabled            = var.threat_protection_enabled
