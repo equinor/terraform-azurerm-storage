@@ -1,6 +1,6 @@
 locals {
   suffix       = "${var.application}-${var.environment}"
-  suffix_alnum = join("", regexall("[a-z0-9]", lower(local.suffix)))
+  suffix_alnum = replace(lower(local.suffix), "/[^a-z0-9]+/", "")
   tags         = merge({ application = var.application, environment = var.environment }, var.tags)
 }
 
