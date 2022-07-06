@@ -8,7 +8,7 @@
 
 ## Run tests
 
-Change the current working directory to the test directory:
+Change to the test directory:
 
 ```
 $ cd test
