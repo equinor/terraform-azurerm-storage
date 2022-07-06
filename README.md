@@ -2,21 +2,6 @@
 
 Terraform module which creates an Azure Storage Account.
 
-## Test
-
-### Prerequisites
-
-- Install the latest version of [Go](https://go.dev/dl/).
-- Install [Terraform](https://www.terraform.io/downloads).
-- Configure your Azure credentials using one of the [options supported by the AzureRM provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure).
-
-### Run test
-
-```bash
-cd ./test/
-go test -v -timeout 60m
-```
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
