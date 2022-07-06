@@ -1,11 +1,5 @@
-locals {
-  suffix       = "${var.application}-${var.environment}"
-  suffix_alnum = replace(lower(local.suffix), "/[^a-z0-9]+/", "")
-  tags         = merge({ application = var.application, environment = var.environment }, var.tags)
-}
-
 resource "azurerm_storage_account" "this" {
-  name                = coalesce(var.account_name, "st${local.suffix_alnum}")
+  name                = coalesce(var.account_name, replace(lower("st${var.application}${var.environment}"), "/[^a-z0-9]+/", ""))
   resource_group_name = var.resource_group_name
   location            = var.location
 
@@ -19,7 +13,7 @@ resource "azurerm_storage_account" "this" {
   shared_access_key_enabled       = var.shared_access_key_enabled
   allow_nested_items_to_be_public = var.allow_blob_public_access
 
-  tags = local.tags
+  tags = merge({ application = var.application, environment = var.environment }, var.tags)
 
   blob_properties {
     versioning_enabled  = var.blob_versioning_enabled
