@@ -1,70 +1,6 @@
-# terraform-azurerm-storage
+# Azure Storage Terraform Module
 
-Terraform module which creates an Azure Storage Account.
-
-## Usage
-
-```terraform
-terraform {
-  required_providers {
-    azapi = {
-      source = "azure/azapi"
-    }
-  }
-}
-
-provider "azurerm" {
-  storage_use_azuread = true
-
-  features {}
-}
-
-provider "azapi" {}
-
-locals {
-  application = "my-app"
-  environment = "example"
-}
-
-resource "azurerm_resource_group" "example" {
-  name     = "rg-${local.application}-${local.environment}"
-  location = "northeurope"
-}
-
-resource "azurerm_log_analytics_workspace" "example" {
-  name                = "log-${local.application}-${local.environment}"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
-  sku                 = "Free"
-}
-
-module "storage" {
-  source = "github.com/equinor/terraform-azurerm-storage"
-
-  application = local.application
-  environment = local.environment
-
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
-
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.example.id
-}
-```
-
-## Test
-
-### Prerequisites
-
-- Install the latest version of [Go](https://go.dev/dl/).
-- Install [Terraform](https://www.terraform.io/downloads).
-- Configure your Azure credentials using one of the [options supported by the AzureRM provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure).
-
-### Run test
-
-```bash
-cd ./test/
-go test -v -timeout 60m
-```
+Terraform module which creates an Azure Storage account.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -114,7 +50,7 @@ No modules.
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment to create the resources for. | `string` | n/a | yes |
 | <a name="input_file_retention_policy"></a> [file\_retention\_policy](#input\_file\_retention\_policy) | The number of days that files should be retained. | `number` | `30` | no |
 | <a name="input_firewall_ip_rules"></a> [firewall\_ip\_rules](#input\_firewall\_ip\_rules) | The public IPs or IP ranges in CIDR format that should be able to access this Storage Account. Only IPv4 addresses are allowed. | `list(string)` | `[]` | no |
-| <a name="input_location"></a> [location](#input\_location) | The supported Azure location where the resources exist. | `string` | n/a | yes |
+| <a name="input_location"></a> [location](#input\_location) | The location to create the resources in. | `string` | n/a | yes |
 | <a name="input_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#input\_log\_analytics\_workspace\_id) | The ID of the Log Analytics Workspace to send diagnostics to. | `string` | n/a | yes |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group in which to create the resources. | `string` | n/a | yes |
 | <a name="input_shared_access_key_enabled"></a> [shared\_access\_key\_enabled](#input\_shared\_access\_key\_enabled) | Is authorization with access key enabled for this Storage Account? | `bool` | `false` | no |
