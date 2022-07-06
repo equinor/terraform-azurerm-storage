@@ -9,7 +9,7 @@ variable "environment" {
 }
 
 variable "location" {
-  description = "The supported Azure location where the resources exist."
+  description = "The location to create the resources in."
   type        = string
 }
 
@@ -48,10 +48,28 @@ variable "allow_blob_public_access" {
   default     = false
 }
 
+variable "blob_versioning_enabled" {
+  description = "Is versioning enabled for this Blob Storage?"
+  type        = bool
+  default     = true
+}
+
+variable "blob_change_feed_enabled" {
+  description = "Is change feed enabled for this Blob Storage?"
+  type        = bool
+  default     = true
+}
+
 variable "blob_delete_retention_days" {
   description = "The number of days that deleted blobs and containers should be retained."
   type        = number
   default     = 35
+}
+
+variable "blob_pitr_enabled" {
+  description = "Is point-in-time restore enabled for this Blob Storage?"
+  type        = bool
+  default     = true
 }
 
 variable "blob_pitr_days" {

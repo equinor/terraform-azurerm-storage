@@ -1,70 +1,6 @@
-# terraform-azurerm-storage
+# Azure Storage Terraform Module
 
-Terraform module which creates an Azure Storage Account.
-
-## Usage
-
-```terraform
-terraform {
-  required_providers {
-    azapi = {
-      source = "azure/azapi"
-    }
-  }
-}
-
-provider "azurerm" {
-  storage_use_azuread = true
-
-  features {}
-}
-
-provider "azapi" {}
-
-locals {
-  application = "my-app"
-  environment = "example"
-}
-
-resource "azurerm_resource_group" "example" {
-  name     = "rg-${local.application}-${local.environment}"
-  location = "northeurope"
-}
-
-resource "azurerm_log_analytics_workspace" "example" {
-  name                = "log-${local.application}-${local.environment}"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
-  sku                 = "Free"
-}
-
-module "storage" {
-  source = "github.com/equinor/terraform-azurerm-storage"
-
-  application = local.application
-  environment = local.environment
-
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
-
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.example.id
-}
-```
-
-## Test
-
-### Prerequisites
-
-- Install the latest version of [Go](https://go.dev/dl/).
-- Install [Terraform](https://www.terraform.io/downloads).
-- Configure your Azure credentials using one of the [options supported by the AzureRM provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure).
-
-### Run test
-
-```bash
-cd ./test/
-go test -v -timeout 60m
-```
+Terraform module which creates an Azure Storage account.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -104,12 +40,15 @@ No modules.
 | <a name="input_account_replication_type"></a> [account\_replication\_type](#input\_account\_replication\_type) | The type of replication to use for this Storage Account. | `string` | `"RAGRS"` | no |
 | <a name="input_allow_blob_public_access"></a> [allow\_blob\_public\_access](#input\_allow\_blob\_public\_access) | Allow public access to this Blob Storage? | `bool` | `false` | no |
 | <a name="input_application"></a> [application](#input\_application) | The application to create the resources for. | `string` | n/a | yes |
+| <a name="input_blob_change_feed_enabled"></a> [blob\_change\_feed\_enabled](#input\_blob\_change\_feed\_enabled) | Is change feed enabled for this Blob Storage? | `bool` | `true` | no |
 | <a name="input_blob_delete_retention_days"></a> [blob\_delete\_retention\_days](#input\_blob\_delete\_retention\_days) | The number of days that deleted blobs and containers should be retained. | `number` | `35` | no |
 | <a name="input_blob_pitr_days"></a> [blob\_pitr\_days](#input\_blob\_pitr\_days) | The number of days in the past to set the maximum point-in-time restore point for containers. Must be less than 'blob\_delete\_retention\_days'. | `number` | `30` | no |
+| <a name="input_blob_pitr_enabled"></a> [blob\_pitr\_enabled](#input\_blob\_pitr\_enabled) | Is point-in-time restore enabled for this Blob Storage? | `bool` | `true` | no |
+| <a name="input_blob_versioning_enabled"></a> [blob\_versioning\_enabled](#input\_blob\_versioning\_enabled) | Is versioning enabled for this Blob Storage? | `bool` | `true` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment to create the resources for. | `string` | n/a | yes |
 | <a name="input_file_retention_policy"></a> [file\_retention\_policy](#input\_file\_retention\_policy) | The number of days that files should be retained. | `number` | `30` | no |
 | <a name="input_firewall_ip_rules"></a> [firewall\_ip\_rules](#input\_firewall\_ip\_rules) | The public IPs or IP ranges in CIDR format that should be able to access this Storage Account. Only IPv4 addresses are allowed. | `list(string)` | `[]` | no |
-| <a name="input_location"></a> [location](#input\_location) | The supported Azure location where the resources exist. | `string` | n/a | yes |
+| <a name="input_location"></a> [location](#input\_location) | The location to create the resources in. | `string` | n/a | yes |
 | <a name="input_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#input\_log\_analytics\_workspace\_id) | The ID of the Log Analytics Workspace to send diagnostics to. | `string` | n/a | yes |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group in which to create the resources. | `string` | n/a | yes |
 | <a name="input_shared_access_key_enabled"></a> [shared\_access\_key\_enabled](#input\_shared\_access\_key\_enabled) | Is authorization with access key enabled for this Storage Account? | `bool` | `false` | no |
@@ -128,6 +67,10 @@ No modules.
 | <a name="output_primary_connection_string"></a> [primary\_connection\_string](#output\_primary\_connection\_string) | The primary connection string for this Storage Account. |
 | <a name="output_queue_endpoint"></a> [queue\_endpoint](#output\_queue\_endpoint) | The endpoint URL for this Queue Storage. |
 | <a name="output_secondary_access_key"></a> [secondary\_access\_key](#output\_secondary\_access\_key) | The secondary access key for this Storage Account. |
+| <a name="output_secondary_blob_endpoint"></a> [secondary\_blob\_endpoint](#output\_secondary\_blob\_endpoint) | The secondary endpoint URL for this Blob Storage. |
 | <a name="output_secondary_connection_string"></a> [secondary\_connection\_string](#output\_secondary\_connection\_string) | The secondary connection string for this Storage Account. |
+| <a name="output_secondary_file_endpoint"></a> [secondary\_file\_endpoint](#output\_secondary\_file\_endpoint) | The secondary endpoint URL of this File Storage. |
+| <a name="output_secondary_queue_endpoint"></a> [secondary\_queue\_endpoint](#output\_secondary\_queue\_endpoint) | The secondary endpoint URL for this Queue Storage. |
+| <a name="output_secondary_table_endpoint"></a> [secondary\_table\_endpoint](#output\_secondary\_table\_endpoint) | The secondary endpoint URL for this Table Storage. |
 | <a name="output_table_endpoint"></a> [table\_endpoint](#output\_table\_endpoint) | The endpoint URL for this Table Storage. |
 <!-- END_TF_DOCS -->
