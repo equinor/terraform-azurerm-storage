@@ -1,6 +1,6 @@
-# Basic example
+# Basic Example
 
-Configuration which creates an Azure storage account with the following features:
+Terraform configuration which creates an Azure Storage account with the following features:
 
 - Read-access geo-redundant storage (RA-GRS)
 - Secure transfer (HTTPS) required

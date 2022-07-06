@@ -1,6 +1,6 @@
-# terraform-azurerm-storage
+# Azure Storage Terraform Module
 
-Terraform module which creates an Azure Storage Account.
+Terraform module which creates an Azure Storage account.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
