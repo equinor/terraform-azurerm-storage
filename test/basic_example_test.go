@@ -18,7 +18,7 @@ func TestBasicExample(t *testing.T) {
 	uniqueEnvironment := random.UniqueId()
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: "../examples/gpv2-storage-account",
+		TerraformDir: "../examples/basic",
 		Vars: map[string]interface{}{
 			"application": uniqueApplication,
 			"environment": uniqueEnvironment,
