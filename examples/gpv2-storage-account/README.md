@@ -1,6 +1,6 @@
 # Example: GPv2 storage account
 
-This example creates a general-purpose v2 storage account with the following features:
+This example creates a general-purpose v2 (GPv2) storage account with the following features:
 
 - Read-access geo-redundant storage (RA-GRS)
 - Secure transfer (HTTPS) required
