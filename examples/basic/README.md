@@ -1,6 +1,6 @@
-# Example: GPv2 storage account
+# Basic example
 
-This example creates a general-purpose v2 (GPv2) storage account with the following features:
+Configuration which creates an Azure storage account with the following features:
 
 - Read-access geo-redundant storage (RA-GRS)
 - Secure transfer (HTTPS) required
