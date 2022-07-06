@@ -2,7 +2,10 @@ module github.com/equinor/terraform-azurerm-storage/test
 
 go 1.18
 
-require github.com/gruntwork-io/terratest v0.40.17
+require (
+	github.com/gruntwork-io/terratest v0.40.17
+	github.com/stretchr/testify v1.8.0
+)
 
 require (
 	cloud.google.com/go v0.83.0 // indirect
@@ -47,7 +50,6 @@ require (
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect
-	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/tmccombs/hcl2json v0.3.3 // indirect
 	github.com/ulikunitz/xz v0.5.8 // indirect
 	github.com/zclconf/go-cty v1.9.1 // indirect
@@ -66,5 +68,5 @@ require (
 	google.golang.org/genproto v0.0.0-20210602131652-f16073e35f0c // indirect
 	google.golang.org/grpc v1.38.0 // indirect
 	google.golang.org/protobuf v1.26.0 // indirect
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
