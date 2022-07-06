@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGPv2StorageAccountExample(t *testing.T) {
+func TestBasicExample(t *testing.T) {
 	uniqueApplication := random.UniqueId()
 	uniqueEnvironment := random.UniqueId()
 
