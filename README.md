@@ -30,7 +30,6 @@ No modules.
 | [azurerm_advanced_threat_protection.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/advanced_threat_protection) | resource |
 | [azurerm_monitor_diagnostic_setting.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting) | resource |
 | [azurerm_storage_account.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
-| [azurerm_storage_management_policy.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_management_policy) | resource |
 
 ## Inputs
 
@@ -45,7 +44,6 @@ No modules.
 | <a name="input_blob_delete_retention_days"></a> [blob\_delete\_retention\_days](#input\_blob\_delete\_retention\_days) | The number of days that deleted blobs and containers should be retained. | `number` | `35` | no |
 | <a name="input_blob_pitr_days"></a> [blob\_pitr\_days](#input\_blob\_pitr\_days) | The number of days in the past to set the maximum point-in-time restore point for containers. Must be less than 'blob\_delete\_retention\_days'. | `number` | `30` | no |
 | <a name="input_blob_pitr_enabled"></a> [blob\_pitr\_enabled](#input\_blob\_pitr\_enabled) | Is point-in-time restore enabled for this Blob Storage? | `bool` | `true` | no |
-| <a name="input_blob_version_retention_days"></a> [blob\_version\_retention\_days](#input\_blob\_version\_retention\_days) | The number of days that previous versions of blobs should be retained. | `number` | `7` | no |
 | <a name="input_blob_versioning_enabled"></a> [blob\_versioning\_enabled](#input\_blob\_versioning\_enabled) | Is versioning enabled for this Blob Storage? | `bool` | `true` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment to create the resources for. | `string` | n/a | yes |
 | <a name="input_file_retention_policy"></a> [file\_retention\_policy](#input\_file\_retention\_policy) | The number of days that files should be retained. | `number` | `30` | no |

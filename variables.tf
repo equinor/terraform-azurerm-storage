@@ -60,12 +60,6 @@ variable "blob_change_feed_enabled" {
   default     = true
 }
 
-variable "blob_version_retention_days" {
-  description = "The number of days that previous versions of blobs should be retained."
-  type        = number
-  default     = 7
-}
-
 variable "blob_delete_retention_days" {
   description = "The number of days that deleted blobs and containers should be retained."
   type        = number
