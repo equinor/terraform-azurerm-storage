@@ -1,6 +1,5 @@
 locals {
-  account_name_format = lower("st${var.application}${var.environment}")
-  account_name        = replace(local.account_name_format, "/[^a-z0-9]+/", "")
+  account_name = replace(lower("st${var.application}${var.environment}"), "/[^a-z0-9]+/", "")
 }
 
 resource "azurerm_storage_account" "this" {
