@@ -1,10 +1,6 @@
 package test
 
 import (
-	"fmt"
-	"log"
-	"regexp"
-	"strings"
 	"testing"
 
 	"github.com/gruntwork-io/terratest/modules/azure"
@@ -32,14 +28,6 @@ func TestBasicExample(t *testing.T) {
 	storageAccountName := terraform.Output(t, terraformOptions, "storage_account_name")
 	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
 	subscriptionId := terraform.Output(t, terraformOptions, "subscription_id")
-
-	// Check storage account name
-	reg, err := regexp.Compile("[^a-z0-9]+")
-	if err != nil {
-		log.Fatal(err)
-	}
-	expectedStorageAccountName := reg.ReplaceAllString(strings.ToLower(fmt.Sprintf("st%s%s", uniqueApplication, uniqueEnvironment)), "")
-	assert.Equal(t, expectedStorageAccountName, storageAccountName)
 
 	// Check storage account exists
 	storageAccountExists := azure.StorageAccountExists(t, storageAccountName, resourceGroupName, subscriptionId)

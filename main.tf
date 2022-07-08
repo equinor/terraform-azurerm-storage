@@ -1,5 +1,13 @@
+locals {
+  # Generate Storage account name based on Microsoft recommendations and examples:
+  # - https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming
+  # - https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations
+  # - https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-name-rules
+  account_name = substr(regex("^[a-z0-9]+$", lower("st${var.application}${var.environment}")), 0, 24)
+}
+
 resource "azurerm_storage_account" "this" {
-  name                = coalesce(var.account_name, replace(lower("st${var.application}${var.environment}"), "/[^a-z0-9]+/", ""))
+  name                = coalesce(var.account_name, local.account_name)
   resource_group_name = var.resource_group_name
   location            = var.location
 
@@ -13,7 +21,13 @@ resource "azurerm_storage_account" "this" {
   shared_access_key_enabled       = var.shared_access_key_enabled
   allow_nested_items_to_be_public = var.allow_blob_public_access
 
-  tags = merge({ application = var.application, environment = var.environment }, var.tags)
+  tags = merge(
+    {
+      application = var.application
+      environment = var.environment
+    },
+    var.tags
+  )
 
   blob_properties {
     versioning_enabled  = var.blob_versioning_enabled
