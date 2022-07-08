@@ -1,5 +1,9 @@
 locals {
-  account_name = replace(lower("st${var.application}${var.environment}"), "/[^a-z0-9]+/", "")
+  # Generate Storage account name based on Microsoft recommendations and examples:
+  # - https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming
+  # - https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations
+  # - https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-name-rules
+  account_name = substr(regex("^[a-z0-9]+$", lower("st${var.application}${var.environment}")), 0, 24)
 }
 
 resource "azurerm_storage_account" "this" {
