@@ -52,3 +52,13 @@ module "storage" {
 
   log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
 }
+
+module "object_replication" {
+  source = "../../modules/object_replication"
+
+  application = local.application
+  environment = local.environment
+
+  location            = var.location
+  resource_group_name = azurerm_resource_group.this.name
+}
