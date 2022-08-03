@@ -1,5 +1,5 @@
 locals {
-  account_name = substr(regex("^[a-z0-9]+$", lower("st${var.application}${var.environment}")), 0, 24)
+  account_name = substr(regex("^[a-z0-9]+$", lower("${var.application}${var.environment}")), 0, 24)
 }
 
 resource "azurerm_resource_group" "src" {
