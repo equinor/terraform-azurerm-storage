@@ -1,16 +1,14 @@
 locals {
-  suffix       = "${var.application}${var.environment}"
-  suffix_alnum = substr(regex("^[a-zA-Z0-9-]+$", lower("${var.application}${var.environment}")), 0, 20)
-  tags         = merge({ application = var.application, environment = var.environment }, var.tags)
+  account_name = substr(regex("^[a-z0-9]+$", lower("st${var.application}${var.environment}")), 0, 24)
 }
 
 resource "azurerm_resource_group" "src" {
-  name     = coalesce(var.account_name, "srcrg${local.suffix_alnum}")
+  name     = coalesce(var.account_name, "srcrg${local.account_name}")
   location = var.location
 }
 
 resource "azurerm_storage_account" "src" {
-  name                = coalesce(var.account_name, "st${local.suffix_alnum}")
+  name                = coalesce(var.account_name, "st${local.account_name}")
   resource_group_name = azurerm_resource_group.src.name
   location            = var.location
 
@@ -28,18 +26,18 @@ resource "azurerm_storage_account" "src" {
 }
 
 resource "azurerm_storage_container" "src" {
-  name                  = coalesce(var.account_name, "ci${local.suffix_alnum}")
+  name                  = coalesce(var.account_name, "ci${local.account_name}")
   storage_account_name  = azurerm_storage_account.src.name
   container_access_type = "private"
 }
 
 resource "azurerm_resource_group" "dst" {
-  name     = coalesce(var.account_name, "dstrg${local.suffix_alnum}")
+  name     = coalesce(var.account_name, "dstrg${local.account_name}")
   location = var.location
 }
 
 resource "azurerm_storage_account" "dst" {
-  name                = coalesce(var.account_name, "st${local.suffix_alnum}")
+  name                = coalesce(var.account_name, "st${local.account_name}")
   resource_group_name = azurerm_resource_group.dst.name
   location            = var.location
 
@@ -57,7 +55,7 @@ resource "azurerm_storage_account" "dst" {
 }
 
 resource "azurerm_storage_container" "dst" {
-  name                  = coalesce(var.account_name, "ci${local.suffix_alnum}")
+  name                  = coalesce(var.account_name, "ci${local.account_name}")
   storage_account_name  = azurerm_storage_account.dst.name
   container_access_type = "private"
 }
