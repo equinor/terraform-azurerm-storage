@@ -14,3 +14,4 @@ Terraform configuration which creates an Azure Storage account with the followin
 - Point-in-time restore for block blobs enabled
 - Advanced threat protection enabled
 - Diagnostic settings for blob, queue, table and file storage
+- Storage object replication
