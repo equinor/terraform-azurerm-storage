@@ -67,8 +67,6 @@ resource "azurerm_storage_account" "src" {
     versioning_enabled  = true
     change_feed_enabled = true
   }
-
-
 }
 
 resource "azurerm_storage_container" "src" {
