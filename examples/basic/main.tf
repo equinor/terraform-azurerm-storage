@@ -26,6 +26,7 @@ resource "azurerm_log_analytics_workspace" "this" {
 }
 
 module "storage" {
+  # source = "github.com/equinor/terraform-azurerm-storage"
   source = "../.."
 
   application                = var.application
