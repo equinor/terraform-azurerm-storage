@@ -1,10 +1,10 @@
-variable "application" {
-  description = "The application to create the resources for."
+variable "account_name" {
+  description = "The name this Storage account."
   type        = string
 }
 
-variable "environment" {
-  description = "The environment to create the resources for."
+variable "resource_group_name" {
+  description = "The name of the resource group to create the resources in."
   type        = string
 }
 
@@ -13,31 +13,20 @@ variable "location" {
   type        = string
 }
 
-variable "account_name" {
-  description = "A custom name for this Storage Account."
-  type        = string
-  default     = null
-}
-
-variable "resource_group_name" {
-  description = "The name of the resource group in which to create the resources."
-  type        = string
-}
-
 variable "account_replication_type" {
-  description = "The type of replication to use for this Storage Account."
+  description = "The type of replication to use for this Storage account."
   type        = string
   default     = "RAGRS"
 }
 
 variable "access_tier" {
-  description = "The access tier to use for this Storage Account."
+  description = "The access tier to use for this Storage account."
   type        = string
   default     = "Hot"
 }
 
 variable "shared_access_key_enabled" {
-  description = "Is authorization with access key enabled for this Storage Account?"
+  description = "Is authorization with access key enabled for this Storage account?"
   type        = bool
   default     = false
 }
@@ -85,24 +74,24 @@ variable "file_retention_policy" {
 }
 
 variable "firewall_ip_rules" {
-  description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage Account. Only IPv4 addresses are allowed."
+  description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage account. Only IPv4 addresses are allowed."
   type        = list(string)
   default     = []
 }
 
 variable "threat_protection_enabled" {
-  description = "Is threat protection (Microsoft Defender for Storage) enabled for this Storage Account?"
+  description = "Is threat protection (Microsoft Defender for Storage) enabled for this Storage account?"
   type        = bool
   default     = true
 }
 
-variable "tags" {
-  description = "A mapping of tags to assign to the resources."
-  type        = map(string)
-  default     = {}
+variable "log_analytics_workspace_id" {
+  description = "The ID of the Log Analytics workspace to send diagnostics to."
+  type        = string
 }
 
-variable "log_analytics_workspace_id" {
-  description = "The ID of the Log Analytics Workspace to send diagnostics to."
-  type        = string
+variable "tags" {
+  description = "A map of tags to assign to the resources."
+  type        = map(string)
+  default     = {}
 }
