@@ -1,5 +1,6 @@
 terraform {
   required_providers {
+    # ! Download the AzAPI provider by Azure
     azapi = {
       source = "azure/azapi"
     }
