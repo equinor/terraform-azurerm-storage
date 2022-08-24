@@ -7,44 +7,53 @@ terraform {
 }
 
 provider "azurerm" {
+  # ! Use Azure AD to connect to Storage
   storage_use_azuread = true
 
   features {}
 }
 
-data "azurerm_client_config" "current" {}
-
-resource "azurerm_resource_group" "this" {
-  name     = "rg-${var.application}-${var.environment}"
-  location = var.location
+locals {
+  tags = {
+    environment = "test"
+  }
 }
 
-resource "azurerm_log_analytics_workspace" "this" {
-  name                = "log-${var.application}-${var.environment}"
-  location            = azurerm_resource_group.this.location
+resource "random_id" "this" {
+  byte_length = 8
+}
+
+resource "azurerm_resource_group" "this" {
+  name     = "rg-${random_id.this.hex}"
+  location = var.location
+
+  tags = local.tags
+}
+
+module "log_analytics" {
+  source = "github.com/equinor/terraform-azurerm-log-analytics?ref=v1.0.0"
+
+  workspace_name      = "log-${random_id.this.hex}"
   resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.this.location
+
+  tags = local.tags
 }
 
 module "storage" {
   # source = "github.com/equinor/terraform-azurerm-storage"
   source = "../.."
 
-  application                = var.application
-  environment                = var.environment
-  location                   = azurerm_resource_group.this.location
+  account_name               = "st${random_id.this.hex}"
   resource_group_name        = azurerm_resource_group.this.name
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
+  location                   = azurerm_resource_group.this.location
+  log_analytics_workspace_id = module.log_analytics.workspace_id
 
   firewall_ip_rules = [
     "1.1.1.1",
     "2.2.2.2",
     "3.3.3.3"
   ]
-}
 
-# Give current client access to blob storage
-resource "azurerm_role_assignment" "this" {
-  scope                = module.storage.account_id
-  role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = data.azurerm_client_config.current.object_id
+  tags = local.tags
 }
