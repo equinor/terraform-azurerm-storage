@@ -15,7 +15,6 @@ Terraform module which creates an Azure Storage account.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azapi"></a> [azapi](#provider\_azapi) | >= 0.1.0 |
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 3.0.0 |
 
 ## Modules
@@ -26,7 +25,6 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [azapi_update_resource.this](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/update_resource) | resource |
 | [azurerm_advanced_threat_protection.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/advanced_threat_protection) | resource |
 | [azurerm_monitor_diagnostic_setting.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting) | resource |
 | [azurerm_storage_account.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
