@@ -1,6 +1,18 @@
 variable "account_name" {
-  description = "The name this Storage account."
+  description = "The name of this Storage account."
   type        = string
+}
+
+variable "account_kind" {
+  description = "The Kind of this Storage account."
+  type        = string
+  default     = "StorageV2"
+}
+
+variable "account_tier" {
+  description = "The Tier of this Storage account."
+  type        = string
+  default     = "Standard"
 }
 
 variable "resource_group_name" {

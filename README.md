@@ -33,8 +33,10 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_tier"></a> [access\_tier](#input\_access\_tier) | The access tier to use for this Storage account. | `string` | `"Hot"` | no |
-| <a name="input_account_name"></a> [account\_name](#input\_account\_name) | The name this Storage account. | `string` | n/a | yes |
+| <a name="input_account_kind"></a> [account\_kind](#input\_account\_kind) | The Kind of this Storage account. | `string` | `"StorageV2"` | no |
+| <a name="input_account_name"></a> [account\_name](#input\_account\_name) | The name of this Storage account. | `string` | n/a | yes |
 | <a name="input_account_replication_type"></a> [account\_replication\_type](#input\_account\_replication\_type) | The type of replication to use for this Storage account. | `string` | `"RAGRS"` | no |
+| <a name="input_account_tier"></a> [account\_tier](#input\_account\_tier) | The Tier of this Storage account. | `string` | `"Standard"` | no |
 | <a name="input_allow_blob_public_access"></a> [allow\_blob\_public\_access](#input\_allow\_blob\_public\_access) | Allow public access to this Blob Storage? | `bool` | `false` | no |
 | <a name="input_blob_change_feed_enabled"></a> [blob\_change\_feed\_enabled](#input\_blob\_change\_feed\_enabled) | Is change feed enabled for this Blob Storage? | `bool` | `true` | no |
 | <a name="input_blob_delete_retention_days"></a> [blob\_delete\_retention\_days](#input\_blob\_delete\_retention\_days) | The number of days that deleted blobs and containers should be retained. | `number` | `35` | no |
