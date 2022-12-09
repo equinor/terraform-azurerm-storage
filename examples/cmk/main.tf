@@ -60,7 +60,7 @@ module "key_vault" {
 
 resource "azurerm_key_vault_key" "example" {
   name         = "tfex-key-${random_id.this.hex}"
-  key_vault_id = module.key_vault.key_vault_id
+  key_vault_id = module.key_vault.vault_id
   key_type     = "RSA"
   key_size     = 2048
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
