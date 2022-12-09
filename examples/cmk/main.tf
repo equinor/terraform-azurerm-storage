@@ -89,8 +89,8 @@ module "storage" {
 }
 
 resource "azurerm_storage_account_customer_managed_key" "ok_cmk" {
-  storage_account_id = module.storage.id
-  key_vault_id       = module.key_vault.id
+  storage_account_id = module.storage.account_id
+  key_vault_id       = module.key_vault.vault_id
   key_name           = azurerm_key_vault_key.example.name
 }
 
