@@ -42,6 +42,8 @@ module "key_vault" {
   location                   = azurerm_resource_group.this.location
   log_analytics_workspace_id = module.log_analytics.workspace_id
 
+  purge_protection_enabled = true
+
   access_policies = [
     {
       object_id          = data.azurerm_client_config.current.object_id
@@ -50,24 +52,24 @@ module "key_vault" {
     }
   ]
 
-  firewall_ip_rules = [
-    "1.1.1.1/32",
-    "2.2.2.2/32",
-    "3.3.3.3/32"
-  ]
+  #   firewall_ip_rules = [
+  #     "1.1.1.1/32",
+  #     "2.2.2.2/32",
+  #     "3.3.3.3/32"
+  #   ]
 
   tags = local.tags
 }
 
 resource "azurerm_key_vault_key" "example" {
-  name         = "tfex-key-${random_id.this.hex}"
+  name         = "example-key-${random_id.this.hex}"
   key_vault_id = module.key_vault.vault_id
   key_type     = "RSA"
   key_size     = 2048
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
 
   depends_on = [
-    module.key_vault.access_policies
+    module.key_vault.primary_access_key
   ]
 }
 
