@@ -46,6 +46,7 @@ module "key_vault" {
     {
       object_id          = data.azurerm_client_config.current.object_id
       secret_permissions = ["Get", "List", "Set", "Delete", "Backup", "Restore", "Recover"]
+      key_permissions    = ["get", "create", "delete", "list", "restore", "recover", "unwrapkey", "wrapkey", "purge", "encrypt", "decrypt", "sign", "verify"]
     }
   ]
 
