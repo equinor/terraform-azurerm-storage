@@ -35,8 +35,7 @@ module "log_analytics" {
 }
 
 module "key_vault" {
-  # source = "github.com/equinor/terraform-azurerm-key-vault"
-  source = "../.."
+  source = "github.com/equinor/terraform-azurerm-key-vault?ref=v6.1.0"
 
   vault_name                 = "kv-${random_id.this.hex}"
   resource_group_name        = azurerm_resource_group.this.name
@@ -60,8 +59,8 @@ module "key_vault" {
 }
 
 resource "azurerm_key_vault_key" "example" {
-  name         = "tfex-key"
-  key_vault_id = module.key_vault.id
+  name         = "tfex-key-${random_id.this.hex}"
+  key_vault_id = module.key_vault.key_vault_id
   key_type     = "RSA"
   key_size     = 2048
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
