@@ -11,7 +11,7 @@ locals {
   }
 }
 
-data "azurerm_client_config" "current" {}
+data "azuread_client_config" "current" {}
 
 resource "random_id" "this" {
   byte_length = 8
@@ -44,21 +44,30 @@ module "key_vault" {
 
   purge_protection_enabled = true
 
-  access_policies = [
-    {
-      object_id          = data.azurerm_client_config.current.object_id
-      secret_permissions = ["Get", "List", "Set", "Delete", "Backup", "Restore", "Recover"]
-      key_permissions    = ["Get", "Create", "Delete", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"]
-    }
+  # access_policies = [
+  #   {
+  #     object_id          = data.azurerm_client_config.current.object_id
+  #     secret_permissions = ["Get", "List", "Set", "Delete", "Backup", "Restore", "Recover"]
+  #     key_permissions    = ["Get", "Create", "Delete", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"]
+  #   }
+  # ]
+
+  firewall_ip_rules = [
+    "1.1.1.1/32",
+    "2.2.2.2/32",
+    "3.3.3.3/32"
   ]
 
-  #   firewall_ip_rules = [
-  #     "1.1.1.1/32",
-  #     "2.2.2.2/32",
-  #     "3.3.3.3/32"
-  #   ]
-
   tags = local.tags
+}
+
+resource "azurerm_key_vault_access_policy" "client" {
+  key_vault_id = module.key_vault.vault_id
+  tenant_id    = data.azuread_client_config.current.tenant_id
+  object_id    = data.azuread_client_config.current.object_id
+
+  key_permissions    = ["Get", "Create", "Delete", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"]
+  secret_permissions = ["Get", "List", "Set", "Delete", "Backup", "Restore", "Recover"]
 }
 
 resource "azurerm_key_vault_key" "example" {
@@ -69,7 +78,7 @@ resource "azurerm_key_vault_key" "example" {
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
 
   depends_on = [
-    module.key_vault.primary_access_key
+    azurerm_key_vault_access_policy.client
   ]
 }
 
