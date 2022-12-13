@@ -1,3 +1,7 @@
+locals {
+  share_properties = contains(["StorageV2", "FileStorage"], var.account_kind) ? { retention_policy_days = var.file_retention_policy } : {}
+}
+
 resource "azurerm_storage_account" "this" {
   name                = var.account_name
   resource_group_name = var.resource_group_name
@@ -28,9 +32,13 @@ resource "azurerm_storage_account" "this" {
     }
   }
 
-  share_properties {
-    retention_policy {
-      days = var.file_retention_policy
+  dynamic "share_properties" {
+    for_each = var.share_properties
+
+    content {
+      retention_policy {
+        days = share_properties.value.retention_policy_days
+      }
     }
   }
 
