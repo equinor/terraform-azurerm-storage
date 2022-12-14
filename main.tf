@@ -1,4 +1,5 @@
 locals {
+  # Only set blob properties if blob storage is enabled.
   blob_properties = contains(["StorageV2", "BlobStorage", "BlockBlobStorage"], var.account_kind) ? {
     versioning_enabled                     = var.blob_versioning_enabled
     change_feed_enabled                    = var.blob_change_feed_enabled
@@ -6,6 +7,7 @@ locals {
     container_delete_retention_policy_days = var.blob_delete_retention_days
   } : {}
 
+  # Only set share properties if file storage is enabled.
   share_properties = contains(["StorageV2", "FileStorage"], var.account_kind) ? {
     retention_policy_days = var.file_retention_policy
   } : {}
