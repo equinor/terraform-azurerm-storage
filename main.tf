@@ -41,7 +41,7 @@ resource "azurerm_storage_account" "this" {
       versioning_enabled  = blob_properties.value["versioning_enabled"]
       change_feed_enabled = blob_properties.value["change_feed_enabled"]
 
-      retention_policy {
+      delete_retention_policy {
         days = blob_properties.value["delete_retention_policy_days"]
       }
 
