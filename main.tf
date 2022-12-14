@@ -6,7 +6,9 @@ locals {
     container_delete_retention_policy_days = var.blob_delete_retention_days
   } : {}
 
-  share_properties = contains(["StorageV2", "FileStorage"], var.account_kind) ? { retention_policy_days = var.file_retention_policy } : {}
+  share_properties = contains(["StorageV2", "FileStorage"], var.account_kind) ? {
+    retention_policy_days = var.file_retention_policy
+  } : {}
 }
 
 resource "azurerm_storage_account" "this" {
