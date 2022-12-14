@@ -31,7 +31,7 @@ resource "azurerm_storage_account" "this" {
   tags = var.tags
 
   dynamic "blob_properties" {
-    for_each = var.blob_properties
+    for_each = local.blob_properties
 
     content {
       versioning_enabled  = blob_properties.value.versioning_enabled
@@ -48,7 +48,7 @@ resource "azurerm_storage_account" "this" {
   }
 
   dynamic "share_properties" {
-    for_each = var.share_properties
+    for_each = local.share_properties
 
     content {
       retention_policy {
