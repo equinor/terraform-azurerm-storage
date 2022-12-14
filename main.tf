@@ -1,4 +1,11 @@
 locals {
+  blob_properties = contains(["StorageV2", "BlobStorage", "BlockBlobStorage"], var.account_kind) ? {
+    versioning_enabled                     = var.blob_versioning_enabled
+    change_feed_enabled                    = var.blob_change_feed_enabled
+    delete_retention_policy_days           = var.blob_delete_retention_days
+    container_delete_retention_policy_days = var.blob_delete_retention_days
+  } : {}
+
   share_properties = contains(["StorageV2", "FileStorage"], var.account_kind) ? { retention_policy_days = var.file_retention_policy } : {}
 }
 
@@ -19,16 +26,20 @@ resource "azurerm_storage_account" "this" {
 
   tags = var.tags
 
-  blob_properties {
-    versioning_enabled  = var.blob_versioning_enabled
-    change_feed_enabled = var.blob_change_feed_enabled
+  dynamic "blob_properties" {
+    for_each = var.blob_properties
 
-    delete_retention_policy {
-      days = var.blob_delete_retention_days
-    }
+    content {
+      versioning_enabled  = blob_properties.value.versioning_enabled
+      change_feed_enabled = blob_properties.value.change_feed_enabled
 
-    container_delete_retention_policy {
-      days = var.blob_delete_retention_days
+      retention_policy {
+        days = blob_properties.value.delete_retention_policy_days
+      }
+
+      container_delete_retention_policy {
+        days = blob_properties.value.container_delete_retention_policy_days
+      }
     }
   }
 
