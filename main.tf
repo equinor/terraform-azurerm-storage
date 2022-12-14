@@ -13,6 +13,10 @@ resource "azurerm_storage_account" "this" {
   shared_access_key_enabled       = var.shared_access_key_enabled
   allow_nested_items_to_be_public = var.allow_blob_public_access
 
+  identity {
+    type = "SystemAssigned"
+  }
+
   tags = var.tags
 
   blob_properties {
