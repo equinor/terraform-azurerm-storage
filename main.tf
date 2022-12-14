@@ -1,15 +1,19 @@
 locals {
   # Only set blob properties if blob storage is enabled.
   blob_properties = contains(["StorageV2", "BlobStorage", "BlockBlobStorage"], var.account_kind) ? {
-    versioning_enabled                     = var.blob_versioning_enabled
-    change_feed_enabled                    = var.blob_change_feed_enabled
-    delete_retention_policy_days           = var.blob_delete_retention_days
-    container_delete_retention_policy_days = var.blob_delete_retention_days
+    this = {
+      versioning_enabled                     = var.blob_versioning_enabled
+      change_feed_enabled                    = var.blob_change_feed_enabled
+      delete_retention_policy_days           = var.blob_delete_retention_days
+      container_delete_retention_policy_days = var.blob_delete_retention_days
+    }
   } : {}
 
   # Only set share properties if file storage is enabled.
   share_properties = contains(["StorageV2", "FileStorage"], var.account_kind) ? {
-    retention_policy_days = var.file_retention_policy
+    this = {
+      retention_policy_days = var.file_retention_policy
+    }
   } : {}
 }
 
@@ -34,15 +38,15 @@ resource "azurerm_storage_account" "this" {
     for_each = local.blob_properties
 
     content {
-      versioning_enabled  = blob_properties.value.versioning_enabled
-      change_feed_enabled = blob_properties.value.change_feed_enabled
+      versioning_enabled  = blob_properties.value["versioning_enabled"]
+      change_feed_enabled = blob_properties.value["change_feed_enabled"]
 
       retention_policy {
-        days = blob_properties.value.delete_retention_policy_days
+        days = blob_properties.value["delete_retention_policy_days"]
       }
 
       container_delete_retention_policy {
-        days = blob_properties.value.container_delete_retention_policy_days
+        days = blob_properties.value["container_delete_retention_policy_days"]
       }
     }
   }
@@ -52,7 +56,7 @@ resource "azurerm_storage_account" "this" {
 
     content {
       retention_policy {
-        days = share_properties.value.retention_policy_days
+        days = share_properties.value["retention_policy_days"]
       }
     }
   }
