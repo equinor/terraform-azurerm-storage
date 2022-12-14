@@ -68,6 +68,16 @@ resource "azurerm_storage_account" "this" {
   }
 }
 
+moved {
+  from = azurerm_storage_account.this.blob_properties[0]
+  to   = azurerm_storage_account.this.blob_properties["this"]
+}
+
+moved {
+  from = azurerm_storage_account.this.share_properties[0]
+  to   = azurerm_storage_account.this.share_properties["this"]
+}
+
 # AzAPI provider currently does not support OIDC authentication. (Azure/terraform-provider-azapi#101)
 # Comment out until this is supported. 
 
