@@ -1,23 +1,7 @@
-terraform {
-  required_providers {
-    # ! Download the AzAPI provider by Azure
-    azapi = {
-      source = "azure/azapi"
-    }
-  }
-}
-
 provider "azurerm" {
-  # ! Use Azure AD to connect to Storage
   storage_use_azuread = true
 
   features {}
-}
-
-locals {
-  tags = {
-    environment = "test"
-  }
 }
 
 resource "random_id" "this" {
@@ -27,8 +11,6 @@ resource "random_id" "this" {
 resource "azurerm_resource_group" "this" {
   name     = "rg-${random_id.this.hex}"
   location = var.location
-
-  tags = local.tags
 }
 
 module "log_analytics" {
@@ -37,8 +19,6 @@ module "log_analytics" {
   workspace_name      = "log-${random_id.this.hex}"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
-
-  tags = local.tags
 }
 
 module "storage" {
@@ -50,11 +30,8 @@ module "storage" {
   location                   = azurerm_resource_group.this.location
   log_analytics_workspace_id = module.log_analytics.workspace_id
 
-  firewall_ip_rules = [
-    "1.1.1.1",
-    "2.2.2.2",
-    "3.3.3.3"
-  ]
-
-  tags = local.tags
+  account_tier             = "Premium"
+  account_kind             = "FileStorage"
+  account_replication_type = "LRS"
+  blob_properties          = null
 }
