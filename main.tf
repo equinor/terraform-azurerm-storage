@@ -1,22 +1,3 @@
-locals {
-  # Only set blob properties if blob storage is enabled.
-  blob_properties = contains(["StorageV2", "BlobStorage", "BlockBlobStorage"], var.account_kind) ? {
-    this = {
-      versioning_enabled                     = var.blob_versioning_enabled
-      change_feed_enabled                    = var.blob_change_feed_enabled
-      delete_retention_policy_days           = var.blob_delete_retention_days
-      container_delete_retention_policy_days = var.blob_delete_retention_days
-    }
-  } : {}
-
-  # Only set share properties if file storage is enabled.
-  share_properties = contains(["StorageV2", "FileStorage"], var.account_kind) ? {
-    this = {
-      retention_policy_days = var.file_retention_policy
-    }
-  } : {}
-}
-
 resource "azurerm_storage_account" "this" {
   name                = var.account_name
   resource_group_name = var.resource_group_name
@@ -35,7 +16,7 @@ resource "azurerm_storage_account" "this" {
   tags = var.tags
 
   dynamic "blob_properties" {
-    for_each = local.blob_properties
+    for_each = var.blob_properties == null ? [] : [var.blob_properties]
 
     content {
       versioning_enabled  = blob_properties.value["versioning_enabled"]
@@ -52,7 +33,7 @@ resource "azurerm_storage_account" "this" {
   }
 
   dynamic "share_properties" {
-    for_each = local.share_properties
+    for_each = var.share_properties == null ? [] : [var.share_properties]
 
     content {
       retention_policy {
