@@ -49,22 +49,15 @@ variable "allow_blob_public_access" {
   default     = false
 }
 
-variable "blob_versioning_enabled" {
-  description = "Is versioning enabled for this Blob Storage?"
-  type        = bool
-  default     = true
-}
-
-variable "blob_change_feed_enabled" {
-  description = "Is change feed enabled for this Blob Storage?"
-  type        = bool
-  default     = true
-}
-
-variable "blob_delete_retention_days" {
-  description = "The number of days that deleted blobs and containers should be retained."
-  type        = number
-  default     = 35
+variable "blob_properties" {
+  description = "The properties of this Blob Storage."
+  type = object({
+    versioning_enabled                     = optional(bool, true) # Is versioning enabled for this Blob Storage?
+    change_feed_enabled                    = optional(bool, true) # Is change feed enabled for this Blob Storage?
+    delete_retention_policy_days           = optional(number, 35) # The number of days that deleted blobs should be retained.
+    container_delete_retention_policy_days = optional(number, 35) # The number of days that deleted blob containers should be retained.
+  })
+  default = {}
 }
 
 variable "blob_pitr_enabled" {
@@ -79,10 +72,11 @@ variable "blob_pitr_days" {
   default     = 30
 }
 
-variable "file_retention_policy" {
-  description = "The number of days that files should be retained."
-  type        = number
-  default     = 30
+variable "share_properties" {
+  type = object({
+    retention_policy_days = optional(number, 30) # The number of days that files should be retained.
+  })
+  default = {}
 }
 
 variable "firewall_ip_rules" {
