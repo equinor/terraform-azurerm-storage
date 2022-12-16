@@ -53,26 +53,6 @@ resource "azurerm_storage_account" "this" {
   }
 }
 
-# AzAPI provider currently does not support OIDC authentication. (Azure/terraform-provider-azapi#101)
-# Comment out until this is supported. 
-
-# # Enable point-in-time restore (PITR) for this Blob Storage.
-# # This feature is not yet supported by the AzureRM provider.
-# resource "azapi_update_resource" "this" {
-#   type      = "Microsoft.Storage/storageAccounts/blobServices@2021-09-01"
-#   parent_id = azurerm_storage_account.this.id
-#   name      = "default"
-
-#   body = jsonencode({
-#     properties = {
-#       restorePolicy = {
-#         enabled = var.blob_pitr_enabled
-#         days    = var.blob_pitr_days
-#       }
-#     }
-#   })
-# }
-
 resource "azurerm_advanced_threat_protection" "this" {
   target_resource_id = azurerm_storage_account.this.id
   enabled            = var.threat_protection_enabled
