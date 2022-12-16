@@ -50,7 +50,7 @@ variable "allow_blob_public_access" {
 }
 
 variable "blob_properties" {
-  description = "The properties of this Blob Storage."
+  description = "The properties of this Blob Storage. Set value to `null` to disable."
   type = object({
     versioning_enabled                     = optional(bool, true) # Is versioning enabled for this Blob Storage?
     change_feed_enabled                    = optional(bool, true) # Is change feed enabled for this Blob Storage?
@@ -73,6 +73,7 @@ variable "blob_pitr_days" {
 }
 
 variable "share_properties" {
+  description = "The properties of this File Storage. Set value to `null` to disable."
   type = object({
     retention_policy_days = optional(number, 30) # The number of days that files should be retained.
   })
