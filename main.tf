@@ -29,6 +29,10 @@ resource "azurerm_storage_account" "this" {
       container_delete_retention_policy {
         days = blob_properties.value["container_delete_retention_policy_days"]
       }
+
+      restore_policy {
+        days = blob_properties.value["restore_policy_days"]
+      }
     }
   }
 
