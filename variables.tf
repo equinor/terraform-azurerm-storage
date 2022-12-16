@@ -56,20 +56,9 @@ variable "blob_properties" {
     change_feed_enabled                    = optional(bool, true) # Is change feed enabled for this Blob Storage?
     delete_retention_policy_days           = optional(number, 35) # The number of days that deleted blobs should be retained.
     container_delete_retention_policy_days = optional(number, 35) # The number of days that deleted blob containers should be retained.
+    restore_policy_days                    = optional(number, 30) # The number of days in the past to set the maximum point-in-time restore point for containers. Set value to `0` to disable.
   })
   default = {}
-}
-
-variable "blob_pitr_enabled" {
-  description = "Is point-in-time restore enabled for this Blob Storage?"
-  type        = bool
-  default     = true
-}
-
-variable "blob_pitr_days" {
-  description = "The number of days in the past to set the maximum point-in-time restore point for containers. Must be less than 'blob_delete_retention_days'."
-  type        = number
-  default     = 30
 }
 
 variable "share_properties" {
