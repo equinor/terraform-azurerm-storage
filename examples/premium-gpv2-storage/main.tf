@@ -36,6 +36,7 @@ module "storage" {
   blob_properties = {
     versioning_enabled  = false
     change_feed_enabled = false
+    restore_policy_days = 0
   }
 
   share_properties = null

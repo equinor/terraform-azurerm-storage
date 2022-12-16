@@ -33,5 +33,10 @@ module "storage" {
   account_tier             = "Premium"
   account_kind             = "BlockBlobStorage"
   account_replication_type = "LRS"
-  share_properties         = null
+
+  blob_properties = {
+    restore_policy_days = 0
+  }
+
+  share_properties = null
 }

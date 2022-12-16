@@ -30,8 +30,12 @@ resource "azurerm_storage_account" "this" {
         days = blob_properties.value["container_delete_retention_policy_days"]
       }
 
-      restore_policy {
-        days = blob_properties.value["restore_policy_days"]
+      dynamic "restore_policy" {
+        for_each = blob_properties.value["restore_policy_days"] > 0 ? [blob_properties.value["restore_policy_days"]] : []
+
+        content {
+          days = restore_policy.value
+        }
       }
     }
   }
