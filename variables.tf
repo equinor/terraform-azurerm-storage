@@ -86,6 +86,12 @@ variable "firewall_ip_rules" {
   default     = []
 }
 
+variable "firewall_default_action" {
+  description = "Specifies the default action of allow or deny when no other rules match."
+  type        = string
+  default     = "Deny"
+}
+
 variable "threat_protection_enabled" {
   description = "Is threat protection (Microsoft Defender for Storage) enabled for this Storage account?"
   type        = bool
