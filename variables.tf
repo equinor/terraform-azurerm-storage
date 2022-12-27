@@ -57,6 +57,7 @@ variable "blob_properties" {
     delete_retention_policy_days           = optional(number, 35) # The number of days that deleted blobs should be retained.
     container_delete_retention_policy_days = optional(number, 35) # The number of days that deleted blob containers should be retained.
     restore_policy_days                    = optional(number, 30) # The number of days in the past to set the maximum point-in-time restore point for containers. Set value to `0` to disable.
+    cors_rule                              = optional(object, {}) # The Cross-Origin Resource Sharing rule for this Blob Storage.
   })
   default = {}
 }
