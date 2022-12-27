@@ -68,6 +68,18 @@ variable "share_properties" {
   default = {}
 }
 
+variable "firewall_virtual_network_subnet_ids" {
+  description = "Allowed subnet resources ids using service endpoints"
+  type        = list(string)
+  default     = []
+}
+
+variable "firewall_bypass" {
+  description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of Logging, Metrics, AzureServices, or None"
+  type        = list(string)
+  default     = ["AzureServices"]
+}
+
 variable "firewall_ip_rules" {
   description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage account. Only IPv4 addresses are allowed."
   type        = list(string)
@@ -90,3 +102,4 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
