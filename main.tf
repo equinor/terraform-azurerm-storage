@@ -21,7 +21,6 @@ resource "azurerm_storage_account" "this" {
     content {
       versioning_enabled  = blob_properties.value["versioning_enabled"]
       change_feed_enabled = blob_properties.value["change_feed_enabled"]
-      cors_rule           = blob_properties.value["cors_rule"]
 
       delete_retention_policy {
         days = blob_properties.value["delete_retention_policy_days"]
@@ -36,6 +35,18 @@ resource "azurerm_storage_account" "this" {
 
         content {
           days = restore_policy.value
+        }
+      }
+
+      dynamic "cors_rule" {
+        for_each = blob_properties.value["cors_rules"]
+
+        content {
+          allowed_headers    = cors_rule.value["allowed_headers"]
+          allowed_methods    = cors_rule.value["allowed_methods"]
+          allowed_origins    = cors_rule.value["allowed_origins"]
+          exposed_headers    = cors_rule.value["exposed_headers"]
+          max_age_in_seconds = cors_rule.value["max_age_in_seconds"]
         }
       }
     }
