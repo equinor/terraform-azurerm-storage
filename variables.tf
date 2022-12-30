@@ -43,6 +43,24 @@ variable "shared_access_key_enabled" {
   default     = false
 }
 
+variable "is_hns_enabled" {
+  description = "Is Hierarchical Namespace enabled. This can be used with Azure Data Lake Storage Gen 2"
+  type        = bool
+  default     = false
+}
+
+variable "queue_encryption_key_type" {
+  description = "The encryption type of the queue service. Possible values are Service and Account"
+  type        = string
+  default     = "Service"
+}
+
+variable "table_encryption_key_type" {
+  description = "The encryption type of the table service. Possible values are Service and Account"
+  type        = string
+  default     = "Service"
+}
+
 variable "allow_blob_public_access" {
   description = "Allow public access to this Blob Storage?"
   type        = bool
