@@ -44,7 +44,7 @@ variable "shared_access_key_enabled" {
 }
 
 variable "is_hns_enabled" {
-  description = "Is hierarchical namespace enabled for this Storage account?"
+  description = "Is Data Lake Storage Gen2 hierarchical namespace enabled for this Storage account?"
   type        = bool
   default     = false
 }
