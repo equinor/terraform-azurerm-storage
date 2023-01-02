@@ -43,6 +43,24 @@ variable "shared_access_key_enabled" {
   default     = false
 }
 
+variable "is_hns_enabled" {
+  description = "Is Data Lake Storage Gen2 hierarchical namespace enabled for this Storage account?"
+  type        = bool
+  default     = false
+}
+
+variable "queue_encryption_key_type" {
+  description = "The type of encryption to use for this Queue Storage."
+  type        = string
+  default     = "Service"
+}
+
+variable "table_encryption_key_type" {
+  description = "The type of encryption to use for this Table Storage."
+  type        = string
+  default     = "Service"
+}
+
 variable "allow_blob_public_access" {
   description = "Allow public access to this Blob Storage?"
   type        = bool
