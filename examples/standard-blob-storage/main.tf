@@ -30,9 +30,7 @@ module "storage" {
   location                   = azurerm_resource_group.this.location
   log_analytics_workspace_id = module.log_analytics.workspace_id
 
-  account_tier             = "Standard"
-  account_kind             = "BlobStorage"
-  account_replication_type = "LRS"
+  account_kind = "BlobStorage"
 
   blob_properties = {
     restore_policy_days = 0
