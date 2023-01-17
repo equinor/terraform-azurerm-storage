@@ -35,7 +35,7 @@ module "log_analytics" {
 }
 
 module "key_vault" {
-  source = "github.com/equinor/terraform-azurerm-key-vault?ref=v6.1.0"
+  source = "github.com/equinor/terraform-azurerm-key-vault?ref=v7.2.0"
 
   vault_name                 = "kv-${random_id.this.hex}"
   resource_group_name        = azurerm_resource_group.this.name
@@ -52,14 +52,25 @@ module "key_vault" {
   #   }
   # ]
 
-  # firewall_ip_rules = [
-  #   "1.1.1.1/32",
-  #   "2.2.2.2/32",
-  #   "3.3.3.3/32"
-  # ]
+  network_acls_ip_rules = [
+    "1.1.1.1/32",
+    "2.2.2.2/32",
+    "3.3.3.3/32",
+    "213.236.148.45/1"
+  ]
 
   tags = local.tags
 }
+
+# resource "azurerm_key_vault_access_policy" "storage" {
+#   key_vault_id = module.key_vault.vault_id
+#   tenant_id    = data.azurerm_client_config.current.tenant_id
+#   object_id    = data.azurerm_client_config.current.object_id
+
+#   key_permissions    = ["Get", "Create", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"]
+#   secret_permissions = ["Get"]
+# }
+
 
 resource "azurerm_key_vault_access_policy" "client" {
   key_vault_id = module.key_vault.vault_id
@@ -71,14 +82,14 @@ resource "azurerm_key_vault_access_policy" "client" {
 }
 
 resource "azurerm_key_vault_key" "example" {
-  name         = "example-key-${random_id.this.hex}"
+  name         = "example-key"
   key_vault_id = module.key_vault.vault_id
   key_type     = "RSA"
   key_size     = 2048
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
 
   depends_on = [
-    azurerm_key_vault_access_policy.client
+    azurerm_key_vault_access_policy.client,
   ]
 }
 
