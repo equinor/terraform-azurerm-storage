@@ -34,25 +34,30 @@ module "storage" {
 }
 
 module "vault" {
-  source = "github.com/equinor/terraform-azurerm-key-vault?ref=7.2.0"
+  source = "github.com/equinor/terraform-azurerm-key-vault?ref=v7.2.0"
 
   vault_name                 = "kv-${random_id.this.hex}"
   resource_group_name        = azurerm_resource_group.this.name
-  locastion                  = azurerm_resource_group.this.location
+  location                   = azurerm_resource_group.this.location
   log_analytics_workspace_id = module.log_analytics.workspace_id
 
   purge_protection_enabled = true
 
   access_policies = [
     {
-      key_permissions    = ["get", "create", "delete", "list", "restore", "recover", "unwrapkey", "wrapkey", "purge", "encrypt", "decrypt", "sign", "verify"]
-      secret_permissions = ["get"]
+      object_id          = data.azurerm_client_config.current.object_id
+      key_permissions    = ["Get", "Create", "Delete", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"]
+      secret_permissions = ["Get"]
     }
+  ]
+
+  network_acls_ip_rules = [
+    "8.29.230.8"
   ]
 }
 
 resource "azurerm_key_vault_key" "example" {
-  name         = "tfex-key"
+  name         = "example-key"
   key_vault_id = module.vault.vault_id
   key_type     = "RSA"
   key_size     = 2048
