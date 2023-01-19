@@ -1,10 +1,22 @@
-variable "application" {
-  description = "The application to create the resources for."
+variable "account_name" {
+  description = "The name of this Storage account."
   type        = string
 }
 
-variable "environment" {
-  description = "The environment to create the resources for."
+variable "account_kind" {
+  description = "The Kind of this Storage account."
+  type        = string
+  default     = "StorageV2"
+}
+
+variable "account_tier" {
+  description = "The Tier of this Storage account."
+  type        = string
+  default     = "Standard"
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group to create the resources in."
   type        = string
 }
 
@@ -13,33 +25,40 @@ variable "location" {
   type        = string
 }
 
-variable "account_name" {
-  description = "A custom name for this Storage Account."
-  type        = string
-  default     = null
-}
-
-variable "resource_group_name" {
-  description = "The name of the resource group in which to create the resources."
-  type        = string
-}
-
 variable "account_replication_type" {
-  description = "The type of replication to use for this Storage Account."
+  description = "The type of replication to use for this Storage account."
   type        = string
   default     = "RAGRS"
 }
 
 variable "access_tier" {
-  description = "The access tier to use for this Storage Account."
+  description = "The access tier to use for this Storage account."
   type        = string
   default     = "Hot"
 }
 
 variable "shared_access_key_enabled" {
-  description = "Is authorization with access key enabled for this Storage Account?"
+  description = "Is authorization with access key enabled for this Storage account?"
   type        = bool
   default     = false
+}
+
+variable "is_hns_enabled" {
+  description = "Is Data Lake Storage Gen2 hierarchical namespace enabled for this Storage account?"
+  type        = bool
+  default     = false
+}
+
+variable "queue_encryption_key_type" {
+  description = "The type of encryption to use for this Queue Storage."
+  type        = string
+  default     = "Service"
+}
+
+variable "table_encryption_key_type" {
+  description = "The type of encryption to use for this Table Storage."
+  type        = string
+  default     = "Service"
 }
 
 variable "allow_blob_public_access" {
@@ -48,61 +67,92 @@ variable "allow_blob_public_access" {
   default     = false
 }
 
-variable "blob_versioning_enabled" {
-  description = "Is versioning enabled for this Blob Storage?"
-  type        = bool
-  default     = true
+variable "blob_properties" {
+  description = "The properties of this Blob Storage."
+  type = object({
+    versioning_enabled                     = optional(bool, true) # Is versioning enabled for this Blob Storage?
+    change_feed_enabled                    = optional(bool, true) # Is change feed enabled for this Blob Storage?
+    delete_retention_policy_days           = optional(number, 35) # The number of days that deleted blobs should be retained.
+    container_delete_retention_policy_days = optional(number, 35) # The number of days that deleted blob containers should be retained.
+    restore_policy_days                    = optional(number, 30) # The number of days in the past to set the maximum point-in-time restore point for containers. Set value to `0` to disable.
+
+    cors_rules = optional(list(object({
+      allowed_headers    = list(string)
+      allowed_methods    = list(string)
+      allowed_origins    = list(string)
+      exposed_headers    = list(string)
+      max_age_in_seconds = number
+    })), [])
+  })
+  default = {}
 }
 
-variable "blob_change_feed_enabled" {
-  description = "Is change feed enabled for this Blob Storage?"
-  type        = bool
-  default     = true
+variable "share_properties" {
+  type = object({
+    retention_policy_days = optional(number, 30) # The number of days that files should be retained.
+  })
+  default = {}
 }
 
-variable "blob_delete_retention_days" {
-  description = "The number of days that deleted blobs and containers should be retained."
-  type        = number
-  default     = 35
+variable "queue_properties" {
+  description = "The properties of this Queue Storage."
+
+  type = object({
+    logging_delete                       = optional(bool, true)
+    logging_read                         = optional(bool, true)
+    logging_write                        = optional(bool, true)
+    logging_version                      = optional(string, "1.0")
+    logging_retention_policy_days        = optional(number, 10)
+    hour_metrics_enabled                 = optional(bool, true)
+    hour_metrics_include_apis            = optional(bool, true)
+    hour_metrics_version                 = optional(string, "1.0")
+    hour_metrics_retention_policy_days   = optional(number, 10)
+    minute_metrics_enabled               = optional(bool, true)
+    minute_metrics_include_apis          = optional(bool, true)
+    minute_metrics_version               = optional(string, "1.0")
+    minute_metrics_retention_policy_days = optional(number, 10)
+  })
+
+  default = {}
 }
 
-variable "blob_pitr_enabled" {
-  description = "Is point-in-time restore enabled for this Blob Storage?"
-  type        = bool
-  default     = true
-}
-
-variable "blob_pitr_days" {
-  description = "The number of days in the past to set the maximum point-in-time restore point for containers. Must be less than 'blob_delete_retention_days'."
-  type        = number
-  default     = 30
-}
-
-variable "file_retention_policy" {
-  description = "The number of days that files should be retained."
-  type        = number
-  default     = 30
-}
-
-variable "firewall_ip_rules" {
-  description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage Account. Only IPv4 addresses are allowed."
+variable "firewall_virtual_network_subnet_ids" {
+  description = "Allowed subnet resources ids using service endpoints"
   type        = list(string)
   default     = []
 }
 
+variable "firewall_bypass" {
+  description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of Logging, Metrics, AzureServices, or None"
+  type        = list(string)
+  default     = ["AzureServices"]
+}
+
+variable "firewall_ip_rules" {
+  description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage account. Only IPv4 addresses are allowed."
+  type        = list(string)
+  default     = []
+}
+
+variable "firewall_default_action" {
+  description = "Specifies the default action of allow or deny when no other rules match."
+  type        = string
+  default     = "Deny"
+}
+
 variable "threat_protection_enabled" {
-  description = "Is threat protection (Microsoft Defender for Storage) enabled for this Storage Account?"
+  description = "Is threat protection (Microsoft Defender for Storage) enabled for this Storage account?"
   type        = bool
   default     = true
 }
 
-variable "tags" {
-  description = "A mapping of tags to assign to the resources."
-  type        = map(string)
-  default     = {}
+variable "log_analytics_workspace_id" {
+  description = "The ID of the Log Analytics workspace to send diagnostics to."
+  type        = string
 }
 
-variable "log_analytics_workspace_id" {
-  description = "The ID of the Log Analytics Workspace to send diagnostics to."
-  type        = string
+variable "tags" {
+  description = "A map of tags to assign to the resources."
+  type        = map(string)
+  default     = {}
 }
