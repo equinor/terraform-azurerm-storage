@@ -8,6 +8,21 @@ output "account_name" {
   value       = azurerm_storage_account.this.name
 }
 
+output "account_tier" {
+  description = "The Tier of this Storage Account."
+  value       = azurerm_storage_account.this.account_tier
+}
+
+output "account_kind" {
+  description = "The Kind of this Storage Account."
+  value       = azurerm_storage_account.this.account_kind
+}
+
+output "account_replication_type" {
+  description = "The type of replication to use for this Storage Account."
+  value       = azurerm_storage_account.this.account_replication_type
+}
+
 output "blob_endpoint" {
   description = "The endpoint URL for this Blob Storage."
   value       = azurerm_storage_account.this.primary_blob_endpoint
