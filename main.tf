@@ -11,26 +11,57 @@ resource "azurerm_storage_account" "this" {
   enable_https_traffic_only       = true
   min_tls_version                 = "TLS1_2"
   shared_access_key_enabled       = var.shared_access_key_enabled
+  is_hns_enabled                  = var.is_hns_enabled
+  queue_encryption_key_type       = var.queue_encryption_key_type
+  table_encryption_key_type       = var.table_encryption_key_type
   allow_nested_items_to_be_public = var.allow_blob_public_access
 
   tags = var.tags
 
-  blob_properties {
-    versioning_enabled  = var.blob_versioning_enabled
-    change_feed_enabled = var.blob_change_feed_enabled
+  dynamic "blob_properties" {
+    for_each = var.blob_properties != null ? [var.blob_properties] : []
 
-    delete_retention_policy {
-      days = var.blob_delete_retention_days
-    }
+    content {
+      versioning_enabled  = blob_properties.value["versioning_enabled"]
+      change_feed_enabled = blob_properties.value["change_feed_enabled"]
 
-    container_delete_retention_policy {
-      days = var.blob_delete_retention_days
+      delete_retention_policy {
+        days = blob_properties.value["delete_retention_policy_days"]
+      }
+
+      container_delete_retention_policy {
+        days = blob_properties.value["container_delete_retention_policy_days"]
+      }
+
+      dynamic "restore_policy" {
+        for_each = blob_properties.value["restore_policy_days"] > 0 ? [blob_properties.value["restore_policy_days"]] : []
+
+        content {
+          days = restore_policy.value
+        }
+      }
+
+      dynamic "cors_rule" {
+        for_each = blob_properties.value["cors_rules"]
+
+        content {
+          allowed_headers    = cors_rule.value["allowed_headers"]
+          allowed_methods    = cors_rule.value["allowed_methods"]
+          allowed_origins    = cors_rule.value["allowed_origins"]
+          exposed_headers    = cors_rule.value["exposed_headers"]
+          max_age_in_seconds = cors_rule.value["max_age_in_seconds"]
+        }
+      }
     }
   }
 
-  share_properties {
-    retention_policy {
-      days = var.file_retention_policy
+  dynamic "share_properties" {
+    for_each = var.share_properties != null ? [var.share_properties] : []
+
+    content {
+      retention_policy {
+        days = share_properties.value["retention_policy_days"]
+      }
     }
   }
 
@@ -57,31 +88,12 @@ resource "azurerm_storage_account" "this" {
   }
 
   network_rules {
-    default_action = length(var.firewall_ip_rules) == 0 ? "Allow" : "Deny"
-    bypass         = ["AzureServices"]
-    ip_rules       = var.firewall_ip_rules
+    default_action             = var.firewall_default_action
+    bypass                     = var.firewall_bypass
+    ip_rules                   = var.firewall_ip_rules
+    virtual_network_subnet_ids = var.firewall_virtual_network_subnet_ids
   }
 }
-
-# AzAPI provider currently does not support OIDC authentication. (Azure/terraform-provider-azapi#101)
-# Comment out until this is supported. 
-
-# # Enable point-in-time restore (PITR) for this Blob Storage.
-# # This feature is not yet supported by the AzureRM provider.
-# resource "azapi_update_resource" "this" {
-#   type      = "Microsoft.Storage/storageAccounts/blobServices@2021-09-01"
-#   parent_id = azurerm_storage_account.this.id
-#   name      = "default"
-
-#   body = jsonencode({
-#     properties = {
-#       restorePolicy = {
-#         enabled = var.blob_pitr_enabled
-#         days    = var.blob_pitr_days
-#       }
-#     }
-#   })
-# }
 
 resource "azurerm_advanced_threat_protection" "this" {
   target_resource_id = azurerm_storage_account.this.id
