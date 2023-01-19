@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestPremiumFileStorageExample(t *testing.T) {
@@ -14,4 +15,13 @@ func TestPremiumFileStorageExample(t *testing.T) {
 	defer terraform.Destroy(t, terraformOptions)
 
 	terraform.InitAndApply(t, terraformOptions)
+
+	storage_account_tier := terraform.Output(t, terraformOptions, "storage_account_tier")
+	assert.Equal(t, "Premium", storage_account_tier)
+
+	storage_account_kind := terraform.Output(t, terraformOptions, "storage_account_kind")
+	assert.Equal(t, "FileStorage", storage_account_kind)
+
+	storage_account_replication_type := terraform.Output(t, terraformOptions, "storage_account_replication_type")
+	assert.Equal(t, "LRS", storage_account_replication_type)
 }
