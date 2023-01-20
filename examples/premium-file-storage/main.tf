@@ -34,4 +34,5 @@ module "storage" {
   account_kind             = "FileStorage"
   account_replication_type = "LRS"
   blob_properties          = null
+  queue_properties         = null
 }

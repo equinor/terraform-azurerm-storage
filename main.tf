@@ -65,6 +65,34 @@ resource "azurerm_storage_account" "this" {
     }
   }
 
+  dynamic "queue_properties" {
+    for_each = var.queue_properties != null ? [var.queue_properties] : []
+
+    content {
+      logging {
+        delete                = queue_properties.value["logging_delete"]
+        read                  = queue_properties.value["logging_read"]
+        write                 = queue_properties.value["logging_write"]
+        version               = queue_properties.value["logging_version"]
+        retention_policy_days = queue_properties.value["logging_retention_policy_days"]
+      }
+
+      hour_metrics {
+        enabled               = queue_properties.value["hour_metrics_enabled"]
+        include_apis          = queue_properties.value["hour_metrics_include_apis"]
+        version               = queue_properties.value["hour_metrics_version"]
+        retention_policy_days = queue_properties.value["hour_metrics_retention_policy_days"]
+      }
+
+      minute_metrics {
+        enabled               = queue_properties.value["minute_metrics_enabled"]
+        include_apis          = queue_properties.value["minute_metrics_include_apis"]
+        version               = queue_properties.value["minute_metrics_version"]
+        retention_policy_days = queue_properties.value["minute_metrics_retention_policy_days"]
+      }
+    }
+  }
+
   network_rules {
     default_action             = var.network_rules_default_action
     bypass                     = var.network_rules_bypass
