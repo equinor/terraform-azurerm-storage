@@ -66,10 +66,10 @@ resource "azurerm_storage_account" "this" {
   }
 
   network_rules {
-    default_action             = var.firewall_default_action
-    bypass                     = var.firewall_bypass
-    ip_rules                   = var.firewall_ip_rules
-    virtual_network_subnet_ids = var.firewall_virtual_network_subnet_ids
+    default_action             = var.network_rules_default_action
+    bypass                     = var.network_rules_bypass
+    ip_rules                   = var.network_rules_ip_rules
+    virtual_network_subnet_ids = var.network_rules_virtual_network_subnet_ids
   }
 }
 

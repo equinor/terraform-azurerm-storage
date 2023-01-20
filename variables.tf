@@ -94,25 +94,25 @@ variable "share_properties" {
   default = {}
 }
 
-variable "firewall_virtual_network_subnet_ids" {
+variable "network_rules_virtual_network_subnet_ids" {
   description = "Allowed subnet resources ids using service endpoints"
   type        = list(string)
   default     = []
 }
 
-variable "firewall_bypass" {
+variable "network_rules_bypass" {
   description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of Logging, Metrics, AzureServices, or None"
   type        = list(string)
   default     = ["AzureServices"]
 }
 
-variable "firewall_ip_rules" {
+variable "network_rules_ip_rules" {
   description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage account. Only IPv4 addresses are allowed."
   type        = list(string)
   default     = []
 }
 
-variable "firewall_default_action" {
+variable "network_rules_default_action" {
   description = "Specifies the default action of allow or deny when no other rules match."
   type        = string
   default     = "Deny"
