@@ -118,8 +118,8 @@ variable "network_rules_default_action" {
   default     = "Deny"
 }
 
-variable "threat_protection_enabled" {
-  description = "Is threat protection (Microsoft Defender for Storage) enabled for this Storage account?"
+variable "advanced_threat_protection_enabled" {
+  description = "Is advanced threat protection (Microsoft Defender for Storage) enabled for this Storage account?"
   type        = bool
   default     = true
 }
