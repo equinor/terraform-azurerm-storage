@@ -109,4 +109,3 @@ resource "azurerm_storage_object_replication" "example" {
     destination_container_name = azurerm_storage_container.dst.name
   }
 }
-
