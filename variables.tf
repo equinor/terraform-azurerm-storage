@@ -116,7 +116,7 @@ variable "queue_properties" {
   default = {}
 }
 
-variable "firewall_virtual_network_subnet_ids" {
+variable "network_rules_virtual_network_subnet_ids" {
   description = "Allowed subnet resources ids using service endpoints"
   type        = list(string)
   default     = []
