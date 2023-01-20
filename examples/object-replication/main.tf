@@ -12,33 +12,33 @@ provider "azurerm" {
   features {}
 }
 
+resource "random_id" "this" {
+  byte_length = 8
+}
+
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_resource_group" "this" {
-  name     = "rg-${var.application}-${var.environment}"
+  name     = "rg-${random_id.this.hex}"
   location = var.location
 }
 
-resource "azurerm_log_analytics_workspace" "this" {
-  name                = "log-${var.application}-${var.environment}"
-  location            = azurerm_resource_group.this.location
+module "log_analytics" {
+  source = "github.com/equinor/terraform-azurerm-log-analytics?ref=v1.2.0"
+
+  workspace_name      = "log-${random_id.this.hex}"
   resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.this.location
 }
 
 module "storage" {
+  # source = "github.com/equinor/terraform-azurerm-storage"
   source = "../.."
 
-  application                = var.application
-  environment                = var.environment
-  location                   = azurerm_resource_group.this.location
+  account_name               = "st${random_id.this.hex}"
   resource_group_name        = azurerm_resource_group.this.name
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
-
-  firewall_ip_rules = [
-    "1.1.1.1",
-    "2.2.2.2",
-    "3.3.3.3"
-  ]
+  location                   = azurerm_resource_group.this.location
+  log_analytics_workspace_id = module.log_analytics.workspace_id
 }
 
 # Give current client access to blob storage
@@ -51,12 +51,12 @@ resource "azurerm_role_assignment" "this" {
 # Example of Object Replication
 
 resource "azurerm_resource_group" "src" {
-  name     = "rg-src-${var.application}-${var.environment}"
+  name     = "rg-src-${random_id.this.hex}"
   location = var.location
 }
 
 resource "azurerm_storage_account" "src" {
-  name                = "st${var.application}${var.environment}"
+  name                = "st1${random_id.this.hex}"
   resource_group_name = azurerm_resource_group.src.name
   location            = azurerm_resource_group.src.location
 
@@ -70,18 +70,18 @@ resource "azurerm_storage_account" "src" {
 }
 
 resource "azurerm_storage_container" "src" {
-  name                  = "ci${var.application}${var.environment}"
+  name                  = "ci1${random_id.this.hex}"
   storage_account_name  = azurerm_storage_account.src.name
   container_access_type = "private"
 }
 
 resource "azurerm_resource_group" "dst" {
-  name     = "rg-dst-${var.application}${var.environment}"
+  name     = "rg-dst-${random_id.this.hex}"
   location = var.location
 }
 
 resource "azurerm_storage_account" "dst" {
-  name                = "st${var.application}${var.environment}"
+  name                = "st2${random_id.this.hex}"
   resource_group_name = azurerm_resource_group.dst.name
   location            = azurerm_resource_group.dst.location
 
@@ -95,7 +95,7 @@ resource "azurerm_storage_account" "dst" {
 }
 
 resource "azurerm_storage_container" "dst" {
-  name                  = "ci${var.application}${var.environment}"
+  name                  = "ci2${random_id.this.hex}"
   storage_account_name  = azurerm_storage_account.dst.name
   container_access_type = "private"
 }
