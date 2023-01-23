@@ -116,6 +116,17 @@ variable "queue_properties" {
   default = {}
 }
 
+variable "identity" {
+  description = "The identity to configure for this Storage account."
+
+  type = object({
+    type         = optional(list(string), ["SystemAssigned"])
+    identity_ids = optional(list(string), [])
+  })
+
+  default = null
+}
+
 variable "network_rules_virtual_network_subnet_ids" {
   description = "Allowed subnet resources ids using service endpoints"
   type        = list(string)
