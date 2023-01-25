@@ -93,6 +93,15 @@ resource "azurerm_storage_account" "this" {
     }
   }
 
+  dynamic "identity" {
+    for_each = var.identity != null ? [var.identity] : []
+
+    content {
+      type         = identity.value["type"]
+      identity_ids = identity.value["identity_ids"]
+    }
+  }
+
   network_rules {
     default_action             = var.network_rules_default_action
     bypass                     = var.network_rules_bypass
