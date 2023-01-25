@@ -120,7 +120,7 @@ variable "identity" {
   description = "The identity to configure for this Storage account."
 
   type = object({
-    type         = optional(list(string), ["SystemAssigned"])
+    type         = optional(string, "SystemAssigned")
     identity_ids = optional(list(string), [])
   })
 
