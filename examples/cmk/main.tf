@@ -31,6 +31,10 @@ module "storage" {
   resource_group_name        = azurerm_resource_group.this.name
   location                   = azurerm_resource_group.this.location
   log_analytics_workspace_id = module.log_analytics.workspace_id
+  shared_access_key_enabled  = true
+  identity = {
+    type = "SystemAssigned"
+  }
 }
 
 module "vault" {
@@ -45,16 +49,17 @@ module "vault" {
 
   access_policies = [
     {
-      object_id          = data.azurerm_client_config.current.object_id
+      object_id          = "25d23649-cc47-49fa-bfd8-12acafc353a2"
       key_permissions    = ["Get", "Create", "Delete", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"]
-      secret_permissions = ["Get"]
+      secret_permissions = ["Get", "Delete", "List", "Restore", "Recover", "Set"]
     }
   ]
 
   network_acls_ip_rules = [
-    "1.1.1.1/12",
-    "2.2.2.2/12",
-    "3.3.3.3/12"
+    "1.1.1.1",
+    "2.2.2.2",
+    "3.3.3.3",
+    "8.29.230.8"
   ]
 }
 
@@ -66,7 +71,7 @@ resource "azurerm_key_vault_key" "example" {
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
 
   depends_on = [
-    module.vault.access_policies
+    module.vault
   ]
 }
 
@@ -74,5 +79,4 @@ resource "azurerm_storage_account_customer_managed_key" "ok_cmk" {
   storage_account_id = module.storage.account_id
   key_vault_id       = module.vault.vault_id
   key_name           = azurerm_key_vault_key.example.name
-  key_version        = "1"
 }
