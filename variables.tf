@@ -94,32 +94,65 @@ variable "share_properties" {
   default = {}
 }
 
-variable "firewall_virtual_network_subnet_ids" {
+variable "queue_properties" {
+  description = "The properties of this Queue Storage."
+
+  type = object({
+    logging_delete                       = optional(bool, true)
+    logging_read                         = optional(bool, true)
+    logging_write                        = optional(bool, true)
+    logging_version                      = optional(string, "1.0")
+    logging_retention_policy_days        = optional(number, 10)
+    hour_metrics_enabled                 = optional(bool, true)
+    hour_metrics_include_apis            = optional(bool, true)
+    hour_metrics_version                 = optional(string, "1.0")
+    hour_metrics_retention_policy_days   = optional(number, 10)
+    minute_metrics_enabled               = optional(bool, true)
+    minute_metrics_include_apis          = optional(bool, true)
+    minute_metrics_version               = optional(string, "1.0")
+    minute_metrics_retention_policy_days = optional(number, 10)
+  })
+
+  default = {}
+}
+
+variable "identity" {
+  description = "The identity to configure for this Storage account."
+
+  type = object({
+    type         = optional(string, "SystemAssigned")
+    identity_ids = optional(list(string), [])
+  })
+
+  default = null
+}
+
+variable "network_rules_virtual_network_subnet_ids" {
   description = "Allowed subnet resources ids using service endpoints"
   type        = list(string)
   default     = []
 }
 
-variable "firewall_bypass" {
+variable "network_rules_bypass" {
   description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of Logging, Metrics, AzureServices, or None"
   type        = list(string)
   default     = ["AzureServices"]
 }
 
-variable "firewall_ip_rules" {
+variable "network_rules_ip_rules" {
   description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage account. Only IPv4 addresses are allowed."
   type        = list(string)
   default     = []
 }
 
-variable "firewall_default_action" {
+variable "network_rules_default_action" {
   description = "Specifies the default action of allow or deny when no other rules match."
   type        = string
   default     = "Deny"
 }
 
-variable "threat_protection_enabled" {
-  description = "Is threat protection (Microsoft Defender for Storage) enabled for this Storage account?"
+variable "advanced_threat_protection_enabled" {
+  description = "Is advanced threat protection (Microsoft Defender for Storage) enabled for this Storage account?"
   type        = bool
   default     = true
 }

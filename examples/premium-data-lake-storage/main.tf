@@ -42,4 +42,5 @@ module "storage" {
   }
 
   share_properties = null
+  queue_properties = null
 }
