@@ -1,5 +1,13 @@
 # Changelog
 
+## [10.1.0](https://github.com/equinor/terraform-azurerm-storage/compare/v10.0.0...v10.1.0) (2023-02-01)
+
+
+### Features
+
+* set custom domain ([#129](https://github.com/equinor/terraform-azurerm-storage/issues/129)) ([d7c2233](https://github.com/equinor/terraform-azurerm-storage/commit/d7c2233e7053b514831d6baedfe6d3fe0c365653))
+* set identity type and ids ([#122](https://github.com/equinor/terraform-azurerm-storage/issues/122)) ([bc5af09](https://github.com/equinor/terraform-azurerm-storage/commit/bc5af0999697cdcb92157f3d9486dcb89aadf39b))
+
 ## [10.0.0](https://github.com/equinor/terraform-azurerm-storage/compare/v9.3.0...v10.0.0) (2023-01-20)
 
 
