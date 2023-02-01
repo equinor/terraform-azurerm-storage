@@ -133,15 +133,13 @@ variable "network_rules_virtual_network_subnet_ids" {
   default     = []
 }
 
-variable "custom_domain_name" {
-  description = "The Custom Domain Name to use for the Storage Account, which will be validated by Azure"
-  type        = optional(string)
-}
-
-variable "custom_domain_use_subdomain" {
-  description = "Should the Custom Domain Name be validated by using indirect CNAME validation"
-  type        = optional(bool)
-  default     = false
+variable "custom_domain" {
+  description = "A custom (sub) domain name of the Storage Account"
+  type = object({
+    name          = string
+    use_subdomain = optional(bool, false)
+  })
+  default = null
 }
 
 variable "network_rules_bypass" {

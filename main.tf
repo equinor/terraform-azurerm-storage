@@ -109,10 +109,7 @@ resource "azurerm_storage_account" "this" {
     virtual_network_subnet_ids = var.network_rules_virtual_network_subnet_ids
   }
 
-  custom_domain {
-    name          = var.custom_domain_name
-    use_subdomain = var.custom_domain_use_subdomain
-  }
+  custom_domain = var.custom_domain
 }
 
 resource "azurerm_advanced_threat_protection" "this" {
