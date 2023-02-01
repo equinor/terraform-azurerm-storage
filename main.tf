@@ -112,7 +112,8 @@ resource "azurerm_storage_account" "this" {
   dynamic "custom_domain" {
     for_each = var.custom_domain != null ? [var.custom_domain] : []
     content {
-      name = custom_domain.value["name"]
+      name          = custom_domain.value["name"]
+      use_subdomain = custom_domain.value["use_subdomain"]
     }
   }
 }
