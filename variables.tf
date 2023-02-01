@@ -1,3 +1,13 @@
+variable "resource_group_name" {
+  description = "The name of the resource group to create the resources in."
+  type        = string
+}
+
+variable "location" {
+  description = "The location to create the resources in."
+  type        = string
+}
+
 variable "account_name" {
   description = "The name of this Storage account."
   type        = string
@@ -13,16 +23,6 @@ variable "account_tier" {
   description = "The Tier of this Storage account."
   type        = string
   default     = "Standard"
-}
-
-variable "resource_group_name" {
-  description = "The name of the resource group to create the resources in."
-  type        = string
-}
-
-variable "location" {
-  description = "The location to create the resources in."
-  type        = string
 }
 
 variable "account_replication_type" {
@@ -131,6 +131,15 @@ variable "network_rules_virtual_network_subnet_ids" {
   description = "Allowed subnet resources ids using service endpoints"
   type        = list(string)
   default     = []
+}
+
+variable "custom_domain" {
+  description = "A custom (sub) domain name of the Storage Account"
+  type = object({
+    name          = string
+    use_subdomain = optional(bool, false)
+  })
+  default = null
 }
 
 variable "network_rules_bypass" {
