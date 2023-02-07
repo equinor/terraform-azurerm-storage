@@ -126,9 +126,10 @@ resource "azurerm_advanced_threat_protection" "this" {
 resource "azurerm_monitor_diagnostic_setting" "this" {
   for_each = toset(["blob", "queue", "table", "file"])
 
-  name                       = "${azurerm_storage_account.this.name}-${each.value}-logs"
-  target_resource_id         = "${azurerm_storage_account.this.id}/${each.value}Services/default"
-  log_analytics_workspace_id = var.log_analytics_workspace_id
+  name                           = "${azurerm_storage_account.this.name}-${each.value}-logs"
+  target_resource_id             = "${azurerm_storage_account.this.id}/${each.value}Services/default"
+  log_analytics_workspace_id     = var.log_analytics_workspace_id
+  log_analytics_destination_type = var.log_analytics_destination_type
 
   enabled_log {
     category = "StorageRead"
