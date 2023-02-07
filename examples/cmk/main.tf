@@ -38,7 +38,7 @@ module "storage" {
 }
 
 module "vault" {
-  source = "github.com/equinor/terraform-azurerm-key-vault?ref=v7.2.0"
+  source = "github.com/equinor/terraform-azurerm-key-vault?ref=v8.1.0"
 
   vault_name                 = "kv-${random_id.this.hex}"
   resource_group_name        = azurerm_resource_group.this.name
@@ -49,9 +49,9 @@ module "vault" {
 
   access_policies = [
     {
-      object_id          = "25d23649-cc47-49fa-bfd8-12acafc353a2"
+      object_id          = data.azurerm_client_config.current.object_id
       key_permissions    = ["Get", "Create", "Delete", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"]
-      secret_permissions = ["Get", "Delete", "List", "Restore", "Recover", "Set"]
+      secret_permissions = ["Get"]
     }
   ]
 
@@ -71,7 +71,7 @@ resource "azurerm_key_vault_key" "example" {
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
 
   depends_on = [
-    module.vault
+    module.vault.vault_id
   ]
 }
 
