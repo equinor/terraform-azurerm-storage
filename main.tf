@@ -130,9 +130,8 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
   target_resource_id         = "${azurerm_storage_account.this.id}/${each.value}Services/default"
   log_analytics_workspace_id = var.log_analytics_workspace_id
 
-  log {
+  enabled_log {
     category = "StorageRead"
-    enabled  = true
 
     retention_policy {
       days    = 0
@@ -140,9 +139,8 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
     }
   }
 
-  log {
+  enabled_log {
     category = "StorageWrite"
-    enabled  = true
 
     retention_policy {
       days    = 0
@@ -150,9 +148,8 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
     }
   }
 
-  log {
+  enabled_log {
     category = "StorageDelete"
-    enabled  = true
 
     retention_policy {
       days    = 0
