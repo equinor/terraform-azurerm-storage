@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.2.0](https://github.com/equinor/terraform-azurerm-storage/compare/v10.1.0...v10.2.0) (2023-02-08)
+
+
+### Features
+
+* set log analytics destination type ([#132](https://github.com/equinor/terraform-azurerm-storage/issues/132)) ([c67ff89](https://github.com/equinor/terraform-azurerm-storage/commit/c67ff892e31501cf32cbde219aaf7e89751b9bc9))
+
 ## [10.1.0](https://github.com/equinor/terraform-azurerm-storage/compare/v10.0.0...v10.1.0) (2023-02-01)
 
 
