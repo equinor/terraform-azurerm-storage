@@ -177,6 +177,17 @@ variable "log_analytics_destination_type" {
   default     = null
 }
 
+variable "diagnostic_setting_enabled_log_categories" {
+  description = "A list of log categories to be enabled for this diagnostic setting."
+  type        = list(string)
+
+  default = [
+    "StorageRead",
+    "StorageWrite",
+    "StorageDelete"
+  ]
+}
+
 variable "tags" {
   description = "A map of tags to assign to the resources."
   type        = map(string)
