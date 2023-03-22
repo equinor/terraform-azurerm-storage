@@ -69,7 +69,7 @@ resource "azurerm_key_vault_key" "example" {
   key_type        = "RSA-HSM"
   key_size        = 2048
   key_opts        = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
-  expiration_date = "2024-03-22T20:00:00Z"
+  expiration_date = "2024-03-23T20:00:00Z"
 
   depends_on = [
     module.vault.vault_id
