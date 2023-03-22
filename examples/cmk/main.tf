@@ -64,11 +64,12 @@ module "vault" {
 }
 
 resource "azurerm_key_vault_key" "example" {
-  name         = "example-key"
-  key_vault_id = module.vault.vault_id
-  key_type     = "RSA"
-  key_size     = 2048
-  key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
+  name            = "example-key"
+  key_vault_id    = module.vault.vault_id
+  key_type        = "RSA-HSM"
+  key_size        = 2048
+  key_opts        = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
+  expiration_date = "2024-03-22T20:00:00Z"
 
   depends_on = [
     module.vault.vault_id
