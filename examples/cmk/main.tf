@@ -15,11 +15,11 @@ resource "azurerm_resource_group" "this" {
   location = var.location
 }
 
-# resource "azurerm_user_assigned_identity" "example" {
-#   location            = var.location
-#   name                = "uai-${random_id.this.hex}"
-#   resource_group_name = azurerm_resource_group.this.name
-# }
+resource "azurerm_role_assignment" "kv_role_admin_kva" {
+  scope                = module.vault.vault_id
+  role_definition_name = "Key Vault Administrator"
+  principal_id         = data.azurerm_client_config.current.object_id
+}
 
 module "log_analytics" {
   source = "github.com/equinor/terraform-azurerm-log-analytics?ref=v1.2.0"
@@ -57,7 +57,7 @@ module "storage" {
 }
 
 module "vault" {
-  source = "github.com/equinor/terraform-azurerm-key-vault?ref=v8.1.0"
+  source = "github.com/equinor/terraform-azurerm-key-vault?ref=v8.2.1"
 
   vault_name                 = "kv-${random_id.this.hex}"
   resource_group_name        = azurerm_resource_group.this.name
@@ -75,14 +75,14 @@ module "vault" {
   ]
 }
 
-resource "azurerm_key_vault_access_policy" "client" {
-  key_vault_id = module.vault.vault_id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azurerm_client_config.current.object_id
+# resource "azurerm_key_vault_access_policy" "client" {
+#   key_vault_id = module.vault.vault_id
+#   tenant_id    = data.azurerm_client_config.current.tenant_id
+#   object_id    = data.azurerm_client_config.current.object_id
 
-  key_permissions    = ["Get", "Create", "Delete", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"]
-  secret_permissions = ["Get"]
-}
+#   key_permissions    = ["Get", "Create", "Delete", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify", "GetRotationPolicy", "SetRotationPolicy"]
+#   secret_permissions = ["Get", "Set"]
+# }
 
 resource "azurerm_key_vault_key" "example" {
   name            = "example-key"
@@ -93,7 +93,7 @@ resource "azurerm_key_vault_key" "example" {
   expiration_date = "2024-03-23T20:00:00Z"
 
   depends_on = [
-    azurerm_key_vault_access_policy.client
+    azurerm_role_assignment.kv_role_admin_kva
   ]
 }
 
