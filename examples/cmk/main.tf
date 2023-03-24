@@ -69,7 +69,7 @@ module "vault" {
   network_acls_ip_rules = [
     "0.0.0.0",
     "0.0.0.0",
-    "0.0.0.0",
+    "0.0.0.0"
   ]
 }
 
