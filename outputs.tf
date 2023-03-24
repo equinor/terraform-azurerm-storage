@@ -8,6 +8,11 @@ output "account_name" {
   value       = azurerm_storage_account.this.name
 }
 
+output "principal_id" {
+  description = "The Principal ID for the Service Principal associated with the Identity of this Storage Account."
+  value       = azurerm_storage_account.this.identity.0.principal_id
+}
+
 output "account_tier" {
   description = "The Tier of this Storage Account."
   value       = azurerm_storage_account.this.account_tier
