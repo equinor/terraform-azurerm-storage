@@ -15,12 +15,6 @@ resource "azurerm_resource_group" "this" {
   location = var.location
 }
 
-resource "azurerm_role_assignment" "kv_role_admin_kva" {
-  scope                = module.vault.vault_id
-  role_definition_name = "Key Vault Administrator"
-  principal_id         = data.azurerm_client_config.current.object_id
-}
-
 module "log_analytics" {
   source = "github.com/equinor/terraform-azurerm-log-analytics?ref=v1.2.0"
 
@@ -39,8 +33,8 @@ module "storage" {
   log_analytics_workspace_id = module.log_analytics.workspace_id
   shared_access_key_enabled  = true
 
-  account_tier             = "Premium"
-  account_replication_type = "LRS"
+  account_tier             = "Standard"
+  account_replication_type = "GRS"
 
   identity = {
     type = "SystemAssigned"
@@ -56,6 +50,12 @@ module "storage" {
   queue_properties = null
 }
 
+resource "azurerm_storage_account_customer_managed_key" "ok_cmk" {
+  storage_account_id = module.storage.account_id
+  key_vault_id       = module.vault.vault_id
+  key_name           = azurerm_key_vault_key.example.name
+}
+
 module "vault" {
   source = "github.com/equinor/terraform-azurerm-key-vault?ref=v8.2.1"
 
@@ -67,38 +67,39 @@ module "vault" {
   purge_protection_enabled = true
 
   network_acls_ip_rules = [
-    "1.1.1.1",
-    "2.2.2.2",
-    "3.3.3.3",
-    "8.29.230.8",
-    "213.236.148.45"
+    "0.0.0.0",
+    "0.0.0.0",
+    "0.0.0.0"
   ]
 }
 
-# resource "azurerm_key_vault_access_policy" "client" {
-#   key_vault_id = module.vault.vault_id
-#   tenant_id    = data.azurerm_client_config.current.tenant_id
-#   object_id    = data.azurerm_client_config.current.object_id
+resource "azurerm_key_vault_access_policy" "storage" {
+  key_vault_id = module.vault.vault_id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = module.storage.principal_id
 
-#   key_permissions    = ["Get", "Create", "Delete", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify", "GetRotationPolicy", "SetRotationPolicy"]
-#   secret_permissions = ["Get", "Set"]
-# }
+  key_permissions    = ["Get", "Create", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"]
+  secret_permissions = ["Get"]
+}
+
+resource "azurerm_key_vault_access_policy" "client" {
+  key_vault_id = module.vault.vault_id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = data.azurerm_client_config.current.object_id
+
+  key_permissions    = ["Get", "Create", "Delete", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify", "GetRotationPolicy"]
+  secret_permissions = ["Get", "Set"]
+}
 
 resource "azurerm_key_vault_key" "example" {
-  name            = "example-key"
-  key_vault_id    = module.vault.vault_id
-  key_type        = "RSA"
-  key_size        = 2048
-  key_opts        = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
-  expiration_date = "2024-03-23T20:00:00Z"
+  name         = "example-key"
+  key_vault_id = module.vault.vault_id
+  key_type     = "RSA"
+  key_size     = 2048
+  key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
 
   depends_on = [
-    azurerm_role_assignment.kv_role_admin_kva
+    azurerm_key_vault_access_policy.client,
+    azurerm_key_vault_access_policy.storage
   ]
-}
-
-resource "azurerm_storage_account_customer_managed_key" "ok_cmk" {
-  storage_account_id = module.storage.account_id
-  key_vault_id       = module.vault.vault_id
-  key_name           = azurerm_key_vault_key.example.name
 }
