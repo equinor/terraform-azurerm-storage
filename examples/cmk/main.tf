@@ -36,6 +36,8 @@ module "storage" {
   account_tier             = "Standard"
   account_replication_type = "GRS"
 
+  network_rules_default_action = "Allow"
+
   identity = {
     type = "SystemAssigned"
   }
@@ -66,11 +68,7 @@ module "vault" {
 
   purge_protection_enabled = true
 
-  network_acls_ip_rules = [
-    "0.0.0.0",
-    "0.0.0.0",
-    "0.0.0.0"
-  ]
+  network_acls_default_action = "Allow"
 }
 
 resource "azurerm_key_vault_access_policy" "storage" {
