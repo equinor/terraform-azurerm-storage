@@ -57,7 +57,7 @@ resource "azurerm_storage_account" "this" {
 
   dynamic "share_properties" {
     for_each = (var.share_properties != null
-    && contains(["BlobStorage", "BlockBlobStorage"], var.account_kind)) ? [var.share_properties] : []
+    && !contains(["BlobStorage", "BlockBlobStorage"], var.account_kind)) ? [var.share_properties] : []
 
     content {
       retention_policy {
@@ -68,7 +68,7 @@ resource "azurerm_storage_account" "this" {
 
   dynamic "queue_properties" {
     for_each = (var.queue_properties != null
-    && contains(["BlobStorage", "BlockBlobStorage", "FileStorage"], var.account_kind)) ? [var.queue_properties] : []
+    && !contains(["BlobStorage", "BlockBlobStorage", "FileStorage"], var.account_kind)) ? [var.queue_properties] : []
 
     content {
       logging {
