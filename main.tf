@@ -22,8 +22,8 @@ resource "azurerm_storage_account" "this" {
     for_each = var.blob_properties != null ? [var.blob_properties] : []
 
     content {
-      versioning_enabled  = blob_properties.value["versioning_enabled"]
-      change_feed_enabled = blob_properties.value["change_feed_enabled"]
+      versioning_enabled  = var.is_hns_enabled == false ? blob_properties.value["versioning_enabled"] : false
+      change_feed_enabled = var.is_hns_enabled == false ? blob_properties.value["change_feed_enabled"] : false
 
       delete_retention_policy {
         days = blob_properties.value["delete_retention_policy_days"]
@@ -34,7 +34,7 @@ resource "azurerm_storage_account" "this" {
       }
 
       dynamic "restore_policy" {
-        for_each = blob_properties.value["restore_policy_days"] > 0 ? [blob_properties.value["restore_policy_days"]] : []
+        for_each = blob_properties.value["restore_policy_days"] > 0 && var.is_hns_enabled == false ? [blob_properties.value["restore_policy_days"]] : []
 
         content {
           days = restore_policy.value
