@@ -10,7 +10,7 @@ output "account_name" {
 
 output "identity_principal_id" {
   description = "The principal ID of the system-assigned identity of this Storage Account."
-  value       = var.identity != null ? azurerm_storage_account.this.identity[0].principal_id : null
+  value       = try(azurerm_storage_account.this.identity[0].principal_id, null)
 }
 
 output "account_tier" {
