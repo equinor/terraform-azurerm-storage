@@ -74,7 +74,7 @@ module "vault" {
 resource "azurerm_key_vault_access_policy" "storage" {
   key_vault_id = module.vault.vault_id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = module.storage.principal_id
+  object_id    = module.storage.identity_principal_id
 
   key_permissions    = ["Get", "Create", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"]
   secret_permissions = ["Get"]
