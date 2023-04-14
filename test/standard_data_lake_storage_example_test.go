@@ -1,7 +1,6 @@
 package test
 
 import (
-	"log"
 	"testing"
 
 	"github.com/gruntwork-io/terratest/modules/azure"
@@ -33,7 +32,7 @@ func TestStandardDataLakeStorageExample(t *testing.T) {
 	storage_account, err := azure.GetStorageAccountE(storage_account_name, resource_group_name, subscription_id)
 
 	if err != nil {
-		log.Fatalf("%v", err)
+		t.Fatalf("%v", err)
 	}
 
 	assert.True(t, *storage_account.AccountProperties.IsHnsEnabled)
