@@ -1,14 +1,16 @@
-output "storage_account_tier" {
-  description = "The Tier of this Storage Account."
-  value       = module.storage.account_tier
+output "resource_group_name" {
+  description = "The name of this resource group."
+  value       = azurerm_resource_group.this.name
 }
 
-output "storage_account_kind" {
-  description = "The Kind of this Storage Account."
-  value       = module.storage.account_kind
+output "storage_account_name" {
+  description = "The name of this Storage account."
+  value       = module.storage.account_name
 }
 
-output "storage_account_replication_type" {
-  description = "The type of replication to use for this Storage Account."
-  value       = module.storage.account_replication_type
+data "azurerm_subscription" "current" {}
+
+output "subscription_id" {
+  description = "The ID of the current subscription."
+  value       = data.azurerm_subscription.current.subscription_id
 }
