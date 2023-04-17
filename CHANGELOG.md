@@ -1,5 +1,18 @@
 # Changelog
 
+## [10.3.0](https://github.com/equinor/terraform-azurerm-storage/compare/v10.2.0...v10.3.0) (2023-04-17)
+
+
+### Features
+
+* output Storage account identity principal ID ([#141](https://github.com/equinor/terraform-azurerm-storage/issues/141)) ([028517e](https://github.com/equinor/terraform-azurerm-storage/commit/028517e113b87652264337455492058b66b5440c))
+* set diagnostic setting enabled log categories ([#139](https://github.com/equinor/terraform-azurerm-storage/issues/139)) ([03d13fb](https://github.com/equinor/terraform-azurerm-storage/commit/03d13fbca8c7bf9ddecf6dd2342eb419620b379d))
+
+
+### Bug Fixes
+
+* don't output non-existent attributes ([#147](https://github.com/equinor/terraform-azurerm-storage/issues/147)) ([c578aa8](https://github.com/equinor/terraform-azurerm-storage/commit/c578aa82f32687f963b1baf6a97afb66bcf86a64))
+
 ## [10.2.0](https://github.com/equinor/terraform-azurerm-storage/compare/v10.1.0...v10.2.0) (2023-02-09)
 
 
