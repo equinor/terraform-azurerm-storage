@@ -31,12 +31,4 @@ module "storage" {
   log_analytics_workspace_id = module.log_analytics.workspace_id
 
   is_hns_enabled = true
-
-  blob_properties = {
-    versioning_enabled  = false
-    change_feed_enabled = false
-    restore_policy_days = 0
-  }
-
-  share_properties = null
 }
