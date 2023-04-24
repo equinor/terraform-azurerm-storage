@@ -34,7 +34,7 @@ resource "azurerm_storage_account" "this" {
       }
 
       dynamic "restore_policy" {
-        for_each = blob_properties.value["restore_policy_days"] > 0 && var.is_hns_enabled == false && var.account_tier != "standard" ? [blob_properties.value["restore_policy_days"]] : []
+        for_each = blob_properties.value["restore_policy_days"] > 0 && var.is_hns_enabled == false && var.account_tier == "Standard" ? [blob_properties.value["restore_policy_days"]] : []
 
         content {
           days = restore_policy.value
