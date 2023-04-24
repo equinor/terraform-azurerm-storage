@@ -29,24 +29,22 @@ resource "azurerm_storage_account" "this" {
   tags = var.tags
 
   dynamic "blob_properties" {
+    # Check if blob properties is enabled and supported.
     for_each = (
-      # Check if blob properties enabled.
       var.blob_properties != null
-
-      # Check if blob properties supported.
       && !local.is_premium_file_storage
     ) ? [var.blob_properties] : []
 
     content {
+      # Check if versioning is supported.
       versioning_enabled = (
-        # Check if versioning supported.
         !local.is_premium_data_lake_storage
         && !local.is_premium_gpv2_storage
         && !local.is_standard_data_lake_storage
       ) ? blob_properties.value["versioning_enabled"] : false
 
+      # Check if change feed is supported.
       change_feed_enabled = (
-        # Check if change feed supported.
         !local.is_premium_data_lake_storage
         && !local.is_premium_gpv2_storage
         && !local.is_standard_data_lake_storage
@@ -61,11 +59,9 @@ resource "azurerm_storage_account" "this" {
       }
 
       dynamic "restore_policy" {
+        # Check if restore policy is enabled and supported.
         for_each = (
-          # Check if restore policy enabled.
           blob_properties.value["restore_policy_days"] > 0
-
-          # Check if restore policy supported.
           && !local.is_premium_block_blob_storage
           && !local.is_premium_data_lake_storage
           && !local.is_premium_gpv2_storage
@@ -93,11 +89,9 @@ resource "azurerm_storage_account" "this" {
   }
 
   dynamic "share_properties" {
+    # Check if share properties is enabled and supported.
     for_each = (
-      # Check if share properties enabled.
       var.share_properties != null
-
-      # Check if share properties supported.
       && !local.is_premium_block_blob_storage
       && !local.is_premium_data_lake_storage
       && !local.is_premium_gpv2_storage
@@ -113,11 +107,9 @@ resource "azurerm_storage_account" "this" {
   }
 
   dynamic "queue_properties" {
+    # Check if queue properties is enabled and supported.
     for_each = (
-      # Check if queue properties enabled.
       var.queue_properties != null
-
-      # Check if queue properties supported.
       && !local.is_premium_block_blob_storage
       && !local.is_premium_data_lake_storage
       && !local.is_premium_file_storage
