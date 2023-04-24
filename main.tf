@@ -1,3 +1,13 @@
+locals {
+  is_premium_block_blob_storage = var.account_tier == "Premium" && var.account_kind == "BlockBlobStorage"
+  is_premium_data_lake_storage  = var.account_tier == "Premium" && var.account_kind == "BlockBlobStorage" && var.is_hns_enabled
+  is_premium_file_storage       = var.account_tier == "Premium" && var.account_kind == "FileStorage"
+  is_premium_gpv2_storage       = var.account_tier == "Premium" && var.account_kind == "StorageV2"
+  is_standard_blob_storage      = var.account_tier == "Standard" && var.account_kind == "BlobStorage"
+  is_standard_data_lake_storage = var.account_tier == "Standard" && var.account_kind == "StorageV2" && var.is_hns_enabled
+  # No need to check for "is_standard_gpv2_storage", since that is what this module is configured for by default.
+}
+
 resource "azurerm_storage_account" "this" {
   name                = var.account_name
   resource_group_name = var.resource_group_name
@@ -19,11 +29,28 @@ resource "azurerm_storage_account" "this" {
   tags = var.tags
 
   dynamic "blob_properties" {
-    for_each = var.blob_properties != null ? [var.blob_properties] : []
+    for_each = (
+      # Check if blob properties enabled.
+      var.blob_properties != null
+
+      # Check if blob properties supported.
+      && !local.is_premium_file_storage
+    ) ? [var.blob_properties] : []
 
     content {
-      versioning_enabled  = var.is_hns_enabled == false ? blob_properties.value["versioning_enabled"] : false
-      change_feed_enabled = var.is_hns_enabled == false ? blob_properties.value["change_feed_enabled"] : false
+      versioning_enabled = (
+        # Check if versioning supported.
+        !local.is_premium_data_lake_storage
+        && !local.is_premium_gpv2_storage
+        && !local.is_standard_data_lake_storage
+      ) ? blob_properties.value["versioning_enabled"] : false
+
+      change_feed_enabled = (
+        # Check if change feed supported.
+        !local.is_premium_data_lake_storage
+        && !local.is_premium_gpv2_storage
+        && !local.is_standard_data_lake_storage
+      ) ? blob_properties.value["change_feed_enabled"] : false
 
       delete_retention_policy {
         days = blob_properties.value["delete_retention_policy_days"]
@@ -34,7 +61,17 @@ resource "azurerm_storage_account" "this" {
       }
 
       dynamic "restore_policy" {
-        for_each = blob_properties.value["restore_policy_days"] > 0 && var.is_hns_enabled == false && var.account_tier == "Standard" ? [blob_properties.value["restore_policy_days"]] : []
+        for_each = (
+          # Check if restore policy enabled.
+          blob_properties.value["restore_policy_days"] > 0
+
+          # Check if restore policy supported.
+          && !local.is_premium_block_blob_storage
+          && !local.is_premium_data_lake_storage
+          && !local.is_premium_gpv2_storage
+          && !local.is_standard_blob_storage
+          && !local.is_standard_data_lake_storage
+        ) ? [blob_properties.value["restore_policy_days"]] : []
 
         content {
           days = restore_policy.value
@@ -56,8 +93,17 @@ resource "azurerm_storage_account" "this" {
   }
 
   dynamic "share_properties" {
-    for_each = (var.share_properties != null
-    && !contains(["BlobStorage", "BlockBlobStorage"], var.account_kind)) ? [var.share_properties] : []
+    for_each = (
+      # Check if share properties enabled.
+      var.share_properties != null
+
+      # Check if share properties supported.
+      && !local.is_premium_block_blob_storage
+      && !local.is_premium_data_lake_storage
+      && !local.is_premium_gpv2_storage
+      && !local.is_standard_blob_storage
+      && !local.is_standard_data_lake_storage
+    ) ? [var.share_properties] : []
 
     content {
       retention_policy {
@@ -67,8 +113,17 @@ resource "azurerm_storage_account" "this" {
   }
 
   dynamic "queue_properties" {
-    for_each = (var.queue_properties != null
-    && !contains(["BlobStorage", "BlockBlobStorage", "FileStorage"], var.account_kind)) ? [var.queue_properties] : []
+    for_each = (
+      # Check if queue properties enabled.
+      var.queue_properties != null
+
+      # Check if queue properties supported.
+      && !local.is_premium_block_blob_storage
+      && !local.is_premium_data_lake_storage
+      && !local.is_premium_file_storage
+      && !local.is_premium_gpv2_storage
+      && !local.is_standard_blob_storage
+    ) ? [var.queue_properties] : []
 
     content {
       logging {
