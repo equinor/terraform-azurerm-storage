@@ -33,6 +33,4 @@ module "storage" {
   account_tier             = "Premium"
   account_kind             = "FileStorage"
   account_replication_type = "LRS"
-  blob_properties          = null
-  queue_properties         = null
 }

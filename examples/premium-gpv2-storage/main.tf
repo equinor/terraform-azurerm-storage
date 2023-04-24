@@ -32,12 +32,4 @@ module "storage" {
 
   account_tier             = "Premium"
   account_replication_type = "LRS"
-
-  blob_properties = {
-    versioning_enabled  = false
-    change_feed_enabled = false
-  }
-
-  share_properties = null
-  queue_properties = null
 }
