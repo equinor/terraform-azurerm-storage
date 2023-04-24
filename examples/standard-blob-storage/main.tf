@@ -31,11 +31,4 @@ module "storage" {
   log_analytics_workspace_id = module.log_analytics.workspace_id
 
   account_kind = "BlobStorage"
-
-  blob_properties = {
-    restore_policy_days = 0
-  }
-
-  share_properties = null
-  queue_properties = null
 }
