@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.4.0](https://github.com/equinor/terraform-azurerm-storage/compare/v10.3.0...v10.4.0) (2023-05-19)
+
+
+### Features
+
+* disable cross-tenant replication by default ([#156](https://github.com/equinor/terraform-azurerm-storage/issues/156)) ([b254ba0](https://github.com/equinor/terraform-azurerm-storage/commit/b254ba001b5e89cfaf5e1a2c4627303011d2b5fe)), closes [#155](https://github.com/equinor/terraform-azurerm-storage/issues/155)
+
 ## [10.3.0](https://github.com/equinor/terraform-azurerm-storage/compare/v10.2.0...v10.3.0) (2023-04-17)
 
 
