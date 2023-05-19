@@ -67,6 +67,12 @@ variable "allow_blob_public_access" {
   default     = false
 }
 
+variable "cross_tenant_replication_enabled" {
+  description = "Allow cross-tenant replication?"
+  type        = bool
+  default     = false
+}
+
 variable "blob_properties" {
   description = "The properties of this Blob Storage."
   type = object({
