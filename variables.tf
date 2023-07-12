@@ -160,12 +160,6 @@ variable "network_rules_ip_rules" {
   default     = []
 }
 
-variable "network_rules_default_action" {
-  description = "Specifies the default action of allow or deny when no other rules match."
-  type        = string
-  default     = "Deny"
-}
-
 variable "advanced_threat_protection_enabled" {
   description = "Is advanced threat protection (Microsoft Defender for Storage) enabled for this Storage account?"
   type        = bool

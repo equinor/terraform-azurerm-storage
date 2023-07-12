@@ -153,7 +153,7 @@ resource "azurerm_storage_account" "this" {
   }
 
   network_rules {
-    default_action             = var.network_rules_default_action
+    default_action             = "Deny"
     bypass                     = var.network_rules_bypass
     ip_rules                   = var.network_rules_ip_rules
     virtual_network_subnet_ids = var.network_rules_virtual_network_subnet_ids
