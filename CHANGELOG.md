@@ -1,5 +1,16 @@
 # Changelog
 
+## [11.0.0](https://github.com/equinor/terraform-azurerm-storage/compare/v10.4.0...v11.0.0) (2023-07-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* enforce network ACLs default action ([#158](https://github.com/equinor/terraform-azurerm-storage/issues/158))
+
+### Features
+
+* enforce network ACLs default action ([#158](https://github.com/equinor/terraform-azurerm-storage/issues/158)) ([572d8ee](https://github.com/equinor/terraform-azurerm-storage/commit/572d8eea8ab1f6361e6fcef54372ca2af9ad0e71))
+
 ## [10.4.0](https://github.com/equinor/terraform-azurerm-storage/compare/v10.3.0...v10.4.0) (2023-05-19)
 
 
