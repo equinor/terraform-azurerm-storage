@@ -36,8 +36,6 @@ module "storage" {
   account_tier             = "Standard"
   account_replication_type = "GRS"
 
-  network_rules_default_action = "Allow"
-
   identity = {
     type = "SystemAssigned"
   }
