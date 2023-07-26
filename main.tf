@@ -154,13 +154,14 @@ resource "azurerm_storage_account" "this" {
 
   network_rules {
     default_action             = "Deny"
-    bypass                     = var.network_rules_bypass
+    bypass                     = var.network_rules_bypass_azure_services ? ["AzureServices"] : []
     ip_rules                   = var.network_rules_ip_rules
     virtual_network_subnet_ids = var.network_rules_virtual_network_subnet_ids
   }
 
   dynamic "custom_domain" {
     for_each = var.custom_domain != null ? [var.custom_domain] : []
+
     content {
       name          = custom_domain.value["name"]
       use_subdomain = custom_domain.value["use_subdomain"]
