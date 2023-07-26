@@ -36,9 +36,7 @@ module "storage" {
   account_tier             = "Standard"
   account_replication_type = "GRS"
 
-  identity = {
-    type = "SystemAssigned"
-  }
+  system_assigned_identity_enabled = true
 }
 
 resource "azurerm_storage_account_customer_managed_key" "ok_cmk" {
