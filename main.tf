@@ -29,54 +29,36 @@ resource "azurerm_storage_account" "this" {
 
   tags = var.tags
 
+  # Configure blob properties if supported.
   dynamic "blob_properties" {
-    # Check if blob properties is enabled and supported.
-    for_each = (
-      var.blob_properties != null
-      && !local.is_premium_file_storage
-    ) ? [var.blob_properties] : []
+    for_each = !local.is_premium_file_storage ? [0] : []
 
     content {
-      # Check if versioning is supported.
-      versioning_enabled = (
-        !local.is_premium_data_lake_storage
-        && !local.is_premium_gpv2_storage
-        && !local.is_standard_data_lake_storage
-      ) ? blob_properties.value["versioning_enabled"] : false
+      # Configure versioning if supported.
+      versioning_enabled = (!local.is_premium_data_lake_storage && !local.is_premium_gpv2_storage && !local.is_standard_data_lake_storage) ? var.blob_versioning_enabled : false
 
-      # Check if change feed is supported.
-      change_feed_enabled = (
-        !local.is_premium_data_lake_storage
-        && !local.is_premium_gpv2_storage
-        && !local.is_standard_data_lake_storage
-      ) ? blob_properties.value["change_feed_enabled"] : false
+      # Configure change feed if supported.
+      change_feed_enabled = (!local.is_premium_data_lake_storage && !local.is_premium_gpv2_storage && !local.is_standard_data_lake_storage) ? var.blob_change_feed_enabled : false
 
       delete_retention_policy {
-        days = blob_properties.value["delete_retention_policy_days"]
+        days = var.blob_delete_retention_policy_days
       }
 
       container_delete_retention_policy {
-        days = blob_properties.value["container_delete_retention_policy_days"]
+        days = var.blob_container_delete_retention_policy
       }
 
+      # Configure restore policy if enabled and supported.
       dynamic "restore_policy" {
-        # Check if restore policy is enabled and supported.
-        for_each = (
-          blob_properties.value["restore_policy_days"] > 0
-          && !local.is_premium_block_blob_storage
-          && !local.is_premium_data_lake_storage
-          && !local.is_premium_gpv2_storage
-          && !local.is_standard_blob_storage
-          && !local.is_standard_data_lake_storage
-        ) ? [blob_properties.value["restore_policy_days"]] : []
+        for_each = (var.blob_restore_policy_days > 0 && !local.is_premium_block_blob_storage && !local.is_premium_data_lake_storage && !local.is_premium_gpv2_storage && !local.is_standard_blob_storage && !local.is_standard_data_lake_storage) ? [0] : []
 
         content {
-          days = restore_policy.value
+          days = var.blob_restore_policy_days
         }
       }
 
       dynamic "cors_rule" {
-        for_each = blob_properties.value["cors_rules"]
+        for_each = var.blob_cors_rules
 
         content {
           allowed_headers    = cors_rule.value["allowed_headers"]
