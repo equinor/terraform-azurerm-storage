@@ -96,18 +96,11 @@ resource "azurerm_storage_account" "this" {
 
   dynamic "share_properties" {
     # Check if share properties is enabled and supported.
-    for_each = (
-      var.share_properties != null
-      && !local.is_premium_block_blob_storage
-      && !local.is_premium_data_lake_storage
-      && !local.is_premium_gpv2_storage
-      && !local.is_standard_blob_storage
-      && !local.is_standard_data_lake_storage
-    ) ? [var.share_properties] : []
+    for_each = (!local.is_premium_block_blob_storage && !local.is_premium_data_lake_storage && !local.is_premium_gpv2_storage && !local.is_standard_blob_storage && !local.is_standard_data_lake_storage) ? [0] : []
 
     content {
       retention_policy {
-        days = share_properties.value["retention_policy_days"]
+        days = var.share_retention_policy_days
       }
     }
   }

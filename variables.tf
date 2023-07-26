@@ -93,11 +93,10 @@ variable "blob_properties" {
   default = {}
 }
 
-variable "share_properties" {
-  type = object({
-    retention_policy_days = optional(number, 30) # The number of days that files should be retained.
-  })
-  default = {}
+variable "share_retention_policy_days" {
+  description = "The number of days that files should be retained."
+  type        = number
+  default     = 30
 }
 
 variable "queue_properties" {
