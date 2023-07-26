@@ -1,5 +1,35 @@
 # Changelog
 
+## [12.0.0](https://github.com/equinor/terraform-azurerm-storage/compare/v11.0.0...v12.0.0) (2023-07-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove queue properties logging and metrics ([#172](https://github.com/equinor/terraform-azurerm-storage/issues/172))
+* enforce blob properties ([#169](https://github.com/equinor/terraform-azurerm-storage/issues/169))
+* simplify network configuration ([#166](https://github.com/equinor/terraform-azurerm-storage/issues/166))
+* enforce share properties ([#171](https://github.com/equinor/terraform-azurerm-storage/issues/171))
+* enforce advanced treat protection ([#167](https://github.com/equinor/terraform-azurerm-storage/issues/167))
+* remove variable `identity`, add variables `system_assigned_identity_enabled` and `identity_ids`.
+
+### Features
+
+* enforce advanced treat protection ([#167](https://github.com/equinor/terraform-azurerm-storage/issues/167)) ([09f0b36](https://github.com/equinor/terraform-azurerm-storage/commit/09f0b36b3d16ca9df51c569d0cc0051ed9e8cb6a)), closes [#163](https://github.com/equinor/terraform-azurerm-storage/issues/163)
+* enforce blob properties ([#169](https://github.com/equinor/terraform-azurerm-storage/issues/169)) ([7b42e44](https://github.com/equinor/terraform-azurerm-storage/commit/7b42e44ade80330e76ec09588e8b7e16fcba716f))
+* enforce share properties ([#171](https://github.com/equinor/terraform-azurerm-storage/issues/171)) ([e6fb81b](https://github.com/equinor/terraform-azurerm-storage/commit/e6fb81b3f575a2e39082a52f3c94951fb0a2ead6)), closes [#168](https://github.com/equinor/terraform-azurerm-storage/issues/168)
+* remove queue properties logging and metrics ([#172](https://github.com/equinor/terraform-azurerm-storage/issues/172)) ([0cc0e7f](https://github.com/equinor/terraform-azurerm-storage/commit/0cc0e7f127e35cef663e57141e4832f45124e3a4)), closes [#127](https://github.com/equinor/terraform-azurerm-storage/issues/127)
+
+
+### Bug Fixes
+
+* don't specify Log Analytics destination type ([#161](https://github.com/equinor/terraform-azurerm-storage/issues/161)) ([8d94fed](https://github.com/equinor/terraform-azurerm-storage/commit/8d94fed5fc197d64cfbe7cd2ad5e31d117cda612))
+
+
+### Code Refactoring
+
+* simplify identity configuration ([#165](https://github.com/equinor/terraform-azurerm-storage/issues/165)) ([3bc5aee](https://github.com/equinor/terraform-azurerm-storage/commit/3bc5aee844d813d32be85afc840c8ef34c988382))
+* simplify network configuration ([#166](https://github.com/equinor/terraform-azurerm-storage/issues/166)) ([64f6b7e](https://github.com/equinor/terraform-azurerm-storage/commit/64f6b7e704b985b073c30fd65fa49e910acfdfcb))
+
 ## [11.0.0](https://github.com/equinor/terraform-azurerm-storage/compare/v10.4.0...v11.0.0) (2023-07-12)
 
 
