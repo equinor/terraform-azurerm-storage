@@ -36,9 +36,7 @@ module "storage" {
   account_tier             = "Standard"
   account_replication_type = "GRS"
 
-  identity = {
-    type = "SystemAssigned"
-  }
+  system_assigned_identity_enabled = true
 
   blob_properties = {
     change_feed_enabled = false

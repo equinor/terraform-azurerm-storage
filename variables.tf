@@ -122,15 +122,16 @@ variable "queue_properties" {
   default = {}
 }
 
-variable "identity" {
-  description = "The identity to configure for this Storage account."
+variable "system_assigned_identity_enabled" {
+  description = "Should the system-assigned identity be enabled for this Web App?"
+  type        = bool
+  default     = false
+}
 
-  type = object({
-    type         = optional(string, "SystemAssigned")
-    identity_ids = optional(list(string), [])
-  })
-
-  default = null
+variable "identity_ids" {
+  description = "A list of IDs of managed identities to be assigned to this Web App."
+  type        = list(string)
+  default     = []
 }
 
 variable "network_rules_virtual_network_subnet_ids" {
@@ -160,12 +161,6 @@ variable "custom_domain" {
   })
 
   default = null
-}
-
-variable "advanced_threat_protection_enabled" {
-  description = "Is advanced threat protection (Microsoft Defender for Storage) enabled for this Storage account?"
-  type        = bool
-  default     = true
 }
 
 variable "log_analytics_workspace_id" {
