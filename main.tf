@@ -175,7 +175,7 @@ resource "azurerm_storage_account" "this" {
 
 resource "azurerm_advanced_threat_protection" "this" {
   target_resource_id = azurerm_storage_account.this.id
-  enabled            = var.advanced_threat_protection_enabled
+  enabled            = true
 }
 
 resource "azurerm_monitor_diagnostic_setting" "this" {
