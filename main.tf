@@ -6,6 +6,11 @@ locals {
   is_standard_blob_storage      = var.account_tier == "Standard" && var.account_kind == "BlobStorage"
   is_standard_data_lake_storage = var.account_tier == "Standard" && var.account_kind == "StorageV2" && var.is_hns_enabled
   # No need to check for "is_standard_gpv2_storage", since that is what this module is configured for by default.
+
+  # If system_assigned_identity_enabled is true, value is "SystemAssigned".
+  # If identity_ids is non-empty, value is "UserAssigned".
+  # If system_assigned_identity_enabled is true and identity_ids is non-empty, value is "SystemAssigned, UserAssigned".
+  identity_type = join(", ", compact([var.system_assigned_identity_enabled ? "SystemAssigned" : "", length(var.identity_ids) > 0 ? "UserAssigned" : ""]))
 }
 
 resource "azurerm_storage_account" "this" {
@@ -144,11 +149,11 @@ resource "azurerm_storage_account" "this" {
   }
 
   dynamic "identity" {
-    for_each = var.identity != null ? [var.identity] : []
+    for_each = local.identity_type != "" ? [0] : []
 
     content {
-      type         = identity.value["type"]
-      identity_ids = identity.value["identity_ids"]
+      type         = local.identity_type
+      identity_ids = var.identity_ids
     }
   }
 
