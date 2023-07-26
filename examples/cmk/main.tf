@@ -37,15 +37,6 @@ module "storage" {
   account_replication_type = "GRS"
 
   system_assigned_identity_enabled = true
-
-  blob_properties = {
-    change_feed_enabled = false
-    versioning_enabled  = false
-    restore_policy_days = 0
-  }
-
-  share_properties = null
-  queue_properties = null
 }
 
 resource "azurerm_storage_account_customer_managed_key" "ok_cmk" {
