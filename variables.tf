@@ -99,28 +99,6 @@ variable "share_retention_policy_days" {
   default     = 30
 }
 
-variable "queue_properties" {
-  description = "The properties of this Queue Storage."
-
-  type = object({
-    logging_delete                       = optional(bool, true)
-    logging_read                         = optional(bool, true)
-    logging_write                        = optional(bool, true)
-    logging_version                      = optional(string, "1.0")
-    logging_retention_policy_days        = optional(number, 10)
-    hour_metrics_enabled                 = optional(bool, true)
-    hour_metrics_include_apis            = optional(bool, true)
-    hour_metrics_version                 = optional(string, "1.0")
-    hour_metrics_retention_policy_days   = optional(number, 10)
-    minute_metrics_enabled               = optional(bool, true)
-    minute_metrics_include_apis          = optional(bool, true)
-    minute_metrics_version               = optional(string, "1.0")
-    minute_metrics_retention_policy_days = optional(number, 10)
-  })
-
-  default = {}
-}
-
 variable "system_assigned_identity_enabled" {
   description = "Should the system-assigned identity be enabled for this Web App?"
   type        = bool
