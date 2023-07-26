@@ -139,25 +139,27 @@ variable "network_rules_virtual_network_subnet_ids" {
   default     = []
 }
 
-variable "custom_domain" {
-  description = "A custom (sub) domain name of the Storage Account"
-  type = object({
-    name          = string
-    use_subdomain = optional(bool, false)
-  })
-  default = null
-}
-
-variable "network_rules_bypass" {
-  description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of Logging, Metrics, AzureServices, or None"
-  type        = list(string)
-  default     = ["AzureServices"]
+variable "network_rules_bypass_azure_services" {
+  description = "Should Azure services be allowed to bypass the network rules for this Storage account?"
+  type        = bool
+  default     = true
 }
 
 variable "network_rules_ip_rules" {
   description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage account. Only IPv4 addresses are allowed."
   type        = list(string)
   default     = []
+}
+
+variable "custom_domain" {
+  description = "A custom (sub) domain name of the Storage Account"
+
+  type = object({
+    name          = string
+    use_subdomain = optional(bool, false)
+  })
+
+  default = null
 }
 
 variable "log_analytics_workspace_id" {
