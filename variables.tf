@@ -160,12 +160,6 @@ variable "network_rules_ip_rules" {
   default     = []
 }
 
-variable "advanced_threat_protection_enabled" {
-  description = "Is advanced threat protection (Microsoft Defender for Storage) enabled for this Storage account?"
-  type        = bool
-  default     = true
-}
-
 variable "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics workspace to send diagnostics to."
   type        = string
