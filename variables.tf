@@ -91,7 +91,7 @@ variable "blob_delete_retention_policy_days" {
   default     = 35
 }
 
-variable "blob_container_delete_retention_policy" {
+variable "blob_container_delete_retention_policy_days" {
   description = "The number of days that deleted blob containers should be retained."
   type        = number
   default     = 35
