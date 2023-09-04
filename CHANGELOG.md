@@ -1,5 +1,17 @@
 # Changelog
 
+## [12.1.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.0.0...v12.1.0) (2023-09-04)
+
+
+### Features
+
+* set network rules default action ([#175](https://github.com/equinor/terraform-azurerm-storage/issues/175)) ([db60d42](https://github.com/equinor/terraform-azurerm-storage/commit/db60d4294fa077029cc1747195cef959c909e8d4))
+
+
+### Bug Fixes
+
+* correct variable name typo ([#174](https://github.com/equinor/terraform-azurerm-storage/issues/174)) ([6381413](https://github.com/equinor/terraform-azurerm-storage/commit/638141311b16edc82599211a32761114ad6281d5))
+
 ## [12.0.0](https://github.com/equinor/terraform-azurerm-storage/compare/v11.0.0...v12.0.0) (2023-07-26)
 
 
