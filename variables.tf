@@ -135,6 +135,12 @@ variable "identity_ids" {
   default     = []
 }
 
+variable "network_rules_default_action" {
+  description = "The default action of the network rules for this Storage account."
+  type        = string
+  default     = "Deny"
+}
+
 variable "network_rules_virtual_network_subnet_ids" {
   description = "Allowed subnet resources ids using service endpoints"
   type        = list(string)
