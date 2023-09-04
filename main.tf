@@ -50,7 +50,7 @@ resource "azurerm_storage_account" "this" {
       }
 
       container_delete_retention_policy {
-        days = var.blob_container_delete_retention_policy
+        days = var.blob_container_delete_retention_policy_days
       }
 
       # Configure restore policy if enabled and supported.
