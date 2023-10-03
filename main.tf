@@ -10,7 +10,7 @@ locals {
   # Storage network IP rules only support 0-30 number of bits as prefix.
   # If number of bits is >30, add host IPs in range to list.
   network_rules_ip_rules = distinct(concat([
-    for ip_rule in local.key_vault_network_acls_ip_rules : split("/", ip_rule)[1] > 30 ? compact([cidrhost(ip_rule, 0), try(cidrhost(ip_rule, 1), null)]) : [ip_rule]
+    for ip_rule in var.network_rules_ip_rules : split("/", ip_rule)[1] > 30 ? compact([cidrhost(ip_rule, 0), try(cidrhost(ip_rule, 1), null)]) : [ip_rule]
   ]...))
 
   # If system_assigned_identity_enabled is true, value is "SystemAssigned".
