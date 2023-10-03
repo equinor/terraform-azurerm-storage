@@ -7,12 +7,6 @@ locals {
   is_standard_data_lake_storage = var.account_tier == "Standard" && var.account_kind == "StorageV2" && var.is_hns_enabled
   # No need to check for "is_standard_gpv2_storage", since that is what this module is configured for by default.
 
-  # Storage network IP rules only support 0-30 number of bits as prefix.
-  # If number of bits is >30, add host IPs in range to list.
-  network_rules_ip_rules = distinct(concat([
-    for ip_rule in var.network_rules_ip_rules : split("/", ip_rule)[1] > 30 ? compact([cidrhost(ip_rule, 0), try(cidrhost(ip_rule, 1), null)]) : [ip_rule]
-  ]...))
-
   # If system_assigned_identity_enabled is true, value is "SystemAssigned".
   # If identity_ids is non-empty, value is "UserAssigned".
   # If system_assigned_identity_enabled is true and identity_ids is non-empty, value is "SystemAssigned, UserAssigned".
@@ -105,7 +99,7 @@ resource "azurerm_storage_account" "this" {
   network_rules {
     default_action             = var.network_rules_default_action
     bypass                     = var.network_rules_bypass_azure_services ? ["AzureServices"] : []
-    ip_rules                   = local.network_rules_ip_rules
+    ip_rules                   = var.network_rules_ip_rules
     virtual_network_subnet_ids = var.network_rules_virtual_network_subnet_ids
   }
 

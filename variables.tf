@@ -154,7 +154,7 @@ variable "network_rules_bypass_azure_services" {
 }
 
 variable "network_rules_ip_rules" {
-  description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage account. Only IPv4 addresses are allowed."
+  description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage account. Only IPv4 addresses with 0-30 number of bits as prefix are allowed."
   type        = list(string)
   default     = []
 }
