@@ -154,9 +154,19 @@ variable "network_rules_bypass_azure_services" {
 }
 
 variable "network_rules_ip_rules" {
-  description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage account. Only IPv4 addresses are allowed."
+  description = "The public IPs or IP ranges in CIDR format that should be able to access this Storage account. Only IP ranges with 0-30 number of bits as prefix are allowed."
   type        = list(string)
   default     = []
+
+  validation {
+    condition     = alltrue([for ip_rule in var.network_rules_ip_rules : can(cidrhost("${ip_rule}/32", 0)) || can(cidrhost(ip_rule, 0))])
+    error_message = "Invalid public IPs or IP ranges. Must be in CIDR format."
+  }
+
+  validation {
+    condition     = alltrue([for ip_rule in var.network_rules_ip_rules : try(split("/", ip_rule)[1], 0) < 31])
+    error_message = "Invalid IP range prefix. Only 0-30 number of bits allowed."
+  }
 }
 
 variable "custom_domain" {
