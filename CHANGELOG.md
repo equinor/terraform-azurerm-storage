@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.1.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.1.0...v12.1.1) (2023-10-04)
+
+
+### Bug Fixes
+
+* validate network IP rules ([#177](https://github.com/equinor/terraform-azurerm-storage/issues/177)) ([39ea0d5](https://github.com/equinor/terraform-azurerm-storage/commit/39ea0d5fb2c01be7c0eb093abd2516b0c3d0fcd0))
+
 ## [12.1.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.0.0...v12.1.0) (2023-09-04)
 
 
