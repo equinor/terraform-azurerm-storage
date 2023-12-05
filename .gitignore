@@ -30,3 +30,6 @@ override.tf.json
 
 # Terraform lock file
 .terraform.lock.hcl
+
+## Ignore environment files
+*.env
