@@ -8,19 +8,12 @@ resource "random_id" "this" {
   byte_length = 8
 }
 
-data "azurerm_client_config" "current" {}
-
-resource "azurerm_resource_group" "this" {
-  name     = "rg-${random_id.this.hex}"
-  location = var.location
-}
-
 module "log_analytics" {
   source = "github.com/equinor/terraform-azurerm-log-analytics?ref=v1.2.0"
 
   workspace_name      = "log-${random_id.this.hex}"
-  resource_group_name = azurerm_resource_group.this.name
-  location            = azurerm_resource_group.this.location
+  resource_group_name = var.resource_group_name
+  location            = var.location
 }
 
 module "storage" {
@@ -28,8 +21,8 @@ module "storage" {
   source = "../.."
 
   account_name               = "st${random_id.this.hex}"
-  resource_group_name        = azurerm_resource_group.this.name
-  location                   = azurerm_resource_group.this.location
+  resource_group_name        = var.resource_group_name
+  location                   = var.location
   log_analytics_workspace_id = module.log_analytics.workspace_id
   shared_access_key_enabled  = true
 
@@ -49,14 +42,16 @@ module "vault" {
   source = "github.com/equinor/terraform-azurerm-key-vault?ref=v8.2.1"
 
   vault_name                 = "kv-${random_id.this.hex}"
-  resource_group_name        = azurerm_resource_group.this.name
-  location                   = azurerm_resource_group.this.location
+  resource_group_name        = var.resource_group_name
+  location                   = var.location
   log_analytics_workspace_id = module.log_analytics.workspace_id
 
   purge_protection_enabled = true
 
   network_acls_default_action = "Allow"
 }
+
+data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault_access_policy" "storage" {
   key_vault_id = module.vault.vault_id
