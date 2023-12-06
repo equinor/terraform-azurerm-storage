@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.2.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.1.1...v12.2.0) (2023-12-06)
+
+
+### Features
+
+* enable access tracking ([#183](https://github.com/equinor/terraform-azurerm-storage/issues/183)) ([2dfb352](https://github.com/equinor/terraform-azurerm-storage/commit/2dfb35245fb35ffadf9251e3093c04bc558629ce))
+
 ## [12.1.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.1.0...v12.1.1) (2023-10-04)
 
 
