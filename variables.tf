@@ -85,6 +85,12 @@ variable "blob_change_feed_enabled" {
   default     = true
 }
 
+variable "last_access_time_enabled" {
+  description = "(Optional) Is the last access time based tracking enabled?"
+  type        = bool
+  default     = false
+}
+
 variable "blob_delete_retention_policy_days" {
   description = "The number of days that deleted blobs should be retained."
   type        = number

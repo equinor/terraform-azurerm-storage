@@ -45,6 +45,9 @@ resource "azurerm_storage_account" "this" {
       # Configure change feed if supported.
       change_feed_enabled = (!local.is_premium_data_lake_storage && !local.is_premium_gpv2_storage && !local.is_standard_data_lake_storage) ? var.blob_change_feed_enabled : false
 
+      # Configure Access Tracking (Optional)
+      last_access_time_enabled = var.last_access_time_enabled
+
       delete_retention_policy {
         days = var.blob_delete_retention_policy_days
       }
@@ -61,6 +64,7 @@ resource "azurerm_storage_account" "this" {
           days = var.blob_restore_policy_days
         }
       }
+
 
       dynamic "cors_rule" {
         for_each = var.blob_cors_rules
