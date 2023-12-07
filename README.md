@@ -7,7 +7,7 @@ Terraform module which creates an Azure Storage account.
 
 ## Usage
 
-See [usage examples](./examples/).
+See [examples](examples).
 
 ## Development
 
