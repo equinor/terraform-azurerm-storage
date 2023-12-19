@@ -46,16 +46,6 @@ resource "azurerm_storage_account" "this" {
       change_feed_enabled = (!local.is_premium_data_lake_storage && !local.is_premium_gpv2_storage && !local.is_standard_data_lake_storage) ? var.blob_change_feed_enabled : false
 
       # Configure Access Tracking (Optional)
-      last_access_time_enabled = var.last_access_time_enabled
-
-      delete_retention_policy {
-        days = var.blob_delete_retention_policy_days
-      }
-
-      container_delete_retention_policy {
-        days = var.blob_container_delete_retention_policy_days
-      }
-
       # Configure restore policy if enabled and supported.
       dynamic "restore_policy" {
         for_each = (var.blob_restore_policy_days > 0 && !local.is_premium_block_blob_storage && !local.is_premium_data_lake_storage && !local.is_premium_gpv2_storage && !local.is_standard_blob_storage && !local.is_standard_data_lake_storage) ? [0] : []
@@ -84,11 +74,6 @@ resource "azurerm_storage_account" "this" {
     # Check if share properties is enabled and supported.
     for_each = (!local.is_premium_block_blob_storage && !local.is_premium_data_lake_storage && !local.is_premium_gpv2_storage && !local.is_standard_blob_storage && !local.is_standard_data_lake_storage) ? [0] : []
 
-    content {
-      retention_policy {
-        days = var.share_retention_policy_days
-      }
-    }
   }
 
   dynamic "identity" {
@@ -143,20 +128,10 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
   metric {
     category = "Capacity"
     enabled  = false
-
-    retention_policy {
-      days    = 0
-      enabled = false
-    }
   }
 
   metric {
     category = "Transaction"
     enabled  = false
-
-    retention_policy {
-      days    = 0
-      enabled = false
-    }
   }
 }
