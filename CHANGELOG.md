@@ -1,5 +1,13 @@
 # Changelog
 
+## [12.2.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.2.0...v12.2.1) (2023-12-20)
+
+
+### Bug Fixes
+
+* remove diagnostic setting retention policies ([#187](https://github.com/equinor/terraform-azurerm-storage/issues/187)) ([829a14c](https://github.com/equinor/terraform-azurerm-storage/commit/829a14c27461386eb14b6eb46632baa6f6baa9e4))
+* restore accidentally removed blocks ([#191](https://github.com/equinor/terraform-azurerm-storage/issues/191)) ([a61d076](https://github.com/equinor/terraform-azurerm-storage/commit/a61d076f37565642aab7818fdb998c5dc576bf2e))
+
 ## [12.2.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.1.1...v12.2.0) (2023-12-06)
 
 
