@@ -71,7 +71,6 @@ variable "default_to_oauth_authentication" {
   description = "Default to Azure Active Directory authorization in the Azure portal when accessing the Storage Account."
   type        = bool
   default     = false
-
 }
 
 variable "cross_tenant_replication_enabled" {
