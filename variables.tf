@@ -202,10 +202,10 @@ variable "diagnostic_setting_enabled_log_categories" {
   ]
 }
 
-variable "disable_advanced_threat_protection" {
-  description = "Should advanced threat protection be turned off? This setting should be enabled in subscriptions where 'New Defender for Storage' is enabled"
+variable "advanced_threat_protection_enabled" {
+  description = "Should Defender for Storage (classic) advanced threat protection be enabled for this Storage account?"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "tags" {
