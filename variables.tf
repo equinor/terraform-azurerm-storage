@@ -202,6 +202,12 @@ variable "diagnostic_setting_enabled_log_categories" {
   ]
 }
 
+variable "disable_advanced_threat_protection" {
+  description = "Should advanced threat protection be turned off? This setting should be enabled in subscriptions where 'New Defender for Storage' is enabled"
+  type        = bool
+  default     = false
+}
+
 variable "tags" {
   description = "A map of tags to assign to the resources."
   type        = map(string)
