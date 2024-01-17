@@ -202,6 +202,12 @@ variable "diagnostic_setting_enabled_log_categories" {
   ]
 }
 
+variable "advanced_threat_protection_enabled" {
+  description = "Should Defender for Storage (classic) advanced threat protection be enabled for this Storage account?"
+  type        = bool
+  default     = true
+}
+
 variable "tags" {
   description = "A map of tags to assign to the resources."
   type        = map(string)
