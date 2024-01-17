@@ -1,5 +1,13 @@
 # Changelog
 
+## [12.3.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.2.1...v12.3.0) (2024-01-17)
+
+
+### Features
+
+* default to OAuth authentication ([#193](https://github.com/equinor/terraform-azurerm-storage/issues/193)) ([996ea93](https://github.com/equinor/terraform-azurerm-storage/commit/996ea9379269ef7e71698847f8a27ec18c8995b7))
+* disable advanced threat protection ([#194](https://github.com/equinor/terraform-azurerm-storage/issues/194)) ([48d25f4](https://github.com/equinor/terraform-azurerm-storage/commit/48d25f476a3f1ca247bdd1a9e1947e86d960adb0)), closes [#192](https://github.com/equinor/terraform-azurerm-storage/issues/192)
+
 ## [12.2.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.2.0...v12.2.1) (2023-12-20)
 
 
