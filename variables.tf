@@ -141,27 +141,21 @@ variable "system_assigned_identity_enabled" {
   default     = false
 }
 
-variable "immutability_policy_state" {
-  description = "" # TODO: write description
-  type        = string
-  default     = "Disabled"
+variable "immutability_policy" {
+  description = "An immutability policy to configure for this Storage account." # TODO: write description
+
+  type = object({
+    state                         = optional(string, "Disabled")
+    allow_protected_append_writes = optional(bool, false)
+    period_since_creation_in_days = optional(number, 30)
+  })
+
+  default = null
 
   validation {
-    condition     = contains(["Disabled", "Unlocked", "Locked"], var.immutability_policy_state)
-    error_message = "" # TODO: write error message
+    condition     = contains(["Disabled", "Unlocked", "Locked"], var.immutability_policy.state)
+    error_message = "Immutability policy state mist be \"Disabled\", \"Unlocked\" or \"Locked\"."
   }
-}
-
-variable "immutability_policy_allow_protected_append_writes" {
-  description = "" # TODO: write description
-  type        = bool
-  default     = false
-}
-
-variable "immutability_policy_period_since_creation_in_days" {
-  description = "" # TODO: write description
-  type        = number
-  default     = 0
 }
 
 variable "identity_ids" {
