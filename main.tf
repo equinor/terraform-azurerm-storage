@@ -92,6 +92,12 @@ resource "azurerm_storage_account" "this" {
     }
   }
 
+  immutability_policy {
+    state                         = var.immutability_policy_state
+    allow_protected_append_writes = var.immutability_policy_allow_protected_append_writes
+    period_since_creation_in_days = var.immutability_policy_period_since_creation_in_days
+  }
+
   dynamic "identity" {
     for_each = local.identity_type != "" ? [0] : []
 

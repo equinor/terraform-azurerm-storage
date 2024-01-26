@@ -141,6 +141,29 @@ variable "system_assigned_identity_enabled" {
   default     = false
 }
 
+variable "immutability_policy_state" {
+  description = "" # TODO: write description
+  type        = string
+  default     = "Disabled"
+
+  validation {
+    condition     = contains(["Disabled", "Unlocked", "Locked"], var.immutability_policy_state)
+    error_message = "" # TODO: write error message
+  }
+}
+
+variable "immutability_policy_allow_protected_append_writes" {
+  description = "" # TODO: write description
+  type        = bool
+  default     = false
+}
+
+variable "immutability_policy_period_since_creation_in_days" {
+  description = "" # TODO: write description
+  type        = number
+  default     = 0
+}
+
 variable "identity_ids" {
   description = "A list of IDs of managed identities to be assigned to this Web App."
   type        = list(string)
