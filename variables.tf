@@ -153,7 +153,7 @@ variable "immutability_policy" {
   default = null
 
   validation {
-    condition     = contains(["Disabled", "Unlocked", "Locked"], var.immutability_policy.state)
+    condition     = var.immutability_policy != null && contains(["Disabled", "Unlocked", "Locked"], var.immutability_policy.state)
     error_message = "Immutability policy state mist be \"Disabled\", \"Unlocked\" or \"Locked\"."
   }
 }
