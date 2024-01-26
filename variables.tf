@@ -142,7 +142,7 @@ variable "system_assigned_identity_enabled" {
 }
 
 variable "immutability_policy" {
-  description = "An immutability policy to configure for this Storage account." # TODO: write description
+  description = "An immutability policy to configure for this Storage account."
 
   type = object({
     state                         = optional(string, "Disabled")
@@ -153,7 +153,7 @@ variable "immutability_policy" {
   default = null
 
   validation {
-    condition     = var.immutability_policy != null && contains(["Disabled", "Unlocked", "Locked"], var.immutability_policy.state)
+    condition     = var.immutability_policy != null ? contains(["Disabled", "Unlocked", "Locked"], var.immutability_policy.state) : true
     error_message = "Immutability policy state mist be \"Disabled\", \"Unlocked\" or \"Locked\"."
   }
 }
