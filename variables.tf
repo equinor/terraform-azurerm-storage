@@ -145,9 +145,9 @@ variable "immutability_policy" {
   description = "An immutability policy to configure for this Storage account."
 
   type = object({
-    state                         = optional(string, "Disabled")
+    state                         = optional(string, "Unlocked")
     allow_protected_append_writes = optional(bool, false)
-    period_since_creation_in_days = optional(number, 30)
+    period_since_creation_in_days = optional(number, 14)
   })
 
   default = null
