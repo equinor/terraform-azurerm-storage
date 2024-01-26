@@ -93,7 +93,7 @@ resource "azurerm_storage_account" "this" {
   }
 
   dynamic "immutability_policy" {
-    for_each = var.immutability_policy != null ? [0] : []
+    for_each = var.immutability_policy != null ? [var.immutability_policy] : []
 
     content {
       state                         = immutability_policy.value.state

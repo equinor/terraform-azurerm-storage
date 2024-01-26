@@ -147,7 +147,7 @@ variable "immutability_policy" {
   type = object({
     state                         = optional(string, "Unlocked")
     allow_protected_append_writes = optional(bool, false)
-    period_since_creation_in_days = optional(number, 14)
+    period_since_creation_in_days = optional(number, 30)
   })
 
   default = null
