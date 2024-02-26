@@ -208,6 +208,12 @@ variable "diagnostic_setting_enabled_log_categories" {
   ]
 }
 
+variable "diagnostic_setting_enabled_metric_categories" {
+  description = "A list of metric categories to be enabled for this diagnostic setting."
+  type        = list(string)
+  default     = []
+}
+
 variable "advanced_threat_protection_enabled" {
   description = "Should Defender for Storage (classic) advanced threat protection be enabled for this Storage account?"
   type        = bool
