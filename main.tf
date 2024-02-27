@@ -12,7 +12,7 @@ locals {
   # If system_assigned_identity_enabled is true and identity_ids is non-empty, value is "SystemAssigned, UserAssigned".
   identity_type = join(", ", compact([var.system_assigned_identity_enabled ? "SystemAssigned" : "", length(var.identity_ids) > 0 ? "UserAssigned" : ""]))
 
-  diagnostic_setting_metric_categories = ["Capacity, Transaction"]
+  diagnostic_setting_metric_categories = ["Capacity", "Transaction"]
 }
 
 resource "azurerm_storage_account" "this" {
