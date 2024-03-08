@@ -100,19 +100,19 @@ variable "last_access_time_enabled" {
 variable "blob_delete_retention_policy_days" {
   description = "The number of days that deleted blobs should be retained."
   type        = number
-  default     = 35
+  default     = 7
 }
 
 variable "blob_container_delete_retention_policy_days" {
   description = "The number of days that deleted blob containers should be retained."
   type        = number
-  default     = 35
+  default     = 7
 }
 
 variable "blob_restore_policy_days" {
   description = "The number of days in the past to set the maximum point-in-time restore point for containers. Set value to `0` to disable."
   type        = number
-  default     = 30
+  default     = 6
 }
 
 variable "blob_cors_rules" {
@@ -132,7 +132,7 @@ variable "blob_cors_rules" {
 variable "share_retention_policy_days" {
   description = "The number of days that files should be retained."
   type        = number
-  default     = 30
+  default     = 7
 }
 
 variable "system_assigned_identity_enabled" {
