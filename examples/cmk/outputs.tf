@@ -1,5 +1,5 @@
 output "resource_group_name" {
-  description = "The name of this resource group."
+  description = "The name of the resource group containing the resources."
   value       = azurerm_resource_group.this.name
 }
 
