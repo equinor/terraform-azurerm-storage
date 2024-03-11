@@ -14,6 +14,8 @@ locals {
   # If identity_ids is non-empty, value is "UserAssigned".
   # If system_assigned_identity_enabled is true and identity_ids is non-empty, value is "SystemAssigned, UserAssigned".
   identity_type = join(", ", compact([var.system_assigned_identity_enabled ? "SystemAssigned" : "", length(var.identity_ids) > 0 ? "UserAssigned" : ""]))
+
+  diagnostic_setting_metric_categories = ["Capacity", "Transaction"]
 }
 
 resource "azurerm_storage_account" "this" {
@@ -144,13 +146,13 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
     }
   }
 
-  metric {
-    category = "Capacity"
-    enabled  = false
-  }
+  dynamic "metric" {
+    for_each = toset(concat(local.diagnostic_setting_metric_categories, var.diagnostic_setting_enabled_metric_categories))
 
-  metric {
-    category = "Transaction"
-    enabled  = false
+    content {
+      # Azure expects explicit configuration of both enabled and disabled metric categories.
+      category = metric.value
+      enabled  = contains(var.diagnostic_setting_enabled_metric_categories, metric.value)
+    }
   }
 }
