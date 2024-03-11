@@ -18,7 +18,8 @@ module "log_analytics" {
 }
 
 module "storage" {
-  # source = "github.com/equinor/terraform-azurerm-storage"
+  # source  = "equinor/storage/azurerm"
+  # version = "12.3.0"
   source = "../.."
 
   account_name               = "st${random_id.this.hex}"

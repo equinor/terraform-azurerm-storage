@@ -38,6 +38,12 @@ See [examples](examples).
 
 ## Testing
 
+Run [unit tests](./tests/unit.tftest.hcl) for usage examples.
+
+> These tests will only run `plan` in the background.
+>
+> To view the plan output, add `-verbose` to the `terraform test` command.
+
 1. Initialize working directory:
 
     ```console

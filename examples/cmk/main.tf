@@ -9,7 +9,8 @@ resource "random_id" "this" {
 }
 
 module "log_analytics" {
-  source = "github.com/equinor/terraform-azurerm-log-analytics?ref=v1.2.0"
+  source  = "equinor/log-analytics/azurerm"
+  version = "2.2.0"
 
   workspace_name      = "log-${random_id.this.hex}"
   resource_group_name = var.resource_group_name
@@ -17,7 +18,8 @@ module "log_analytics" {
 }
 
 module "storage" {
-  # source = "github.com/equinor/terraform-azurerm-storage"
+  # source  = "equinor/storage/azurerm"
+  # version = "12.3.0"
   source = "../.."
 
   account_name               = "st${random_id.this.hex}"
@@ -39,7 +41,8 @@ resource "azurerm_storage_account_customer_managed_key" "ok_cmk" {
 }
 
 module "vault" {
-  source = "github.com/equinor/terraform-azurerm-key-vault?ref=v8.2.1"
+  source  = "equinor/key-vault/azurerm"
+  version = "11.5.0"
 
   vault_name                 = "kv-${random_id.this.hex}"
   resource_group_name        = var.resource_group_name
