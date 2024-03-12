@@ -42,7 +42,7 @@ Run [unit tests](./tests/unit.tftest.hcl) for usage examples.
 
 > These tests will only run `plan` in the background.
 >
-> To view the plan output, add `-verbose` to the `terraform test` command.
+> To view the plan output, add `-verbose` to the `terraform test` command. This is recommended when executing specific tests, given the size of the output depending on the number of tests run.
 
 1. Initialize working directory:
 
@@ -55,6 +55,26 @@ Run [unit tests](./tests/unit.tftest.hcl) for usage examples.
     ```console
     terraform test
     ```
+
+### Execute a specific test
+
+PowerShell:
+
+```console
+terraform test -filter='tests\<test_file>.tftest.hcl'
+```
+
+Windows:
+
+```console
+terraform test -filter=tests\<test_file>.tftest.hcl
+```
+
+Linux, Mac OS, and UNIX:
+
+```console
+terraform test -filter=tests/<test_file>.tftest.hcl
+```
 
 ## Contributing
 
