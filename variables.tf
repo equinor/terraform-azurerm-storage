@@ -17,12 +17,14 @@ variable "account_kind" {
   description = "The Kind of this Storage account."
   type        = string
   default     = "StorageV2"
+  nullable    = false
 }
 
 variable "account_tier" {
   description = "The Tier of this Storage account."
   type        = string
   default     = "Standard"
+  nullable    = false
 }
 
 variable "account_replication_type" {
@@ -44,9 +46,10 @@ variable "shared_access_key_enabled" {
 }
 
 variable "is_hns_enabled" {
-  description = "Is Data Lake Storage Gen2 hierarchical namespace enabled for this Storage account?"
+  description = "Is Data Lake Storage Gen2 hierarchical namespace (HNS) enabled for this Storage account?"
   type        = bool
   default     = false
+  nullable    = false
 }
 
 variable "queue_encryption_key_type" {
