@@ -1,0 +1,11 @@
+name: Test
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  test:
+    name: Unit Tests
+    uses: ./.github/workflows/terraform-test.yml
+    with:
+      test-filter: tests/unit.tftest.hcl

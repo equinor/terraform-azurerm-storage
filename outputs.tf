@@ -91,3 +91,8 @@ output "secondary_connection_string" {
   value       = azurerm_storage_account.this.secondary_connection_string
   sensitive   = true
 }
+
+output "is_hns_enabled" {
+  description = "Is Data Lake Storage Gen2 hierarchical namespace (HNS) enabled for this Storage account?"
+  value       = azurerm_storage_account.this.is_hns_enabled
+}

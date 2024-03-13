@@ -11,25 +11,10 @@ See [examples](examples).
 
 ## Development
 
-1. Read [this document](https://code.visualstudio.com/docs/devcontainers/containers).
-
-1. Clone this repository.
-
-1. Configure Terraform variables in a file `.devcontainer/devcontainer.env`:
-
-    ```env
-    TF_VAR_resource_group_name=
-    TF_VAR_location=
-    ```
-
-1. Open repository in dev container.
-
-## Testing
-
-1. Change to the test directory:
+1. Clone this repository:
 
     ```console
-    cd test
+    git clone https://github.com/equinor/terraform-azurerm-storage.git
     ```
 
 1. Login to Azure:
@@ -44,11 +29,52 @@ See [examples](examples).
     az account set -s <SUBSCRIPTION_NAME_OR_ID>
     ```
 
-1. Run tests:
+1. Set environment variables:
 
     ```console
-    go test -timeout 60m
+    export TF_VAR_resource_group_name=<RESOURCE_GROUP_NAME>
+    export TF_VAR_location=<LOCATION>
     ```
+
+## Testing
+
+Run [unit tests](./tests/unit.tftest.hcl) for usage examples.
+
+> These tests will only run `plan` in the background.
+>
+> To view the plan output, add `-verbose` to the `terraform test` command. This is recommended when executing specific tests, given the size of the output depending on the number of tests run.
+
+1. Initialize working directory:
+
+    ```console
+    terraform init
+    ```
+
+1. Execute tests:
+
+    ```console
+    terraform test
+    ```
+
+### Execute a specific test
+
+PowerShell:
+
+```console
+terraform test -filter='tests\<test_file>.tftest.hcl'
+```
+
+Windows:
+
+```console
+terraform test -filter=tests\<test_file>.tftest.hcl
+```
+
+Linux, Mac OS, and UNIX:
+
+```console
+terraform test -filter=tests/<test_file>.tftest.hcl
+```
 
 ## Contributing
 
