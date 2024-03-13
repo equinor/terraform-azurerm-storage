@@ -85,7 +85,7 @@ jobs:
               status_emoji="x"
             fi
 
-            markdown_table+=("| \`$path\` | \`$run\` | :$status_emoji: **\`$status\`** |")
+            markdown_table+=("| \`$path\` | \`$run\` | :$status_emoji:**\`$status\`** |")
           done
 
           tftest=$(printf "%s\n" "${markdown_table[@]}")
