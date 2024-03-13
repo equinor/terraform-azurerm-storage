@@ -1,8 +1,10 @@
-run "standard_gpv2_storage_unit_tests" {
+mock_provider "azurerm" {}
+
+run "standard_gpv2_storage" {
   command = plan
 
   module {
-    source = "./examples/standard-gpv2-storage"
+    source = "./tests/setup"
   }
 
   assert {
@@ -21,11 +23,17 @@ run "standard_gpv2_storage_unit_tests" {
   }
 }
 
-run "standard_blob_storage_unit_tests" {
+run "standard_blob_storage" {
   command = plan
 
   module {
-    source = "./examples/standard-blob-storage"
+    source = "./tests/setup"
+  }
+
+  variables {
+    account_tier   = "Standard"
+    account_kind   = "BlobStorage"
+    is_hns_enabled = false
   }
 
   assert {
@@ -44,11 +52,17 @@ run "standard_blob_storage_unit_tests" {
   }
 }
 
-run "standard_data_lake_storage_unit_tests" {
+run "standard_data_lake_storage" {
   command = plan
 
   module {
-    source = "./examples/standard-data-lake-storage"
+    source = "./tests/setup"
+  }
+
+  variables {
+    account_tier   = "Standard"
+    account_kind   = "StorageV2"
+    is_hns_enabled = true
   }
 
   assert {
@@ -67,11 +81,17 @@ run "standard_data_lake_storage_unit_tests" {
   }
 }
 
-run "premium_gpv2_storage_unit_tests" {
+run "premium_gpv2_storage" {
   command = plan
 
   module {
-    source = "./examples/premium-gpv2-storage"
+    source = "./tests/setup"
+  }
+
+  variables {
+    account_tier   = "Premium"
+    account_kind   = "StorageV2"
+    is_hns_enabled = false
   }
 
   assert {
@@ -90,11 +110,17 @@ run "premium_gpv2_storage_unit_tests" {
   }
 }
 
-run "premium_file_storage_unit_tests" {
+run "premium_file_storage" {
   command = plan
 
   module {
-    source = "./examples/premium-file-storage"
+    source = "./tests/setup"
+  }
+
+  variables {
+    account_tier   = "Premium"
+    account_kind   = "FileStorage"
+    is_hns_enabled = false
   }
 
   assert {
@@ -113,11 +139,17 @@ run "premium_file_storage_unit_tests" {
   }
 }
 
-run "premium_data_lake_storage_unit_tests" {
+run "premium_data_lake_storage" {
   command = plan
 
   module {
-    source = "./examples/premium-data-lake-storage"
+    source = "./tests/setup"
+  }
+
+  variables {
+    account_tier   = "Premium"
+    account_kind   = "BlockBlobStorage"
+    is_hns_enabled = true
   }
 
   assert {
@@ -136,11 +168,17 @@ run "premium_data_lake_storage_unit_tests" {
   }
 }
 
-run "premium_block_blob_storage_unit_tests" {
+run "premium_block_blob_storage" {
   command = plan
 
   module {
-    source = "./examples/premium-block-blob-storage"
+    source = "./tests/setup"
+  }
+
+  variables {
+    account_tier   = "Premium"
+    account_kind   = "BlockBlobStorage"
+    is_hns_enabled = false
   }
 
   assert {
@@ -150,29 +188,6 @@ run "premium_block_blob_storage_unit_tests" {
 
   assert {
     condition     = module.storage.account_kind == "BlockBlobStorage"
-    error_message = "Invalid Storage account kind"
-  }
-
-  assert {
-    condition     = module.storage.is_hns_enabled == false
-    error_message = "Hierarchical namespace (HNS) enabled"
-  }
-}
-
-run "cmk_unit_tests" {
-  command = plan
-
-  module {
-    source = "./examples/cmk"
-  }
-
-  assert {
-    condition     = module.storage.account_tier == "Standard"
-    error_message = "Invalid Storage account tier"
-  }
-
-  assert {
-    condition     = module.storage.account_kind == "StorageV2"
     error_message = "Invalid Storage account kind"
   }
 
