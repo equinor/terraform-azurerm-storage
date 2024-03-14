@@ -22,6 +22,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
+          terraform_wrapper: false
 
       - name: Terraform Format
         id: fmt
@@ -37,9 +38,15 @@ jobs:
 
       - name: Terraform Test
         id: test
+        shell: bash {0}
         env:
           TF_TEST_FILTER: ${{ inputs.test-filter }}
-        run: terraform test -filter="$TF_TEST_FILTER" -verbose -json | tee "$TF_TEST_RESULTS_FILE"
+        run: |
+          terraform test -filter="$TF_TEST_FILTER" -json | tee "$TF_TEST_RESULTS_FILE"
+          exitcode=$?
+          if [[ "$exitcode" != 0 ]]; then
+            exit "$exitcode"
+          fi
 
       - name: Create job summary
         if: success() || failure()
@@ -52,8 +59,8 @@ jobs:
         run: |
           readarray -t tftest_results < "$TF_TEST_RESULTS_FILE"
 
-          markdown_rows=("| Path | Run | Status |")
-          markdown_rows+=("| --- | --- | --- |")
+          table_rows=("| Path | Run | Status |")
+          table_rows+=("| --- | --- | --- |")
 
           for tftest_json in "${tftest_results[@]}"; do
             type=$(echo "$tftest_json" | jq -r .type)
@@ -82,10 +89,10 @@ jobs:
               status_emoji="x"
             fi
 
-            markdown_rows+=("| \`$path\` | \`$run\` | :$status_emoji:**\`$status\`** |")
+            table_rows+=("| \`$path\` | \`$run\` | :$status_emoji:**\`$status\`** |")
           done
 
-          markdown_table=$(printf "%s\n" "${markdown_rows[@]}")
+          table=$(printf "%s\n" "${table_rows[@]}")
 
           echo "#### Terraform Format and Style 🖌\`$TF_FMT_OUTCOME\`
           #### Terraform Initialization ⚙\`$TF_INIT_OUTCOME\`
@@ -94,7 +101,7 @@ jobs:
 
           <details><summary>Show Tests</summary>
 
-          $markdown_table
+          $table
 
           </details>
 
