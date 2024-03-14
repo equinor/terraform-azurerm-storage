@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.4.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.4.0...v12.4.1) (2024-03-14)
+
+
+### Miscellaneous Chores
+
+* update examples ([#211](https://github.com/equinor/terraform-azurerm-storage/issues/211)) ([987465c](https://github.com/equinor/terraform-azurerm-storage/commit/987465c0fd1a084747b0df4bb1defe7acae7d2b2))
+
 ## [12.4.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.3.0...v12.4.0) (2024-03-14)
 
 
