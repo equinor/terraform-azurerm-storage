@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TF_IN_AUTOMATION: true
+      TF_TEST_RESULTS_FILE: tftest.md
 
     steps:
       - name: Checkout
@@ -77,7 +78,7 @@ jobs:
             markdown_table+=("| \`$path\` | \`$run\` | :$status_emoji:**\`$status\`** |")
           done
 
-          printf "%s\n" "${markdown_table[@]}" > tftest.md
+          printf "%s\n" "${markdown_table[@]}" > "$TF_TEST_RESULTS_FILE"
 
       - name: Create job summary
         if: success() || failure()
@@ -88,7 +89,7 @@ jobs:
           TF_VALIDATE_OUTCOME: ${{ steps.validate.outcome }}
           TF_TEST_OUTCOME: ${{ steps.test.outcome }}
         run: |
-          tftest=$(cat tftest.md)
+          tftest=$(cat "$TF_TEST_RESULTS_FILE")
 
           echo "#### Terraform Format and Style 🖌\`$TF_FMT_OUTCOME\`
           #### Terraform Initialization ⚙\`$TF_INIT_OUTCOME\`
