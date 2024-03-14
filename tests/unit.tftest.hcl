@@ -17,7 +17,7 @@ run "standard_gpv2_storage" {
   }
 
   assert {
-    condition     = azurerm_storage_account.this.account_tier == "Standard"
+    condition     = azurerm_storage_account.this.account_tier == "Premium"
     error_message = "Invalid Storage account tier"
   }
 

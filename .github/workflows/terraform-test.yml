@@ -55,8 +55,8 @@ jobs:
         run: |
           readarray -t tftest_results < "$TF_TEST_RESULTS_FILE"
 
-          table_rows=("| Path | Run | Status |")
-          table_rows+=("| --- | --- | --- |")
+          table_rows=("| Path | Run | Status | Detail |")
+          table_rows+=("| --- | --- | --- | --- |")
 
           for tftest_json in "${tftest_results[@]}"; do
             type=$(echo "$tftest_json" | jq -r .type)
@@ -81,11 +81,13 @@ jobs:
               status_emoji="heavy_check_mark"
             fi
 
+            error_message=""
             if [[ "$status" == "fail" ]]; then
               status_emoji="x"
+              error_message=$(echo "$tftest_results" | jq -r '. | select(."@level"=="error") | .diagnostic.detail')
             fi
 
-            table_rows+=("| \`$path\` | \`$run\` | :$status_emoji:**\`$status\`** |")
+            table_rows+=("| \`$path\` | \`$run\` | :$status_emoji:**\`$status\`** | \`$error_message\` |")
           done
 
           table=$(printf "%s\n" "${table_rows[@]}")
