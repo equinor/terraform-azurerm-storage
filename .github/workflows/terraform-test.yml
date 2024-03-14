@@ -38,7 +38,6 @@ jobs:
 
       - name: Terraform Test
         id: test
-        shell: bash {0}
         env:
           TF_TEST_FILTER: ${{ inputs.test-filter }}
         run: |
