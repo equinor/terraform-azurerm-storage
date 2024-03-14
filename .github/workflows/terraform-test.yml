@@ -53,12 +53,13 @@ jobs:
           TF_VALIDATE_OUTCOME: ${{ steps.validate.outcome }}
           TF_TEST_OUTCOME: ${{ steps.test.outcome }}
         run: |
-          readarray -t tftest_results < "$TF_TEST_RESULTS_FILE"
+          tftest_results=$(cat "$TF_TEST_RESULTS_FILE")
+          readarray -t tftest_array <<< "$tftest_results"
 
-          table_rows=("| Path | Run | Status | Detail |")
+          table_rows=("| Path | Run | Status | Error message |")
           table_rows+=("| --- | --- | --- | --- |")
 
-          for tftest_json in "${tftest_results[@]}"; do
+          for tftest_json in "${tftest_array[@]}"; do
             type=$(echo "$tftest_json" | jq -r .type)
 
             if [[ "$type" != "test_run" ]]; then
@@ -87,7 +88,7 @@ jobs:
               error_message=$(echo "$tftest_results" | jq -r '. | select(."@level"=="error") | .diagnostic.detail')
             fi
 
-            table_rows+=("| \`$path\` | \`$run\` | :$status_emoji:**\`$status\`** | \`$error_message\` |")
+            table_rows+=("| \`$path\` | \`$run\` | :$status_emoji:**\`$status\`** | $error_message |")
           done
 
           table=$(printf "%s\n" "${table_rows[@]}")
