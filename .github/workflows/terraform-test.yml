@@ -41,7 +41,7 @@ jobs:
         env:
           TF_TEST_FILTER: ${{ inputs.test-filter }}
         run: |
-          tftest_stdout=$(terraform test -filter="$TF_TEST_FILTER" -json)
+          tftest_stdout=$(terraform test -filter="$TF_TEST_FILTER" -json -verbose)
 
           readarray -t tftest_array <<< "$tftest_stdout"
 
