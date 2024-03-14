@@ -39,23 +39,12 @@ jobs:
         id: test
         env:
           TF_TEST_FILTER: ${{ inputs.test-filter }}
-        run: terraform test -filter="$TF_TEST_FILTER" -json > tftest
-
-      - name: Create job summary
-        if: success() || failure()
-        shell: bash {0}
-        env:
-          TF_FMT_OUTCOME: ${{ steps.fmt.outcome }}
-          TF_INIT_OUTCOME: ${{ steps.init.outcome }}
-          TF_VALIDATE_OUTCOME: ${{ steps.validate.outcome }}
-          TF_TEST_OUTCOME: ${{ steps.test.outcome }}
         run: |
-          tftest_raw=$(cat tftest)
+          tftest_stdout=$(terraform test -filter="$TF_TEST_FILTER" -json)
 
-          readarray -t tftest_array <<< "$tftest_raw"
+          readarray -t tftest_array <<< "$tftest_stdout"
 
-          markdown_table=()
-          markdown_table+=("| Path | Run | Status |")
+          markdown_table=("| Path | Run | Status |")
           markdown_table+=("| --- | --- | --- |")
 
           for tftest_json in "${tftest_array[@]}"; do
@@ -88,7 +77,18 @@ jobs:
             markdown_table+=("| \`$path\` | \`$run\` | :$status_emoji:**\`$status\`** |")
           done
 
-          tftest=$(printf "%s\n" "${markdown_table[@]}")
+          printf "%s\n" "${markdown_table[@]}" > tftest.md
+
+      - name: Create job summary
+        if: success() || failure()
+        shell: bash {0}
+        env:
+          TF_FMT_OUTCOME: ${{ steps.fmt.outcome }}
+          TF_INIT_OUTCOME: ${{ steps.init.outcome }}
+          TF_VALIDATE_OUTCOME: ${{ steps.validate.outcome }}
+          TF_TEST_OUTCOME: ${{ steps.test.outcome }}
+        run: |
+          tftest=$(cat tftest.md)
 
           echo "#### Terraform Format and Style 🖌\`$TF_FMT_OUTCOME\`
           #### Terraform Initialization ⚙\`$TF_INIT_OUTCOME\`
