@@ -1,24 +1,33 @@
 mock_provider "azurerm" {}
 
-run "standard_gpv2_storage" {
-  command = plan
-
+run "setup_tests" {
   module {
     source = "./tests/setup"
   }
+}
+
+run "standard_gpv2_storage" {
+  command = plan
+
+  variables {
+    account_name               = run.setup_tests.account_name
+    resource_group_name        = run.setup_tests.resource_group_name
+    location                   = run.setup_tests.location
+    log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+  }
 
   assert {
-    condition     = module.storage.account_tier == "Standard"
+    condition     = azurerm_storage_account.this.account_tier == "Standard"
     error_message = "Invalid Storage account tier"
   }
 
   assert {
-    condition     = module.storage.account_kind == "StorageV2"
+    condition     = azurerm_storage_account.this.account_kind == "StorageV2"
     error_message = "Invalid Storage account kind"
   }
 
   assert {
-    condition     = module.storage.is_hns_enabled == false
+    condition     = azurerm_storage_account.this.is_hns_enabled == false
     error_message = "Hierarchical namespace (HNS) enabled"
   }
 }
@@ -26,28 +35,29 @@ run "standard_gpv2_storage" {
 run "standard_blob_storage" {
   command = plan
 
-  module {
-    source = "./tests/setup"
-  }
-
   variables {
+    account_name               = run.setup_tests.account_name
+    resource_group_name        = run.setup_tests.resource_group_name
+    location                   = run.setup_tests.location
+    log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+
     account_tier   = "Standard"
     account_kind   = "BlobStorage"
     is_hns_enabled = false
   }
 
   assert {
-    condition     = module.storage.account_tier == "Standard"
+    condition     = azurerm_storage_account.this.account_tier == "Standard"
     error_message = "Invalid Storage account tier"
   }
 
   assert {
-    condition     = module.storage.account_kind == "BlobStorage"
+    condition     = azurerm_storage_account.this.account_kind == "BlobStorage"
     error_message = "Invalid Storage account kind"
   }
 
   assert {
-    condition     = module.storage.is_hns_enabled == false
+    condition     = azurerm_storage_account.this.is_hns_enabled == false
     error_message = "Hierarchical namespace (HNS) enabled"
   }
 }
@@ -55,28 +65,29 @@ run "standard_blob_storage" {
 run "standard_data_lake_storage" {
   command = plan
 
-  module {
-    source = "./tests/setup"
-  }
-
   variables {
-    account_tier   = "Standard"
-    account_kind   = "StorageV2"
-    is_hns_enabled = true
+    account_name               = run.setup_tests.account_name
+    resource_group_name        = run.setup_tests.resource_group_name
+    location                   = run.setup_tests.location
+    log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+
+    account_tier        = "Standard"
+    account_kind        = "StorageV2"
+    is_hns_enabled      = true
   }
 
   assert {
-    condition     = module.storage.account_tier == "Standard"
+    condition     = azurerm_storage_account.this.account_tier == "Standard"
     error_message = "Invalid Storage account tier"
   }
 
   assert {
-    condition     = module.storage.account_kind == "StorageV2"
+    condition     = azurerm_storage_account.this.account_kind == "StorageV2"
     error_message = "Invalid Storage account kind"
   }
 
   assert {
-    condition     = module.storage.is_hns_enabled == true
+    condition     = azurerm_storage_account.this.is_hns_enabled == true
     error_message = "Hierarchical namespace (HNS) disabled"
   }
 }
@@ -84,28 +95,29 @@ run "standard_data_lake_storage" {
 run "premium_gpv2_storage" {
   command = plan
 
-  module {
-    source = "./tests/setup"
-  }
-
   variables {
-    account_tier   = "Premium"
-    account_kind   = "StorageV2"
-    is_hns_enabled = false
+    account_name               = run.setup_tests.account_name
+    resource_group_name        = run.setup_tests.resource_group_name
+    location                   = run.setup_tests.location
+    log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+
+    account_tier        = "Premium"
+    account_kind        = "StorageV2"
+    is_hns_enabled      = false
   }
 
   assert {
-    condition     = module.storage.account_tier == "Premium"
+    condition     = azurerm_storage_account.this.account_tier == "Premium"
     error_message = "Invalid Storage account tier"
   }
 
   assert {
-    condition     = module.storage.account_kind == "StorageV2"
+    condition     = azurerm_storage_account.this.account_kind == "StorageV2"
     error_message = "Invalid Storage account kind"
   }
 
   assert {
-    condition     = module.storage.is_hns_enabled == false
+    condition     = azurerm_storage_account.this.is_hns_enabled == false
     error_message = "Hierarchical namespace (HNS) enabled"
   }
 }
@@ -113,28 +125,29 @@ run "premium_gpv2_storage" {
 run "premium_file_storage" {
   command = plan
 
-  module {
-    source = "./tests/setup"
-  }
-
   variables {
-    account_tier   = "Premium"
-    account_kind   = "FileStorage"
-    is_hns_enabled = false
+    account_name               = run.setup_tests.account_name
+    resource_group_name        = run.setup_tests.resource_group_name
+    location                   = run.setup_tests.location
+    log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+
+    account_tier        = "Premium"
+    account_kind        = "FileStorage"
+    is_hns_enabled      = false
   }
 
   assert {
-    condition     = module.storage.account_tier == "Premium"
+    condition     = azurerm_storage_account.this.account_tier == "Premium"
     error_message = "Invalid Storage account tier"
   }
 
   assert {
-    condition     = module.storage.account_kind == "FileStorage"
+    condition     = azurerm_storage_account.this.account_kind == "FileStorage"
     error_message = "Invalid Storage account kind"
   }
 
   assert {
-    condition     = module.storage.is_hns_enabled == false
+    condition     = azurerm_storage_account.this.is_hns_enabled == false
     error_message = "Hierarchical namespace (HNS) enabled"
   }
 }
@@ -142,28 +155,29 @@ run "premium_file_storage" {
 run "premium_data_lake_storage" {
   command = plan
 
-  module {
-    source = "./tests/setup"
-  }
-
   variables {
-    account_tier   = "Premium"
-    account_kind   = "BlockBlobStorage"
-    is_hns_enabled = true
+    account_name               = run.setup_tests.account_name
+    resource_group_name        = run.setup_tests.resource_group_name
+    location                   = run.setup_tests.location
+    log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+
+    account_tier        = "Premium"
+    account_kind        = "BlockBlobStorage"
+    is_hns_enabled      = true
   }
 
   assert {
-    condition     = module.storage.account_tier == "Premium"
+    condition     = azurerm_storage_account.this.account_tier == "Premium"
     error_message = "Invalid Storage account tier"
   }
 
   assert {
-    condition     = module.storage.account_kind == "BlockBlobStorage"
+    condition     = azurerm_storage_account.this.account_kind == "BlockBlobStorage"
     error_message = "Invalid Storage account kind"
   }
 
   assert {
-    condition     = module.storage.is_hns_enabled == true
+    condition     = azurerm_storage_account.this.is_hns_enabled == true
     error_message = "Hierarchical namespace (HNS) disabled"
   }
 }
@@ -171,28 +185,29 @@ run "premium_data_lake_storage" {
 run "premium_block_blob_storage" {
   command = plan
 
-  module {
-    source = "./tests/setup"
-  }
-
   variables {
-    account_tier   = "Premium"
-    account_kind   = "BlockBlobStorage"
-    is_hns_enabled = false
+    account_name               = run.setup_tests.account_name
+    resource_group_name        = run.setup_tests.resource_group_name
+    location                   = run.setup_tests.location
+    log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+
+    account_tier        = "Premium"
+    account_kind        = "BlockBlobStorage"
+    is_hns_enabled      = false
   }
 
   assert {
-    condition     = module.storage.account_tier == "Premium"
+    condition     = azurerm_storage_account.this.account_tier == "Premium"
     error_message = "Invalid Storage account tier"
   }
 
   assert {
-    condition     = module.storage.account_kind == "BlockBlobStorage"
+    condition     = azurerm_storage_account.this.account_kind == "BlockBlobStorage"
     error_message = "Invalid Storage account kind"
   }
 
   assert {
-    condition     = module.storage.is_hns_enabled == false
+    condition     = azurerm_storage_account.this.is_hns_enabled == false
     error_message = "Hierarchical namespace (HNS) enabled"
   }
 }
