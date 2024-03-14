@@ -6,6 +6,6 @@ on:
 jobs:
   test:
     name: Unit Tests
-    uses: equinor/terraform-baseline/.github/workflows/terraform-test.yml@main
+    uses: equinor/terraform-baseline/.github/workflows/terraform-test.yml@ci-update-terraform-test-workflow
     with:
       test-filter: tests/unit.tftest.hcl
