@@ -7,6 +7,9 @@ locals {
   is_standard_data_lake_storage = var.account_tier == "Standard" && var.account_kind == "StorageV2" && var.is_hns_enabled
   # No need to check for "is_standard_gpv2_storage", since that is what this module is configured for by default.
 
+  # Only enable access tier for supported account kinds
+  access_tier = contains(["BlobStorage", "StorageV2", "FileStorage"], var.account_kind) ? var.access_tier : null
+
   # If system_assigned_identity_enabled is true, value is "SystemAssigned".
   # If identity_ids is non-empty, value is "UserAssigned".
   # If system_assigned_identity_enabled is true and identity_ids is non-empty, value is "SystemAssigned, UserAssigned".
@@ -23,7 +26,7 @@ resource "azurerm_storage_account" "this" {
   account_kind             = var.account_kind
   account_tier             = var.account_tier
   account_replication_type = var.account_replication_type
-  access_tier              = var.access_tier
+  access_tier              = local.access_tier
 
   enable_https_traffic_only        = true
   min_tls_version                  = "TLS1_2"
