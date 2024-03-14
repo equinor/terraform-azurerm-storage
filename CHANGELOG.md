@@ -1,5 +1,19 @@
 # Changelog
 
+## [12.4.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.3.0...v12.4.0) (2024-03-14)
+
+
+### Features
+
+* add diagnostic setting name variable ([#210](https://github.com/equinor/terraform-azurerm-storage/issues/210)) ([b5e2ddd](https://github.com/equinor/terraform-azurerm-storage/commit/b5e2dddcd77115209aecbce04441cbff8414103d))
+* disable metrics by default ([#202](https://github.com/equinor/terraform-azurerm-storage/issues/202)) ([bbaf7e1](https://github.com/equinor/terraform-azurerm-storage/commit/bbaf7e10f69f4a8bf18b7fdcc018b24c8bb202e3))
+* lower default delete retention policies ([#205](https://github.com/equinor/terraform-azurerm-storage/issues/205)) ([dd0780f](https://github.com/equinor/terraform-azurerm-storage/commit/dd0780f4386da768f9565842ea5cfe6f36dd6d16))
+
+
+### Bug Fixes
+
+* only configure access tier for supported account kinds ([#206](https://github.com/equinor/terraform-azurerm-storage/issues/206)) ([6d88ff6](https://github.com/equinor/terraform-azurerm-storage/commit/6d88ff6673d4228e785042ceb711e4a68ae35203))
+
 ## [12.3.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.2.1...v12.3.0) (2024-01-17)
 
 
