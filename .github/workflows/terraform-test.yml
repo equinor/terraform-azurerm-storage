@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TF_IN_AUTOMATION: true
-      TF_TEST_RESULTS_FILE: tftest.md
 
     steps:
       - name: Checkout
@@ -22,7 +21,6 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
-          terraform_wrapper: false
 
       - name: Terraform Format
         id: fmt
@@ -38,14 +36,21 @@ jobs:
 
       - name: Terraform Test
         id: test
-        shell: bash {0}
         env:
           TF_TEST_FILTER: ${{ inputs.test-filter }}
-        run: |
-          tftest_stdout=$(terraform test -filter="$TF_TEST_FILTER" -verbose -json)
-          echo "$tftest_stdout"
+        run: terraform test -filter="$TF_TEST_FILTER" -verbose -json
 
-          readarray -t tftest_array <<< "$tftest_stdout"
+      - name: Create job summary
+        if: success() || failure()
+        shell: bash {0}
+        env:
+          TF_FMT_OUTCOME: ${{ steps.fmt.outcome }}
+          TF_INIT_OUTCOME: ${{ steps.init.outcome }}
+          TF_VALIDATE_OUTCOME: ${{ steps.validate.outcome }}
+          TF_TEST_OUTCOME: ${{ steps.test.outcome }}
+          TF_TEST_STDOUT: ${{ steps.test.outputs.stdout }}
+        run: |
+          readarray -t tftest_array <<< "$TF_TEST_STDOUT"
 
           markdown_table=("| Path | Run | Status |")
           markdown_table+=("| --- | --- | --- |")
@@ -80,19 +85,6 @@ jobs:
             markdown_table+=("| \`$path\` | \`$run\` | :$status_emoji:**\`$status\`** |")
           done
 
-          printf "%s\n" "${markdown_table[@]}" > "$TF_TEST_RESULTS_FILE"
-
-      - name: Create job summary
-        if: success() || failure()
-        shell: bash {0}
-        env:
-          TF_FMT_OUTCOME: ${{ steps.fmt.outcome }}
-          TF_INIT_OUTCOME: ${{ steps.init.outcome }}
-          TF_VALIDATE_OUTCOME: ${{ steps.validate.outcome }}
-          TF_TEST_OUTCOME: ${{ steps.test.outcome }}
-        run: |
-          tftest=$(cat "$TF_TEST_RESULTS_FILE")
-
           echo "#### Terraform Format and Style 🖌\`$TF_FMT_OUTCOME\`
           #### Terraform Initialization ⚙\`$TF_INIT_OUTCOME\`
           #### Terraform Validation 🤖\`$TF_VALIDATE_OUTCOME\`
@@ -100,7 +92,7 @@ jobs:
 
           <details><summary>Show Tests</summary>
 
-          $tftest
+          $(printf "%s\n" "${markdown_table[@]}")
 
           </details>
 
