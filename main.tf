@@ -131,7 +131,7 @@ resource "azurerm_advanced_threat_protection" "this" {
 resource "azurerm_monitor_diagnostic_setting" "this" {
   for_each = toset(["blob", "queue", "table", "file"])
 
-  name                       = "audit-logs"
+  name                       = var.diagnostic_setting_name
   target_resource_id         = "${azurerm_storage_account.this.id}/${each.value}Services/default"
   log_analytics_workspace_id = var.log_analytics_workspace_id
 
