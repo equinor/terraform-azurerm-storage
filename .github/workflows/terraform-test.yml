@@ -38,69 +38,70 @@ jobs:
 
       - name: Terraform Test
         id: test
+        shell: bash {0}
         env:
           TF_TEST_FILTER: ${{ inputs.test-filter }}
-        run: terraform test -filter="$TF_TEST_FILTER" -json -verbose
-          # run: |
-        #   tftest_stdout=$(terraform test -filter="$TF_TEST_FILTER" -json -verbose)
+        run: |
+          tftest_stdout=$(terraform test -filter="$TF_TEST_FILTER" -json -verbose)
+          echo "$test_stdout"
 
-        #   readarray -t tftest_array <<< "$tftest_stdout"
+          readarray -t tftest_array <<< "$tftest_stdout"
 
-        #   markdown_table=("| Path | Run | Status |")
-        #   markdown_table+=("| --- | --- | --- |")
+          markdown_table=("| Path | Run | Status |")
+          markdown_table+=("| --- | --- | --- |")
 
-        #   for tftest_json in "${tftest_array[@]}"; do
-        #     type=$(echo "$tftest_json" | jq -r .type)
+          for tftest_json in "${tftest_array[@]}"; do
+            type=$(echo "$tftest_json" | jq -r .type)
 
-        #     if [[ "$type" != "test_run" ]]; then
-        #       continue
-        #     fi
+            if [[ "$type" != "test_run" ]]; then
+              continue
+            fi
 
-        #     test_run=$(echo "$tftest_json" | jq .test_run)
-        #     progress=$(echo "$test_run" | jq -r .progress)
+            test_run=$(echo "$tftest_json" | jq .test_run)
+            progress=$(echo "$test_run" | jq -r .progress)
 
-        #     if [[ "$progress" != "complete" ]]; then
-        #       continue
-        #     fi
+            if [[ "$progress" != "complete" ]]; then
+              continue
+            fi
 
-        #     path=$(echo "$test_run" | jq -r .path)
-        #     run=$(echo "$test_run" | jq -r .run)
-        #     status=$(echo "$test_run" | jq -r .status)
-        #     status_emoji="heavy_minus_sign" # neutral/unknown by default
+            path=$(echo "$test_run" | jq -r .path)
+            run=$(echo "$test_run" | jq -r .run)
+            status=$(echo "$test_run" | jq -r .status)
+            status_emoji="heavy_minus_sign" # neutral/unknown by default
 
-        #     if [[ "$status" == "pass" ]]; then
-        #       status_emoji="heavy_check_mark"
-        #     fi
+            if [[ "$status" == "pass" ]]; then
+              status_emoji="heavy_check_mark"
+            fi
 
-        #     if [[ "$status" == "fail" ]]; then
-        #       status_emoji="x"
-        #     fi
+            if [[ "$status" == "fail" ]]; then
+              status_emoji="x"
+            fi
 
-        #     markdown_table+=("| \`$path\` | \`$run\` | :$status_emoji:**\`$status\`** |")
-        #   done
+            markdown_table+=("| \`$path\` | \`$run\` | :$status_emoji:**\`$status\`** |")
+          done
 
-        #   printf "%s\n" "${markdown_table[@]}" > "$TF_TEST_RESULTS_FILE"
+          printf "%s\n" "${markdown_table[@]}" > "$TF_TEST_RESULTS_FILE"
 
-      # - name: Create job summary
-      #   if: success() || failure()
-      #   shell: bash {0}
-      #   env:
-      #     TF_FMT_OUTCOME: ${{ steps.fmt.outcome }}
-      #     TF_INIT_OUTCOME: ${{ steps.init.outcome }}
-      #     TF_VALIDATE_OUTCOME: ${{ steps.validate.outcome }}
-      #     TF_TEST_OUTCOME: ${{ steps.test.outcome }}
-      #   run: |
-      #     tftest=$(cat "$TF_TEST_RESULTS_FILE")
+      - name: Create job summary
+        if: success() || failure()
+        shell: bash {0}
+        env:
+          TF_FMT_OUTCOME: ${{ steps.fmt.outcome }}
+          TF_INIT_OUTCOME: ${{ steps.init.outcome }}
+          TF_VALIDATE_OUTCOME: ${{ steps.validate.outcome }}
+          TF_TEST_OUTCOME: ${{ steps.test.outcome }}
+        run: |
+          tftest=$(cat "$TF_TEST_RESULTS_FILE")
 
-      #     echo "#### Terraform Format and Style 🖌\`$TF_FMT_OUTCOME\`
-      #     #### Terraform Initialization ⚙\`$TF_INIT_OUTCOME\`
-      #     #### Terraform Validation 🤖\`$TF_VALIDATE_OUTCOME\`
-      #     #### Terraform Test 🧪\`$TF_TEST_OUTCOME\`
+          echo "#### Terraform Format and Style 🖌\`$TF_FMT_OUTCOME\`
+          #### Terraform Initialization ⚙\`$TF_INIT_OUTCOME\`
+          #### Terraform Validation 🤖\`$TF_VALIDATE_OUTCOME\`
+          #### Terraform Test 🧪\`$TF_TEST_OUTCOME\`
 
-      #     <details><summary>Show Tests</summary>
+          <details><summary>Show Tests</summary>
 
-      #     $tftest
+          $tftest
 
-      #     </details>
+          </details>
 
-      #     *Pusher: @$GITHUB_ACTOR, Action: \`$GITHUB_EVENT_NAME\`, Workflow: \`$GITHUB_WORKFLOW\`*" >> "$GITHUB_STEP_SUMMARY"
+          *Pusher: @$GITHUB_ACTOR, Action: \`$GITHUB_EVENT_NAME\`, Workflow: \`$GITHUB_WORKFLOW\`*" >> "$GITHUB_STEP_SUMMARY"
