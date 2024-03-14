@@ -38,14 +38,15 @@ jobs:
 
       - name: Terraform Test
         id: test
+        shell: bash -o pipefail {0}
         env:
           TF_TEST_FILTER: ${{ inputs.test-filter }}
         run: |
           terraform test -filter="$TF_TEST_FILTER" -json | tee "$TF_TEST_RESULTS_FILE"
-          exitcode=$?
-          if [[ "$exitcode" != 0 ]]; then
-            exit "$exitcode"
-          fi
+          # exitcode=$?
+          # if [[ "$exitcode" != 0 ]]; then
+          #   exit "$exitcode"
+          # fi
 
       - name: Create job summary
         if: success() || failure()
