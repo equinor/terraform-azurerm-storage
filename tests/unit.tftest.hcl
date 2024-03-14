@@ -191,7 +191,8 @@ run "premium_block_blob_storage" {
     location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
 
-    account_tier        = "Premium"
+    # account_tier        = "Premium"
+    account_tier        = "Standard"
     account_kind        = "BlockBlobStorage"
     is_hns_enabled      = false
   }
