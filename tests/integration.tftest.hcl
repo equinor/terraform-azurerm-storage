@@ -63,8 +63,6 @@ run "standard_data_lake_storage" {
     account_name               = run.setup_tests.account_name
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
 
-    account_tier        = "Standard"
-    account_kind        = "StorageV2"
     is_hns_enabled      = true
   }
 
@@ -89,9 +87,9 @@ run "premium_gpv2_storage" {
     account_name               = run.setup_tests.account_name
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
 
-    account_tier        = "Premium"
-    account_kind        = "StorageV2"
-    is_hns_enabled      = false
+    account_tier             = "Premium"
+    account_replication_type = "LRS"
+    is_hns_enabled           = false
   }
 
   assert {
@@ -115,9 +113,10 @@ run "premium_file_storage" {
     account_name               = run.setup_tests.account_name
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
 
-    account_tier        = "Premium"
-    account_kind        = "FileStorage"
-    is_hns_enabled      = false
+    account_tier             = "Premium"
+    account_kind             = "FileStorage"
+    account_replication_type = "LRS"
+    is_hns_enabled           = false
   }
 
   assert {
@@ -141,9 +140,10 @@ run "premium_data_lake_storage" {
     account_name               = run.setup_tests.account_name
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
 
-    account_tier        = "Premium"
-    account_kind        = "BlockBlobStorage"
-    is_hns_enabled      = true
+    account_tier             = "Premium"
+    account_kind             = "BlockBlobStorage"
+    account_replication_type = "LRS"
+    is_hns_enabled           = true
   }
 
   assert {
@@ -167,9 +167,10 @@ run "premium_block_blob_storage" {
     account_name               = run.setup_tests.account_name
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
 
-    account_tier        = "Premium"
-    account_kind        = "BlockBlobStorage"
-    is_hns_enabled      = false
+    account_tier             = "Premium"
+    account_kind             = "BlockBlobStorage"
+    account_replication_type = "LRS"
+    is_hns_enabled           = false
   }
 
   assert {
