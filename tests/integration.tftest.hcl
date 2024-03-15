@@ -1,18 +1,18 @@
-mock_provider "azurerm" {}
+provider "azurerm" {
+  storage_use_azuread = true
+
+  features {}
+}
 
 run "setup_tests" {
   module {
-    source = "./tests/setup-unit-tests"
+    source = "./tests/setup-integration-tests"
   }
 }
 
 run "standard_gpv2_storage" {
-  command = plan
-
   variables {
     account_name               = run.setup_tests.account_name
-    resource_group_name        = run.setup_tests.resource_group_name
-    location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
   }
 
@@ -33,12 +33,8 @@ run "standard_gpv2_storage" {
 }
 
 run "standard_blob_storage" {
-  command = plan
-
   variables {
     account_name               = run.setup_tests.account_name
-    resource_group_name        = run.setup_tests.resource_group_name
-    location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
 
     account_tier   = "Standard"
@@ -63,12 +59,8 @@ run "standard_blob_storage" {
 }
 
 run "standard_data_lake_storage" {
-  command = plan
-
   variables {
     account_name               = run.setup_tests.account_name
-    resource_group_name        = run.setup_tests.resource_group_name
-    location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
 
     account_tier        = "Standard"
@@ -93,12 +85,8 @@ run "standard_data_lake_storage" {
 }
 
 run "premium_gpv2_storage" {
-  command = plan
-
   variables {
     account_name               = run.setup_tests.account_name
-    resource_group_name        = run.setup_tests.resource_group_name
-    location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
 
     account_tier        = "Premium"
@@ -123,12 +111,8 @@ run "premium_gpv2_storage" {
 }
 
 run "premium_file_storage" {
-  command = plan
-
   variables {
     account_name               = run.setup_tests.account_name
-    resource_group_name        = run.setup_tests.resource_group_name
-    location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
 
     account_tier        = "Premium"
@@ -153,12 +137,8 @@ run "premium_file_storage" {
 }
 
 run "premium_data_lake_storage" {
-  command = plan
-
   variables {
     account_name               = run.setup_tests.account_name
-    resource_group_name        = run.setup_tests.resource_group_name
-    location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
 
     account_tier        = "Premium"
@@ -183,12 +163,8 @@ run "premium_data_lake_storage" {
 }
 
 run "premium_block_blob_storage" {
-  command = plan
-
   variables {
     account_name               = run.setup_tests.account_name
-    resource_group_name        = run.setup_tests.resource_group_name
-    location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
 
     account_tier        = "Premium"
