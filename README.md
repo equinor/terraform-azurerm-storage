@@ -47,7 +47,7 @@ See [examples](examples).
 1. Execute tests:
 
     ```console
-    terraform test -verbose
+    terraform test
     ```
 
     See [`terraform test` command documentation](https://developer.hashicorp.com/terraform/cli/commands/test) for options.
