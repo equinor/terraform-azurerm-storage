@@ -113,11 +113,11 @@ resource "azurerm_storage_account" "this" {
     virtual_network_subnet_ids = var.network_rules_virtual_network_subnet_ids
 
     dynamic "private_link_access" {
-      for_each = var.endpoint_resource_id != null ? [1] : []
+      for_each = var.private_link_accesses
 
       content {
-        endpoint_resource_id = var.endpoint_resource_id
-        endpoint_tenant_id   = var.endpoint_tenant_id
+        endpoint_resource_id = private_link_access.value.endpoint_resource_id
+        endpoint_tenant_id   = private_link_access.value.endpoint_tenant_id
       }
     }
   }

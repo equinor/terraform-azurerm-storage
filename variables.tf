@@ -184,16 +184,13 @@ variable "network_rules_ip_rules" {
   }
 }
 
-variable "endpoint_resource_id" {
-  type        = string
-  description = "The ID of the Azure resource that should be allowed access to the target storage account."
-  default     = null
-}
-
-variable "endpoint_tenant_id" {
-  type        = string
-  description = "The tenant id of the resource of the resource access rule to be granted access. Defaults to the current tenant id."
-  default     = null
+variable "private_link_accesses" {
+  description = "A list of private link accesses to configure for this Storage account."
+  type = list(object({
+    endpoint_resource_id = string
+    endpoint_tenant_id   = optional(string)
+  }))
+  default = []
 }
 
 variable "custom_domain" {
