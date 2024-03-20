@@ -184,6 +184,15 @@ variable "network_rules_ip_rules" {
   }
 }
 
+variable "private_link_accesses" {
+  description = "A list of private link accesses to configure for this Storage account."
+  type = list(object({
+    endpoint_resource_id = string
+    endpoint_tenant_id   = optional(string)
+  }))
+  default = []
+}
+
 variable "custom_domain" {
   description = "A custom (sub) domain name of the Storage Account"
 

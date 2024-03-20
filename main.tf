@@ -111,6 +111,15 @@ resource "azurerm_storage_account" "this" {
     bypass                     = !var.network_rules_bypass_azure_services ? [] : ["AzureServices"]
     ip_rules                   = var.network_rules_ip_rules
     virtual_network_subnet_ids = var.network_rules_virtual_network_subnet_ids
+
+    dynamic "private_link_access" {
+      for_each = var.private_link_accesses
+
+      content {
+        endpoint_resource_id = private_link_access.value.endpoint_resource_id
+        endpoint_tenant_id   = private_link_access.value.endpoint_tenant_id
+      }
+    }
   }
 
   dynamic "custom_domain" {
