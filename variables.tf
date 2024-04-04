@@ -79,51 +79,69 @@ variable "is_hns_enabled" {
 }
 
 variable "queue_encryption_key_type" {
-  description = "The type of encryption to use for this Queue Storage."
+  description = "The type of encryption to use for this Queue Storage. Value must be \"Service\" or \"Account\"."
   type        = string
   default     = "Service"
+  nullable    = false
+
+  validation {
+    condition     = contains(["Service", "Account"])
+    error_message = "Queue encryption key type must be \"Service\" or \"Account\"."
+  }
 }
 
 variable "table_encryption_key_type" {
-  description = "The type of encryption to use for this Table Storage."
+  description = "The type of encryption to use for this Table Storage. Value must be \"Service\" or \"Account\"."
   type        = string
   default     = "Service"
+  nullable    = false
+
+  validation {
+    condition     = contains(["Service", "Account"])
+    error_message = "Table encryption key type must be \"Service\" or \"Account\"."
+  }
 }
 
 variable "allow_blob_public_access" {
   description = "Allow public access to this Blob Storage?"
   type        = bool
   default     = false
+  nullable    = false
 }
 
 variable "default_to_oauth_authentication" {
-  description = "Default to Azure Active Directory authorization in the Azure portal when accessing the Storage Account."
+  description = "Default to Entra ID authorization in the Azure Portal when accessing this Storage account?"
   type        = bool
   default     = false
+  nullable    = false
 }
 
 variable "cross_tenant_replication_enabled" {
-  description = "Allow cross-tenant replication?"
+  description = "Allow cross-tenant replication for this Storage account?"
   type        = bool
   default     = false
+  nullable    = false
 }
 
 variable "blob_versioning_enabled" {
   description = "Is versioning enabled for this Blob Storage?"
   type        = bool
   default     = true
+  nullable    = false
 }
 
 variable "blob_change_feed_enabled" {
   description = "Is change feed enabled for this Blob Storage?"
   type        = bool
   default     = true
+  nullable    = false
 }
 
 variable "last_access_time_enabled" {
-  description = "(Optional) Is the last access time based tracking enabled?"
+  description = "Is the last access time based tracking enabled for this Blob Storage?"
   type        = bool
   default     = false
+  nullable    = false
 }
 
 variable "blob_delete_retention_policy_days" {
