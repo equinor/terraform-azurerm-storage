@@ -85,7 +85,7 @@ variable "queue_encryption_key_type" {
   nullable    = false
 
   validation {
-    condition     = contains(["Service", "Account"])
+    condition     = contains(["Service", "Account"], var.queue_encryption_key_type)
     error_message = "Queue encryption key type must be \"Service\" or \"Account\"."
   }
 }
@@ -97,7 +97,7 @@ variable "table_encryption_key_type" {
   nullable    = false
 
   validation {
-    condition     = contains(["Service", "Account"])
+    condition     = contains(["Service", "Account"], var.table_encryption_key_type)
     error_message = "Table encryption key type must be \"Service\" or \"Account\"."
   }
 }
