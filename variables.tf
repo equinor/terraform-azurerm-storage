@@ -35,7 +35,7 @@ variable "account_tier" {
   nullable    = false
 
   validation {
-    condition     = contains(["Standard", "Premium"], var.access_tier)
+    condition     = contains(["Standard", "Premium"], var.account_tier)
     error_message = "Account tier must be \"Standard\" or \"Premium\"."
   }
 }
