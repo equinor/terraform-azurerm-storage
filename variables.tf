@@ -1,48 +1,74 @@
 variable "resource_group_name" {
   description = "The name of the resource group to create the resources in."
   type        = string
+  nullable    = false
 }
 
 variable "location" {
   description = "The location to create the resources in."
   type        = string
+  nullable    = false
 }
 
 variable "account_name" {
   description = "The name of this Storage account."
   type        = string
+  nullable    = false
 }
 
 variable "account_kind" {
-  description = "The Kind of this Storage account."
+  description = "The kind of Storage account to create. Value must be \"StorageV2\", \"BlobStorage\", \"BlockBlobStorage\" or \"FileStorage\"."
   type        = string
   default     = "StorageV2"
   nullable    = false
+
+  validation {
+    condition     = contains(["StorageV2", "BlobStorage", "BlockBlobStorage", "FileStorage"], var.account_kind)
+    error_message = "Account kind must be \"Standard\" or \"Premium\"."
+  }
 }
 
 variable "account_tier" {
-  description = "The Tier of this Storage account."
+  description = "The performance tier of this Storage account. Value must be \"Standard\" or \"Premium\"."
   type        = string
   default     = "Standard"
   nullable    = false
+
+  validation {
+    condition     = contains(["Standard", "Premium"], var.access_tier)
+    error_message = "Account tier must be \"Standard\" or \"Premium\"."
+  }
 }
 
 variable "account_replication_type" {
-  description = "The type of replication to use for this Storage account."
+  description = "The type of replication to use for this Storage account. Value must be \"LRS\", \"ZRS\", \"GRS\", \"RAGRS\", \"GZRS\" or \"RAGZRS\"."
   type        = string
   default     = "RAGRS"
+  nullable    = false
+
+  validation {
+    condition     = contains(["LRS", "ZRS", "GRS", "RAGRS", "GZRS", "RAGZRS"], var.account_replication_type)
+    error_message = "Account replication type must be \"LRS\", \"ZRS\", \"GRS\", \"RAGRS\", \"GZRS\" or \"RAGZRS\"."
+  }
 }
 
 variable "access_tier" {
-  description = "The access tier to use for this Storage account."
+  description = "The access tier to use for this Storage account. Value must be \"Hot\" or \"Cool\"."
   type        = string
   default     = "Hot"
+  nullable    = false
+
+  validation {
+    condition     = contains(["Hot", "Cool"], var.access_tier)
+    error_message = "Account replication type must be \"Hot\" or \"Cool\"."
+  }
 }
 
 variable "shared_access_key_enabled" {
   description = "Is authorization with access key enabled for this Storage account?"
   type        = bool
   default     = false
+  nullable    = false
 }
 
 variable "is_hns_enabled" {
