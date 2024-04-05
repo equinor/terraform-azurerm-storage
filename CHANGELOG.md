@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.5.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.4.1...v12.5.0) (2024-04-05)
+
+
+### Features
+
+* add private link access ([#216](https://github.com/equinor/terraform-azurerm-storage/issues/216)) ([33c578e](https://github.com/equinor/terraform-azurerm-storage/commit/33c578e2699ef09509a6b48c04ddc1096eb85ba9))
+
 ## [12.4.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.4.0...v12.4.1) (2024-03-14)
 
 
