@@ -94,6 +94,18 @@ resource "azurerm_storage_account" "this" {
       retention_policy {
         days = var.share_retention_policy_days
       }
+
+      dynamic "cors_rule" {
+        for_each = var.share_cors_rules
+
+        content {
+          allowed_headers    = cors_rule.value["allowed_headers"]
+          allowed_methods    = cors_rule.value["allowed_methods"]
+          allowed_origins    = cors_rule.value["allowed_origins"]
+          exposed_headers    = cors_rule.value["exposed_headers"]
+          max_age_in_seconds = cors_rule.value["max_age_in_seconds"]
+        }
+      }
     }
   }
 

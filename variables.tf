@@ -207,6 +207,21 @@ variable "share_retention_policy_days" {
   }
 }
 
+variable "share_cors_rules" {
+  description = "A list of CORS rules to configure for this File Share."
+
+  type = list(object({
+    allowed_headers    = list(string)
+    allowed_methods    = list(string)
+    allowed_origins    = list(string)
+    exposed_headers    = list(string)
+    max_age_in_seconds = number
+  }))
+
+  default  = []
+  nullable = false
+}
+
 variable "system_assigned_identity_enabled" {
   description = "Should the system-assigned identity be enabled for this Web App?"
   type        = bool
