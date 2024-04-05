@@ -130,6 +130,13 @@ resource "azurerm_storage_account" "this" {
       use_subdomain = custom_domain.value["use_subdomain"]
     }
   }
+
+  lifecycle {
+    precondition {
+      condition     = var.blob_restore_policy_days < var.blob_delete_retention_policy_days
+      error_message = "Blob restore policy days must be less than blob delete retention policy days."
+    }
+  }
 }
 
 resource "azurerm_advanced_threat_protection" "this" {

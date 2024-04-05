@@ -9,22 +9,22 @@ output "account_name" {
 }
 
 output "identity_principal_id" {
-  description = "The principal ID of the system-assigned identity of this Storage Account."
+  description = "The principal ID of the system-assigned identity of this Storage account."
   value       = try(azurerm_storage_account.this.identity[0].principal_id, null)
 }
 
 output "account_tier" {
-  description = "The Tier of this Storage Account."
+  description = "The performance tier of this Storage account."
   value       = azurerm_storage_account.this.account_tier
 }
 
 output "account_kind" {
-  description = "The Kind of this Storage Account."
+  description = "The kind of this Storage account."
   value       = azurerm_storage_account.this.account_kind
 }
 
 output "account_replication_type" {
-  description = "The type of replication to use for this Storage Account."
+  description = "The replication type of this Storage account."
   value       = azurerm_storage_account.this.account_replication_type
 }
 
@@ -59,12 +59,12 @@ output "secondary_table_endpoint" {
 }
 
 output "file_endpoint" {
-  description = "The endpoint URL of this File Storage."
+  description = "The endpoint URL for this File Storage."
   value       = azurerm_storage_account.this.primary_file_endpoint
 }
 
 output "secondary_file_endpoint" {
-  description = "The secondary endpoint URL of this File Storage."
+  description = "The secondary endpoint URL for this File Storage."
   value       = azurerm_storage_account.this.secondary_file_endpoint
 }
 
