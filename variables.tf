@@ -208,7 +208,7 @@ variable "share_retention_policy_days" {
 }
 
 variable "share_cors_rules" {
-  description = "A list of CORS rules to configure for this File Share."
+  description = "A list of CORS rules to configure for this File Storage."
 
   type = list(object({
     allowed_headers    = list(string)
