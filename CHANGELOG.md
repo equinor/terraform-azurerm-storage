@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.6.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.5.0...v12.6.0) (2024-04-08)
+
+
+### Features
+
+* add cors rules for file share service ([#221](https://github.com/equinor/terraform-azurerm-storage/issues/221)) ([608cc60](https://github.com/equinor/terraform-azurerm-storage/commit/608cc607b5c049e7470a4761cd39c2205c693690))
+
 ## [12.5.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.4.1...v12.5.0) (2024-04-05)
 
 
