@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.7.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.6.0...v12.7.0) (2024-06-14)
+
+
+### Features
+
+* default to Entra ID authorization in Azure Portal ([#224](https://github.com/equinor/terraform-azurerm-storage/issues/224)) ([652a6a7](https://github.com/equinor/terraform-azurerm-storage/commit/652a6a7ae7925ac3c80cb7265cc1c91b5c81aeb7))
+
 ## [12.6.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.5.0...v12.6.0) (2024-04-08)
 
 
