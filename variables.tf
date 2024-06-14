@@ -112,7 +112,7 @@ variable "allow_blob_public_access" {
 variable "default_to_oauth_authentication" {
   description = "Default to Entra ID authorization in the Azure Portal when accessing this Storage account?"
   type        = bool
-  default     = false
+  default     = true
   nullable    = false
 }
 
