@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.7.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.7.0...v12.7.1) (2024-07-09)
+
+
+### Documentation
+
+* add features section to README ([8e32582](https://github.com/equinor/terraform-azurerm-storage/commit/8e32582b8a6b46f49b25dba7ccf09f69ffda1a9a))
+
 ## [12.7.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.6.0...v12.7.0) (2024-06-14)
 
 
