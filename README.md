@@ -6,6 +6,16 @@
 
 Terraform module which creates an Azure Storage account.
 
+## Features
+
+- Microsoft Entra ID authorization enforced by default.
+- Public network access denied by default.
+- Read-access geo-redundant storage (RA-GRS) configured by default.
+- Blob soft-delete retention set to 7 days by default.
+- Blob point-in-time restore enabled by default.
+- File soft-delete retention set to 7 days by default.
+- Audit logs sent to given Log Analytics workspace by default.
+
 ## Development
 
 1. Clone this repository:
