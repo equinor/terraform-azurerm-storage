@@ -13,8 +13,7 @@ Terraform module which creates an Azure Storage account.
 - Read-access geo-redundant storage (RA-GRS) configured by default.
 - Blob soft-delete retention set to 7 days by default.
 - Blob point-in-time restore enabled by default.
-- Container soft-delete retention set to 7 days by default.
-- File share soft-delete retention policy set to 7 days by default.
+- File soft-delete retention set to 7 days by default.
 - Audit logs sent to given Log Analytics workspace by default.
 
 ## Development
