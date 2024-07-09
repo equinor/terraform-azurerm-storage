@@ -6,6 +6,17 @@
 
 Terraform module which creates an Azure Storage account.
 
+## Features
+
+- Shared access key disabled by default.
+- Public network access denied by default.
+- Read-access geo-redundant storage by default.
+- Blob soft-delete retention set to 7 days by default.
+- Blob point-in-time restore enabled by default.
+- Container soft-delete retention set to 7 days by default.
+- Share soft-delete retention policy set to 7 days by default.
+- Audit logs sent to given Log Analytics workspace by default.
+
 ## Development
 
 1. Clone this repository:
