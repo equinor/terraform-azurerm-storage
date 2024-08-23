@@ -28,7 +28,7 @@ resource "azurerm_storage_account" "this" {
   account_replication_type = var.account_replication_type
   access_tier              = local.access_tier
 
-  enable_https_traffic_only        = true
+  https_traffic_only_enabled       = true
   min_tls_version                  = "TLS1_2"
   shared_access_key_enabled        = var.shared_access_key_enabled
   is_hns_enabled                   = var.is_hns_enabled
