@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.7.2](https://github.com/equinor/terraform-azurerm-storage/compare/v12.7.1...v12.7.2) (2024-08-23)
+
+
+### Code Refactoring
+
+* replace deprecated arguments ([74d9142](https://github.com/equinor/terraform-azurerm-storage/commit/74d91423b64819cea9a7f8f37517ac8c350f7938))
+
 ## [12.7.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.7.0...v12.7.1) (2024-07-09)
 
 
