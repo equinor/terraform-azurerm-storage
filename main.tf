@@ -16,6 +16,20 @@ locals {
   identity_type = join(", ", compact([var.system_assigned_identity_enabled ? "SystemAssigned" : "", length(var.identity_ids) > 0 ? "UserAssigned" : ""]))
 
   diagnostic_setting_metric_categories = ["Capacity", "Transaction"]
+
+  metric_alerts = {
+    "availability" = {
+      name        = "Reduced availability"
+      description = ""
+      metric_name = "Availability"
+      aggregation = "Average"
+      operator    = "LessThan"
+      threshold   = 100
+      frequency   = "PT1M"
+      window_size = "PT5M"
+      severity    = 1 # Error
+    }
+  }
 }
 
 resource "azurerm_storage_account" "this" {
@@ -183,4 +197,31 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
       enabled  = contains(var.diagnostic_setting_enabled_metric_categories, metric.value)
     }
   }
+}
+
+resource "azurerm_monitor_metric_alert" "this" {
+  for_each = local.metric_alerts
+
+  name                = "${each.value.name} - ${azurerm_storage_account.this.name}"
+  resource_group_name = var.resource_group_name
+  scopes              = [azurerm_storage_account.this.id]
+  description         = each.value.description
+
+  criteria {
+    metric_namespace = "Microsoft.Storage/storageAccounts"
+    metric_name      = each.value.metric_name
+    aggregation      = each.value.aggregation
+    operator         = each.value.operator
+    threshold        = each.value.threshold
+  }
+
+  frequency   = each.value.frequency
+  window_size = each.value.window_size
+  severity    = each.value.severity
+
+  action {
+    action_group_id = var.action_group_id
+  }
+
+  tags = var.tags
 }
