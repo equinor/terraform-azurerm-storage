@@ -15,6 +15,8 @@ Terraform module which creates an Azure Storage account.
 - Blob point-in-time restore enabled by default.
 - File soft-delete retention set to 7 days by default.
 - Audit logs sent to given Log Analytics workspace by default.
+- Metric alerts sent to given action group by default:
+  - Reduced availability
 
 ## Development
 

@@ -330,6 +330,12 @@ variable "diagnostic_setting_enabled_metric_categories" {
   nullable    = false
 }
 
+variable "action_group_id" {
+  description = "The ID of the action group to send alerts to."
+  type        = string
+  nullable    = false
+}
+
 variable "advanced_threat_protection_enabled" {
   description = "Should Defender for Storage (classic) advanced threat protection be enabled for this Storage account?"
   type        = bool

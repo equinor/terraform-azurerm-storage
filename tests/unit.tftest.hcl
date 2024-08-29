@@ -14,6 +14,7 @@ run "standard_gpv2_storage" {
     resource_group_name        = run.setup_tests.resource_group_name
     location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+    action_group_id            = run.setup_tests.action_group_id
   }
 
   assert {
@@ -40,6 +41,7 @@ run "standard_blob_storage" {
     resource_group_name        = run.setup_tests.resource_group_name
     location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+    action_group_id            = run.setup_tests.action_group_id
 
     account_tier   = "Standard"
     account_kind   = "BlobStorage"
@@ -70,6 +72,7 @@ run "standard_data_lake_storage" {
     resource_group_name        = run.setup_tests.resource_group_name
     location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+    action_group_id            = run.setup_tests.action_group_id
 
     account_tier        = "Standard"
     account_kind        = "StorageV2"
@@ -100,6 +103,7 @@ run "premium_gpv2_storage" {
     resource_group_name        = run.setup_tests.resource_group_name
     location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+    action_group_id            = run.setup_tests.action_group_id
 
     account_tier        = "Premium"
     account_kind        = "StorageV2"
@@ -130,6 +134,7 @@ run "premium_file_storage" {
     resource_group_name        = run.setup_tests.resource_group_name
     location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+    action_group_id            = run.setup_tests.action_group_id
 
     account_tier        = "Premium"
     account_kind        = "FileStorage"
@@ -160,6 +165,7 @@ run "premium_data_lake_storage" {
     resource_group_name        = run.setup_tests.resource_group_name
     location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+    action_group_id            = run.setup_tests.action_group_id
 
     account_tier        = "Premium"
     account_kind        = "BlockBlobStorage"
@@ -190,6 +196,7 @@ run "premium_block_blob_storage" {
     resource_group_name        = run.setup_tests.resource_group_name
     location                   = run.setup_tests.location
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+    action_group_id            = run.setup_tests.action_group_id
 
     account_tier        = "Premium"
     account_kind        = "BlockBlobStorage"
