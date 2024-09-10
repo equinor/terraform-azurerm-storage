@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.7.3](https://github.com/equinor/terraform-azurerm-storage/compare/v12.7.2...v12.7.3) (2024-09-10)
+
+
+### Code Refactoring
+
+* don't configure network rules if default action is "Allow" ([#233](https://github.com/equinor/terraform-azurerm-storage/issues/233)) ([50739e9](https://github.com/equinor/terraform-azurerm-storage/commit/50739e97e02965612e41cf8a321c553fcd0a95f9))
+
 ## [12.7.2](https://github.com/equinor/terraform-azurerm-storage/compare/v12.7.1...v12.7.2) (2024-08-23)
 
 
