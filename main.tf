@@ -118,18 +118,22 @@ resource "azurerm_storage_account" "this" {
     }
   }
 
-  network_rules {
-    default_action             = var.network_rules_default_action
-    bypass                     = !var.network_rules_bypass_azure_services ? [] : ["AzureServices"]
-    ip_rules                   = var.network_rules_ip_rules
-    virtual_network_subnet_ids = var.network_rules_virtual_network_subnet_ids
+  dynamic "network_rules" {
+    for_each = var.network_rules_default_action == "Allow" ? [] : [0]
 
-    dynamic "private_link_access" {
-      for_each = var.private_link_accesses
+    content {
+      default_action             = var.network_rules_default_action
+      bypass                     = !var.network_rules_bypass_azure_services ? [] : ["AzureServices"]
+      ip_rules                   = var.network_rules_ip_rules
+      virtual_network_subnet_ids = var.network_rules_virtual_network_subnet_ids
 
-      content {
-        endpoint_resource_id = private_link_access.value.endpoint_resource_id
-        endpoint_tenant_id   = private_link_access.value.endpoint_tenant_id
+      dynamic "private_link_access" {
+        for_each = var.private_link_accesses
+
+        content {
+          endpoint_resource_id = private_link_access.value.endpoint_resource_id
+          endpoint_tenant_id   = private_link_access.value.endpoint_tenant_id
+        }
       }
     }
   }
