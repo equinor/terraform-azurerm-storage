@@ -148,6 +148,9 @@ resource "azurerm_storage_account" "this" {
   }
 
   lifecycle {
+    # Prevent accidental deletion of Storage account.
+    prevent_destroy = true
+
     precondition {
       condition     = var.blob_restore_policy_days < var.blob_delete_retention_policy_days
       error_message = "Blob restore policy days must be less than blob delete retention policy days."
