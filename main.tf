@@ -148,7 +148,7 @@ resource "azurerm_storage_account" "this" {
   }
 
   lifecycle {
-    # Prevent accidental deletion of Storage account.
+    # Prevent accidental destroy of Storage account.
     prevent_destroy = true
 
     precondition {
