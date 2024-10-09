@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.8.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.7.3...v12.8.0) (2024-10-09)
+
+
+### Features
+
+* prevent accidental destroy of Storage account ([#235](https://github.com/equinor/terraform-azurerm-storage/issues/235)) ([11b7cb6](https://github.com/equinor/terraform-azurerm-storage/commit/11b7cb65698d445ef17977b00297c24dcbaf98b2))
+
 ## [12.7.3](https://github.com/equinor/terraform-azurerm-storage/compare/v12.7.2...v12.7.3) (2024-09-10)
 
 
