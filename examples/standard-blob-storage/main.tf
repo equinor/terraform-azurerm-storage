@@ -18,8 +18,7 @@ module "log_analytics" {
 }
 
 module "storage" {
-  source  = "equinor/storage/azurerm"
-  version = "12.4.0"
+  source = "../.."
 
   account_name               = "st${random_id.this.hex}"
   resource_group_name        = var.resource_group_name

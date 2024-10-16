@@ -30,15 +30,10 @@ Terraform module which creates an Azure Storage account.
     az login
     ```
 
-1. Set active subscription:
-
-    ```console
-    az account set -s <SUBSCRIPTION_NAME_OR_ID>
-    ```
-
 1. Set environment variables:
 
     ```console
+    export ARM_SUBSCRIPTION_ID=<SUBSCRIPTION_ID>
     export TF_VAR_resource_group_name=<RESOURCE_GROUP_NAME>
     export TF_VAR_location=<LOCATION>
     ```
