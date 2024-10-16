@@ -16,44 +16,38 @@ Terraform module which creates an Azure Storage account.
 - File soft-delete retention set to 7 days by default.
 - Audit logs sent to given Log Analytics workspace by default.
 
+## Prerequisites
+
+- Install [Terraform](https://developer.hashicorp.com/terraform/install) **version 1.0 or higher**.
+- Install [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli).
+
 ## Development
-
-1. Clone this repository:
-
-    ```console
-    git clone https://github.com/equinor/terraform-azurerm-storage.git
-    ```
 
 1. Login to Azure:
 
-    ```console
+    ```bash
     az login
-    ```
-
-1. Set active subscription:
-
-    ```console
-    az account set -s <SUBSCRIPTION_NAME_OR_ID>
     ```
 
 1. Set environment variables:
 
-    ```console
-    export TF_VAR_resource_group_name=<RESOURCE_GROUP_NAME>
-    export TF_VAR_location=<LOCATION>
+    ```bash
+    export ARM_SUBSCRIPTION_ID="<SUBSCRIPTION_ID>"
+    export TF_VAR_resource_group_name="<RESOURCE_GROUP_NAME>"
+    export TF_VAR_location="<LOCATION>"
     ```
 
 ## Testing
 
 1. Initialize working directory:
 
-    ```console
+    ```bash
     terraform init
     ```
 
 1. Execute tests:
 
-    ```console
+    ```bash
     terraform test
     ```
 
