@@ -25,13 +25,13 @@ Terraform module which creates an Azure Storage account.
 
 1. Login to Azure:
 
-    ```console
+    ```bash
     az login
     ```
 
 1. Set environment variables:
 
-    ```console
+    ```bash
     export ARM_SUBSCRIPTION_ID=<SUBSCRIPTION_ID>
     export TF_VAR_resource_group_name=<RESOURCE_GROUP_NAME>
     export TF_VAR_location=<LOCATION>
@@ -41,13 +41,13 @@ Terraform module which creates an Azure Storage account.
 
 1. Initialize working directory:
 
-    ```console
+    ```bash
     terraform init
     ```
 
 1. Execute tests:
 
-    ```console
+    ```bash
     terraform test
     ```
 
