@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.8.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.8.0...v12.8.1) (2024-10-31)
+
+
+### Bug Fixes
+
+* examples don't work with Azure provider v4 ([#237](https://github.com/equinor/terraform-azurerm-storage/issues/237)) ([e26cbdf](https://github.com/equinor/terraform-azurerm-storage/commit/e26cbdfde30daa9d1e1b3cd832b2ffaefcd0c3be))
+
 ## [12.8.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.7.3...v12.8.0) (2024-10-09)
 
 
