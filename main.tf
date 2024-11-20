@@ -31,6 +31,7 @@ resource "azurerm_storage_account" "this" {
   https_traffic_only_enabled       = true
   min_tls_version                  = "TLS1_2"
   shared_access_key_enabled        = var.shared_access_key_enabled
+  public_network_access_enabled    = var.public_network_access_enabled
   is_hns_enabled                   = var.is_hns_enabled
   queue_encryption_key_type        = var.queue_encryption_key_type
   table_encryption_key_type        = var.table_encryption_key_type
