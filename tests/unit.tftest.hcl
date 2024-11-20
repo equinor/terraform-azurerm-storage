@@ -252,3 +252,37 @@ run "network_rules_disabled" {
     error_message = "Network rules block created when it should not have been"
   }
 }
+
+run "public_network_access_enabled" {
+  command = plan
+
+  variables {
+    account_name               = run.setup_tests.account_name
+    resource_group_name        = run.setup_tests.resource_group_name
+    location                   = run.setup_tests.location
+    log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+  }
+
+  assert {
+    condition     = azurerm_storage_account.this.public_network_access_enabled == true
+    error_message = "Invalid Storage account public network access"
+  }
+}
+
+run "public_network_access_disabled" {
+  command = plan
+
+  variables {
+    account_name               = run.setup_tests.account_name
+    resource_group_name        = run.setup_tests.resource_group_name
+    location                   = run.setup_tests.location
+    log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+
+    public_network_access_enabled = false
+  }
+
+  assert {
+    condition     = azurerm_storage_account.this.public_network_access_enabled == false
+    error_message = "Invalid Storage account public network access"
+  }
+}
