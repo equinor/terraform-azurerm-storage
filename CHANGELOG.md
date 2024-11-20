@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.9.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.8.1...v12.9.0) (2024-11-20)
+
+
+### Features
+
+* configure public network access ([#239](https://github.com/equinor/terraform-azurerm-storage/issues/239)) ([7e0f705](https://github.com/equinor/terraform-azurerm-storage/commit/7e0f70594dcca19ceea7ce777c4a83cb722c47ad))
+
 ## [12.8.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.8.0...v12.8.1) (2024-10-31)
 
 
