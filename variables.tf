@@ -71,6 +71,13 @@ variable "shared_access_key_enabled" {
   nullable    = false
 }
 
+variable "public_network_access_enabled" {
+  description = "Should public network access be enabled for this Storage account?"
+  type        = bool
+  default     = true
+  nullable    = false
+}
+
 variable "is_hns_enabled" {
   description = "Is Data Lake Storage Gen2 hierarchical namespace (HNS) enabled for this Storage account?"
   type        = bool
