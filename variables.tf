@@ -310,6 +310,13 @@ variable "custom_domain" {
   nullable = true
 }
 
+variable "prevent_destroy" {
+  description = "Protection to prevent accidental destroy of Storage Account"
+  type        = bool
+  default     = true
+  nullable    = false
+}
+
 variable "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics workspace to send diagnostics to."
   type        = string

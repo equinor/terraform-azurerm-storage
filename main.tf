@@ -149,8 +149,7 @@ resource "azurerm_storage_account" "this" {
   }
 
   lifecycle {
-    # Prevent accidental destroy of Storage account.
-    prevent_destroy = true
+    prevent_destroy = var.prevent_destroy
 
     precondition {
       condition     = var.blob_restore_policy_days < var.blob_delete_retention_policy_days
