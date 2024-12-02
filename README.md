@@ -45,7 +45,7 @@ Terraform module which creates an Azure Storage account.
 
     module "log_analytics" {
       source  = "equinor/log-analytics/azurerm"
-      version = "~> 12.9"
+      version = "~> 2.0"
 
       workspace_name      = "example-workspace"
       resource_group_name = azurerm_resource_group.example.name
