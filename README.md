@@ -23,6 +23,12 @@ Terraform module which creates an Azure Storage account.
 
 ## Usage
 
+1. Login to Azure:
+
+    ```console
+    az login
+    ```
+
 1. Create a Terraform configuration file `main.tf` and add the following example configuration:
 
     ```terraform
@@ -57,12 +63,6 @@ Terraform module which creates an Azure Storage account.
 
       network_rules_ip_rules = ["1.1.1.1", "2.2.2.2", "3.3.3.3/30"]
     }
-    ```
-
-1. Login to Azure:
-
-    ```console
-    az login
     ```
 
 1. Install required provider plugins and modules:
