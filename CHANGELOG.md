@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.9.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.9.0...v12.9.1) (2024-12-02)
+
+
+### Documentation
+
+* add usage section ([#242](https://github.com/equinor/terraform-azurerm-storage/issues/242)) ([8f04aa0](https://github.com/equinor/terraform-azurerm-storage/commit/8f04aa0137105ad53d3adf3627697c70e54af081))
+
 ## [12.9.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.8.1...v12.9.0) (2024-11-20)
 
 
