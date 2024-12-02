@@ -18,23 +18,63 @@ Terraform module which creates an Azure Storage account.
 
 ## Prerequisites
 
-- Install [Terraform](https://developer.hashicorp.com/terraform/install) **version 1.0 or higher**.
+- Install [Terraform](https://developer.hashicorp.com/terraform/install).
 - Install [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli).
 
-## Development
+## Usage
+
+1. Create a Terraform configuration file `main.tf` and add the following example configuration:
+
+    ```terraform
+    provider "azurerm" {
+      storage_use_azuread = true
+
+      features {}
+    }
+
+    resource "azurerm_resource_group" "example" {
+      name     = "example-resources"
+      location = "westeurope"
+    }
+
+    module "log_analytics" {
+      source  = "equinor/log-analytics/azurerm"
+      version = "~> 2.0"
+
+      workspace_name      = "example-workspace"
+      resource_group_name = azurerm_resource_group.example.name
+      location            = azurerm_resource_group.example.location
+    }
+
+    module "storage" {
+      source  = "equinor/storage/azurerm"
+      version = "~> 12.0"
+
+      account_name               = "example-storage"
+      resource_group_name        = azurerm_resource_group.example.name
+      location                   = azurerm_resource_group.example.location
+      log_analytics_workspace_id = module.log_analytics.workspace_id
+
+      network_rules_ip_rules = ["1.1.1.1", "2.2.2.2", "3.3.3.3/30"]
+    }
+    ```
 
 1. Login to Azure:
 
-    ```bash
+    ```console
     az login
     ```
 
-1. Set environment variables:
+1. Install required provider plugins and modules:
 
-    ```bash
-    export ARM_SUBSCRIPTION_ID="<SUBSCRIPTION_ID>"
-    export TF_VAR_resource_group_name="<RESOURCE_GROUP_NAME>"
-    export TF_VAR_location="<LOCATION>"
+    ```console
+    terraform init
+    ```
+
+1. Apply the Terraform configuration:
+
+    ```console
+    terraform apply
     ```
 
 ## Testing
