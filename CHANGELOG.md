@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.9.2](https://github.com/equinor/terraform-azurerm-storage/compare/v12.9.1...v12.9.2) (2025-01-21)
+
+
+### Bug Fixes
+
+* incorrect config when variable `network_rules_bypass_azure_services` set to `false` ([#244](https://github.com/equinor/terraform-azurerm-storage/issues/244)) ([00c6eb4](https://github.com/equinor/terraform-azurerm-storage/commit/00c6eb42e443aff2d4d45f466dc4b7f7dc09a0f7))
+
 ## [12.9.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.9.0...v12.9.1) (2024-12-02)
 
 
