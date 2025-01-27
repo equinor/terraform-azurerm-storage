@@ -1,5 +1,13 @@
 # Changelog
 
+## [12.10.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.9.2...v12.10.0) (2025-01-27)
+
+
+### Features
+
+* configure SFTP ([#248](https://github.com/equinor/terraform-azurerm-storage/issues/248)) ([c3af138](https://github.com/equinor/terraform-azurerm-storage/commit/c3af1387441fc0dda360be06c696574299ea99a7))
+* disable Defender for Storage (classic) by default ([#246](https://github.com/equinor/terraform-azurerm-storage/issues/246)) ([aec8f49](https://github.com/equinor/terraform-azurerm-storage/commit/aec8f494b953a88834918de9062f98974d02d958))
+
 ## [12.9.2](https://github.com/equinor/terraform-azurerm-storage/compare/v12.9.1...v12.9.2) (2025-01-21)
 
 
