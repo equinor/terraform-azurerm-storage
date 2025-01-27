@@ -1,4 +1,4 @@
-# Azure Storage Terraform Module
+# Terraform module for Azure Storage
 
 [![GitHub License](https://img.shields.io/github/license/equinor/terraform-azurerm-storage)](LICENSE)
 [![GitHub Release](https://img.shields.io/github/v/release/equinor/terraform-azurerm-storage)](https://github.com/equinor/terraform-azurerm-storage/releases/latest)
