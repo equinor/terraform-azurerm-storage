@@ -90,6 +90,11 @@ run "standard_data_lake_storage" {
     condition     = azurerm_storage_account.this.is_hns_enabled == true
     error_message = "Hierarchical namespace (HNS) disabled"
   }
+
+  assert {
+    condition     = azurerm_storage_account.this.sftp_enabled == false
+    error_message = "SSH File Transfer Protocol (SFTP) enabled"
+  }
 }
 
 run "premium_gpv2_storage" {
@@ -179,6 +184,11 @@ run "premium_data_lake_storage" {
   assert {
     condition     = azurerm_storage_account.this.is_hns_enabled == true
     error_message = "Hierarchical namespace (HNS) disabled"
+  }
+
+  assert {
+    condition     = azurerm_storage_account.this.sftp_enabled == false
+    error_message = "SSH File Transfer Protocol (SFTP) enabled"
   }
 }
 
@@ -312,5 +322,41 @@ run "network_rules_bypass_none" {
   assert {
     condition     = azurerm_storage_account.this.network_rules[0].bypass == toset(["None"])
     error_message = "Invalid network rules bypass"
+  }
+}
+
+run "sftp_enabled" {
+  command = plan
+
+  variables {
+    account_name               = run.setup_tests.account_name
+    resource_group_name        = run.setup_tests.resource_group_name
+    location                   = run.setup_tests.location
+    log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+
+    account_tier   = "Standard"
+    account_kind   = "StorageV2"
+    is_hns_enabled = true
+    sftp_enabled   = true
+  }
+
+  assert {
+    condition     = azurerm_storage_account.this.account_tier == "Standard"
+    error_message = "Invalid Storage account tier"
+  }
+
+  assert {
+    condition     = azurerm_storage_account.this.account_kind == "StorageV2"
+    error_message = "Invalid Storage account kind"
+  }
+
+  assert {
+    condition     = azurerm_storage_account.this.is_hns_enabled == true
+    error_message = "Hierarchical namespace (HNS) disabled"
+  }
+
+  assert {
+    condition     = azurerm_storage_account.this.sftp_enabled == true
+    error_message = "SSH File Transfer Protocol (SFTP) disabled"
   }
 }

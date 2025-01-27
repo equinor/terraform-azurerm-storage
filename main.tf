@@ -33,6 +33,7 @@ resource "azurerm_storage_account" "this" {
   shared_access_key_enabled        = var.shared_access_key_enabled
   public_network_access_enabled    = var.public_network_access_enabled
   is_hns_enabled                   = var.is_hns_enabled
+  sftp_enabled                     = var.sftp_enabled
   queue_encryption_key_type        = var.queue_encryption_key_type
   table_encryption_key_type        = var.table_encryption_key_type
   allow_nested_items_to_be_public  = var.allow_blob_public_access
