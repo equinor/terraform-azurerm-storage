@@ -340,7 +340,7 @@ variable "diagnostic_setting_enabled_metric_categories" {
 variable "advanced_threat_protection_enabled" {
   description = "Should Defender for Storage (classic) advanced threat protection be enabled for this Storage account?"
   type        = bool
-  default     = true
+  default     = false
   nullable    = false
 }
 
