@@ -1,10 +1,11 @@
-# Azure Storage Terraform Module
+# Terraform module for Azure Storage
 
-[![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/terraform-azurerm-storage/badge)](https://scm-compliance-api.radix.equinor.com/repos/equinor/terraform-azurerm-storage/badge)
-[![Equinor Terraform Baseline](https://img.shields.io/badge/Equinor%20Terraform%20Baseline-1.0.0-blueviolet)](https://github.com/equinor/terraform-baseline)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![GitHub License](https://img.shields.io/github/license/equinor/terraform-azurerm-storage)](LICENSE)
+[![GitHub Release](https://img.shields.io/github/v/release/equinor/terraform-azurerm-storage)](https://github.com/equinor/terraform-azurerm-storage/releases/latest)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
+[![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/terraform-azurerm-storage/badge)](https://developer.equinor.com/governance/scm-policy/)
 
-Terraform module which creates an Azure Storage account.
+Terraform module which creates Azure Storage resources.
 
 ## Features
 
