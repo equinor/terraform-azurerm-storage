@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.10.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.10.0...v12.10.1) (2025-01-27)
+
+
+### Bug Fixes
+
+* broken link to license ([#250](https://github.com/equinor/terraform-azurerm-storage/issues/250)) ([9566f18](https://github.com/equinor/terraform-azurerm-storage/commit/9566f18acaab9e5fbc5a5b91c7b0bc58fa9fcf42))
+
 ## [12.10.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.9.2...v12.10.0) (2025-01-27)
 
 
