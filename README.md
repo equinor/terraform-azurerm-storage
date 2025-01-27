@@ -1,6 +1,6 @@
 # Terraform module for Azure Storage
 
-[![GitHub License](https://img.shields.io/github/license/equinor/terraform-azurerm-storage)](LICENSE)
+[![GitHub License](https://img.shields.io/github/license/equinor/terraform-azurerm-storage)](https://github.com/equinor/terraform-azurerm-storage/blob/main/LICENSE)
 [![GitHub Release](https://img.shields.io/github/v/release/equinor/terraform-azurerm-storage)](https://github.com/equinor/terraform-azurerm-storage/releases/latest)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/terraform-azurerm-storage/badge)](https://developer.equinor.com/governance/scm-policy/)
