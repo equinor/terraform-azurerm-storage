@@ -51,6 +51,11 @@ Terraform module which creates Azure Storage resources.
       network_rules_ip_rules = ["1.1.1.1", "2.2.2.2", "3.3.3.3/30"]
     }
 
+    resource "azurerm_resource_group" "example" {
+      name     = "example-resources"
+      location = "westeurope"
+    }
+
     module "log_analytics" {
       source  = "equinor/log-analytics/azurerm"
       version = "~> 2.3"
@@ -58,11 +63,6 @@ Terraform module which creates Azure Storage resources.
       workspace_name      = "example-workspace"
       resource_group_name = azurerm_resource_group.example.name
       location            = azurerm_resource_group.example.location
-    }
-
-    resource "azurerm_resource_group" "example" {
-      name     = "example-resources"
-      location = "westeurope"
     }
     ```
 
