@@ -5,7 +5,7 @@
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/terraform-azurerm-storage/badge)](https://developer.equinor.com/governance/scm-policy/)
 
-Terraform module which creates an Azure Storage account.
+Terraform module which creates Azure Storage resources.
 
 ## Features
 
