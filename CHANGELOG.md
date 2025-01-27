@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.10.2](https://github.com/equinor/terraform-azurerm-storage/compare/v12.10.1...v12.10.2) (2025-01-27)
+
+
+### Documentation
+
+* reorder blocks in example configuration ([1bddac4](https://github.com/equinor/terraform-azurerm-storage/commit/1bddac469f480f883b8cb4cf7227174b503f8730))
+
 ## [12.10.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.10.0...v12.10.1) (2025-01-27)
 
 
