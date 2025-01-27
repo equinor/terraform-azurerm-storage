@@ -85,6 +85,13 @@ variable "is_hns_enabled" {
   nullable    = false
 }
 
+variable "sftp_enabled" {
+  description = "Should SSH File Transfer Protocol (SFTP) be enabled for this Storage account? Only applicable if value of is_hns_enabled is true."
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
 variable "queue_encryption_key_type" {
   description = "The type of encryption to use for this Queue Storage. Value must be \"Service\" or \"Account\"."
   type        = string
