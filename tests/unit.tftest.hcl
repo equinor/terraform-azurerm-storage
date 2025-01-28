@@ -30,6 +30,11 @@ run "standard_gpv2_storage" {
     condition     = azurerm_storage_account.this.is_hns_enabled == false
     error_message = "Hierarchical namespace (HNS) enabled"
   }
+
+  assert {
+    condition     = azurerm_storage_account.this.infrastructure_encryption_enabled == false
+    error_message = "Infrastructure encryption enabled"
+  }
 }
 
 run "standard_blob_storage" {
@@ -59,6 +64,11 @@ run "standard_blob_storage" {
   assert {
     condition     = azurerm_storage_account.this.is_hns_enabled == false
     error_message = "Hierarchical namespace (HNS) enabled"
+  }
+
+  assert {
+    condition     = azurerm_storage_account.this.infrastructure_encryption_enabled == false
+    error_message = "Infrastructure encryption enabled"
   }
 }
 
@@ -95,6 +105,11 @@ run "standard_data_lake_storage" {
     condition     = azurerm_storage_account.this.sftp_enabled == false
     error_message = "SSH File Transfer Protocol (SFTP) enabled"
   }
+
+  assert {
+    condition     = azurerm_storage_account.this.infrastructure_encryption_enabled == false
+    error_message = "Infrastructure encryption enabled"
+  }
 }
 
 run "premium_gpv2_storage" {
@@ -125,6 +140,11 @@ run "premium_gpv2_storage" {
     condition     = azurerm_storage_account.this.is_hns_enabled == false
     error_message = "Hierarchical namespace (HNS) enabled"
   }
+
+  assert {
+    condition     = azurerm_storage_account.this.infrastructure_encryption_enabled == false
+    error_message = "Infrastructure encryption enabled"
+  }
 }
 
 run "premium_file_storage" {
@@ -154,6 +174,11 @@ run "premium_file_storage" {
   assert {
     condition     = azurerm_storage_account.this.is_hns_enabled == false
     error_message = "Hierarchical namespace (HNS) enabled"
+  }
+
+  assert {
+    condition     = azurerm_storage_account.this.infrastructure_encryption_enabled == false
+    error_message = "Infrastructure encryption enabled"
   }
 }
 
@@ -190,6 +215,11 @@ run "premium_data_lake_storage" {
     condition     = azurerm_storage_account.this.sftp_enabled == false
     error_message = "SSH File Transfer Protocol (SFTP) enabled"
   }
+
+  assert {
+    condition     = azurerm_storage_account.this.infrastructure_encryption_enabled == false
+    error_message = "Infrastructure encryption enabled"
+  }
 }
 
 run "premium_block_blob_storage" {
@@ -219,6 +249,11 @@ run "premium_block_blob_storage" {
   assert {
     condition     = azurerm_storage_account.this.is_hns_enabled == false
     error_message = "Hierarchical namespace (HNS) enabled"
+  }
+
+  assert {
+    condition     = azurerm_storage_account.this.infrastructure_encryption_enabled == false
+    error_message = "Infrastructure encryption enabled"
   }
 }
 
@@ -358,5 +393,23 @@ run "sftp_enabled" {
   assert {
     condition     = azurerm_storage_account.this.sftp_enabled == true
     error_message = "SSH File Transfer Protocol (SFTP) disabled"
+  }
+}
+
+run "infrastructure_encryption_enabled" {
+  command = plan
+
+  variables {
+    account_name               = run.setup_tests.account_name
+    resource_group_name        = run.setup_tests.resource_group_name
+    location                   = run.setup_tests.location
+    log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
+
+    infrastructure_encryption_enabled = true
+  }
+
+  assert {
+    condition     = azurerm_storage_account.this.infrastructure_encryption_enabled == true
+    error_message = "Infrastructure encryption disabled"
   }
 }
