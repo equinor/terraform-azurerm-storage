@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.11.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.10.2...v12.11.0) (2025-01-28)
+
+
+### Features
+
+* configure infrastructure encryption ([#253](https://github.com/equinor/terraform-azurerm-storage/issues/253)) ([79bb0bc](https://github.com/equinor/terraform-azurerm-storage/commit/79bb0bcb15fd25c21a2d09b9daba12f0145db236))
+
 ## [12.10.2](https://github.com/equinor/terraform-azurerm-storage/compare/v12.10.1...v12.10.2) (2025-01-27)
 
 
