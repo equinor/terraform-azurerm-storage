@@ -28,14 +28,17 @@ resource "azurerm_storage_account" "this" {
   account_replication_type = var.account_replication_type
   access_tier              = local.access_tier
 
-  https_traffic_only_enabled       = true
-  min_tls_version                  = "TLS1_2"
-  shared_access_key_enabled        = var.shared_access_key_enabled
-  public_network_access_enabled    = var.public_network_access_enabled
-  is_hns_enabled                   = var.is_hns_enabled
-  sftp_enabled                     = var.sftp_enabled
-  queue_encryption_key_type        = var.queue_encryption_key_type
-  table_encryption_key_type        = var.table_encryption_key_type
+  https_traffic_only_enabled    = true
+  min_tls_version               = "TLS1_2"
+  shared_access_key_enabled     = var.shared_access_key_enabled
+  public_network_access_enabled = var.public_network_access_enabled
+  is_hns_enabled                = var.is_hns_enabled
+  sftp_enabled                  = var.sftp_enabled
+
+  queue_encryption_key_type         = var.queue_encryption_key_type
+  table_encryption_key_type         = var.table_encryption_key_type
+  infrastructure_encryption_enabled = var.infrastructure_encryption_enabled
+
   allow_nested_items_to_be_public  = var.allow_blob_public_access
   cross_tenant_replication_enabled = var.cross_tenant_replication_enabled
   default_to_oauth_authentication  = var.default_to_oauth_authentication

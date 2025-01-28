@@ -116,6 +116,13 @@ variable "table_encryption_key_type" {
   }
 }
 
+variable "infrastructure_encryption_enabled" {
+  description = "Should infrastructure encryption be enabled for this Storage account? When enabled, data is encrypted twice. Recommended for scenarios where doubly encrypting data is necessary for compliance requirements. For most other scenarios there is unlikely to be a benefit to using infrastructure encryption."
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
 variable "allow_blob_public_access" {
   description = "Allow public access to this Blob Storage?"
   type        = bool
