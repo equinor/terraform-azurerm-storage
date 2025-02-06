@@ -9,6 +9,7 @@ Terraform module which creates Azure Storage resources.
 
 ## Features
 
+- Standard general-purpose v2 (GPv2) Storage account created by default.
 - Microsoft Entra ID authorization enforced by default.
 - Public network access denied by default.
 - Read-access geo-redundant storage (RA-GRS) configured by default.
