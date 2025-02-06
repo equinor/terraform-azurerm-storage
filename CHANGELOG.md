@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.11.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.11.0...v12.11.1) (2025-02-06)
+
+
+### Documentation
+
+* clarify kind of Storage account created by default ([#255](https://github.com/equinor/terraform-azurerm-storage/issues/255)) ([564a6cb](https://github.com/equinor/terraform-azurerm-storage/commit/564a6cb0ddef593c23c6a67e637ce6db42a81bab))
+
 ## [12.11.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.10.2...v12.11.0) (2025-01-28)
 
 
