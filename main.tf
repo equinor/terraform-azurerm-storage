@@ -7,15 +7,10 @@ locals {
   is_standard_data_lake_storage = var.account_tier == "Standard" && var.account_kind == "StorageV2" && var.is_hns_enabled
   # No need to check for "is_standard_gpv2_storage", since that is what this module is configured for by default.
 
-  # Only enable access tier for supported account kinds
-  access_tier = contains(["BlobStorage", "StorageV2", "FileStorage"], var.account_kind) ? var.access_tier : null
-
   # If system_assigned_identity_enabled is true, value is "SystemAssigned".
   # If identity_ids is non-empty, value is "UserAssigned".
   # If system_assigned_identity_enabled is true and identity_ids is non-empty, value is "SystemAssigned, UserAssigned".
   identity_type = join(", ", compact([var.system_assigned_identity_enabled ? "SystemAssigned" : "", length(var.identity_ids) > 0 ? "UserAssigned" : ""]))
-
-  diagnostic_setting_metric_categories = ["Capacity", "Transaction"]
 }
 
 resource "azurerm_storage_account" "this" {
@@ -26,7 +21,9 @@ resource "azurerm_storage_account" "this" {
   account_kind             = var.account_kind
   account_tier             = var.account_tier
   account_replication_type = var.account_replication_type
-  access_tier              = local.access_tier
+
+  # Only enable access tier for supported account kinds
+  access_tier = contains(["BlobStorage", "StorageV2", "FileStorage"], var.account_kind) ? var.access_tier : null
 
   https_traffic_only_enabled    = true
   min_tls_version               = "TLS1_2"
@@ -187,7 +184,7 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
   }
 
   dynamic "metric" {
-    for_each = toset(concat(local.diagnostic_setting_metric_categories, var.diagnostic_setting_enabled_metric_categories))
+    for_each = toset(concat(["Capacity", "Transaction"], var.diagnostic_setting_enabled_metric_categories))
 
     content {
       # Azure expects explicit configuration of both enabled and disabled metric categories.
