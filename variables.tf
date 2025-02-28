@@ -351,6 +351,9 @@ variable "diagnostic_setting_enabled_metric_categories" {
   nullable    = false
 }
 
+# After February 5, 2025, you can no longer enable Defender for Storage (classic), the legacy per-transaction pricing plan, in most scenarios.
+# The only exception is for subscriptions that already have the per-transaction pricing enabled.
+# Ref: https://github.com/MicrosoftDocs/azure-security-docs/blob/14d91aa62d45465e27e32ef7b4687c732ba2c0ac/articles/defender-for-cloud/defender-for-storage-classic-migrate.md?plain=1#L26
 variable "advanced_threat_protection_enabled" {
   description = "Should Defender for Storage (classic) advanced threat protection be enabled for this Storage account?"
   type        = bool
