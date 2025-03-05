@@ -361,6 +361,37 @@ variable "advanced_threat_protection_enabled" {
   nullable    = false
 }
 
+variable "directory_type" {
+  description = "The directory service options for Azure Files"
+  type        = string
+  default     = "AADDS"
+}
+
+variable "active_directory_domain_name" {
+  description = "The name of the Active Directory domain"
+  type        = string
+}
+
+variable "active_directory_netbios_domain_name" {
+  description = "The NetBIOS name of the Active Directory domain"
+  type        = string
+}
+
+variable "active_directory_forest_name" {
+  description = "The name of the Active Directory forest"
+  type        = string
+}
+
+variable "active_directory_domain_guid" {
+  description = "The GUID of the Active Directory domain"
+  type        = string
+}
+
+variable "active_directory_domain_sid" {
+  description = "The SID of the Active Directory domain"
+  type        = string
+}
+
 variable "tags" {
   description = "A map of tags to assign to the resources."
   type        = map(string)

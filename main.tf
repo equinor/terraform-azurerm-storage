@@ -40,6 +40,17 @@ resource "azurerm_storage_account" "this" {
   cross_tenant_replication_enabled = var.cross_tenant_replication_enabled
   default_to_oauth_authentication  = var.default_to_oauth_authentication
 
+  azure_files_authentication {
+    directory_type = var.directory_type # Possible values are AADDS, AD and AADKERB
+    active_directory {
+      domain_name         = var.active_directory_domain_name
+      netbios_domain_name = var.active_directory_netbios_domain_name
+      forest_name         = var.active_directory_forest_name
+      domain_guid         = var.active_directory_domain_guid
+      domain_sid          = var.active_directory_domain_sid
+    }
+  }
+
   tags = var.tags
 
   # Configure blob properties if supported.
