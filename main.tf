@@ -48,6 +48,7 @@ resource "azurerm_storage_account" "this" {
       forest_name         = var.active_directory_forest_name
       domain_guid         = var.active_directory_domain_guid
       domain_sid          = var.active_directory_domain_sid
+      storage_sid         = var.active_directory_storage_sid
     }
   }
 

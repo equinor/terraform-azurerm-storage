@@ -370,26 +370,37 @@ variable "directory_type" {
 variable "active_directory_domain_name" {
   description = "The name of the Active Directory domain"
   type        = string
+  default     = null
 }
 
 variable "active_directory_netbios_domain_name" {
   description = "The NetBIOS name of the Active Directory domain"
   type        = string
+  default     = null
 }
 
 variable "active_directory_forest_name" {
   description = "The name of the Active Directory forest"
   type        = string
+  default     = null
 }
 
 variable "active_directory_domain_guid" {
   description = "The GUID of the Active Directory domain"
   type        = string
+  default     = null
 }
 
 variable "active_directory_domain_sid" {
   description = "The SID of the Active Directory domain"
   type        = string
+  default     = null
+}
+
+variable "active_directory_storage_sid" {
+  description = "The storage SID of the Active Directory domain"
+  type        = string
+  default     = null
 }
 
 variable "tags" {
