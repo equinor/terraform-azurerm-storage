@@ -361,6 +361,31 @@ variable "advanced_threat_protection_enabled" {
   nullable    = false
 }
 
+variable "azure_files_authentication" {
+  description = "Enable identity-based access. Possible values are AADDS, AD and AADKERB."
+
+  type = object({
+    directory_type = string
+
+    active_directory = optional(object({
+      domain_name         = string
+      domain_guid         = string
+      domain_sid          = optional(string)
+      storage_sid         = optional(string)
+      forest_name         = optional(string)
+      netbios_domain_name = optional(string)
+    }))
+
+  })
+  validation {
+    condition = (
+      (var.azure_files_authentication[directory_type] == "AD" && var.azure_files_authentication[active_directory] != null) ||
+      (contains(["AADS", "AADKERB"], var.azure_files_authentication[directory_type]) && var.azure_files_authentication[active_directory] == null)
+    )
+    error_message = "The active_directory object is only supported when directory_type is AD"
+  }
+}
+
 variable "tags" {
   description = "A map of tags to assign to the resources."
   type        = map(string)
