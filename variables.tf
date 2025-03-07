@@ -361,46 +361,29 @@ variable "advanced_threat_protection_enabled" {
   nullable    = false
 }
 
-variable "directory_type" {
-  description = "The directory service options for Azure Files"
-  type        = string
-  default     = "AADDS"
-}
+variable "azure_files_authentication" {
+  description = "Enable identity-based access. Possible values are AADDS, AD and AADKERB."
 
-variable "active_directory_domain_name" {
-  description = "The name of the Active Directory domain"
-  type        = string
-  default     = null
-}
+  type = object({
+    directory_type = string
 
-variable "active_directory_netbios_domain_name" {
-  description = "The NetBIOS name of the Active Directory domain"
-  type        = string
-  default     = null
-}
+    active_directory = optional(object({
+      domain_name         = string
+      domain_guid         = string
+      domain_sid          = optional(string)
+      storage_sid         = optional(string)
+      forest_name         = optional(string)
+      netbios_domain_name = optional(string)
+    }))
 
-variable "active_directory_forest_name" {
-  description = "The name of the Active Directory forest"
-  type        = string
-  default     = null
-}
-
-variable "active_directory_domain_guid" {
-  description = "The GUID of the Active Directory domain"
-  type        = string
-  default     = null
-}
-
-variable "active_directory_domain_sid" {
-  description = "The SID of the Active Directory domain"
-  type        = string
-  default     = null
-}
-
-variable "active_directory_storage_sid" {
-  description = "The storage SID of the Active Directory domain"
-  type        = string
-  default     = null
+  })
+  validation {
+    condition = (
+      (var.azure_files_authentication[directory_type] == "AD" && var.azure_files_authentication[active_directory] != null) ||
+      (contains(["AADS", "AADKERB"], var.azure_files_authentication[directory_type]) && var.azure_files_authentication[active_directory] == null)
+    )
+    error_message = "The active_directory object is only supported when directory_type is AD"
+  }
 }
 
 variable "tags" {
