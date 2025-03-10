@@ -377,10 +377,18 @@ variable "azure_files_authentication" {
     }))
 
   })
+  # validation {
+  #   condition = (
+  #     (var.azure_files_authentication[directory_type] == "AD" && var.azure_files_authentication[active_directory] != null) ||
+  #     (contains(["AADS", "AADKERB"], var.azure_files_authentication[directory_type]) && var.azure_files_authentication[active_directory] == null)
+  #   )
+  #   error_message = "The active_directory object is only supported when directory_type is AD"
+  # }
+
   validation {
     condition = (
-      (var.azure_files_authentication[directory_type] == "AD" && var.azure_files_authentication[active_directory] != null) ||
-      (contains(["AADS", "AADKERB"], var.azure_files_authentication[directory_type]) && var.azure_files_authentication[active_directory] == null)
+      (var.azure_files_authentication.directory_type == "AD" && var.azure_files_authentication.active_directory != null) ||
+      (contains(["AADS", "AADKERB"], var.azure_files_authentication.directory_type) && var.azure_files_authentication.active_directory == null)
     )
     error_message = "The active_directory object is only supported when directory_type is AD"
   }
