@@ -40,27 +40,6 @@ resource "azurerm_storage_account" "this" {
   cross_tenant_replication_enabled = var.cross_tenant_replication_enabled
   default_to_oauth_authentication  = var.default_to_oauth_authentication
 
-  # dynamic "azure_files_authentication" {
-  #   for_each = var.azure_files_authentication != null ? [var.azure_files_authentication] : []
-
-  #   content {
-  #     directory_type = azure_files_authentication.value["directory_type"]
-
-  #     dynamic "active_directory" {
-  #       for_each = var.azure_files_authentication["active_directory"] != null ? [var.azure_files_authentication["active_directory"]] : []
-
-  #       content {
-  #         domain_name         = active_directory.value["domain_name"]
-  #         domain_guid         = active_directory.value["domain_guid"]
-  #         domain_sid          = active_directory.value["domain_sid"]
-  #         storage_sid         = active_directory.value["storage_sid"]
-  #         forest_name         = active_directory.value["forest_name"]
-  #         netbios_domain_name = active_directory.value["netbios_domain_name"]
-  #       }
-  #     }
-  #   }
-  # }
-
   dynamic "azure_files_authentication" {
     for_each = var.azure_files_authentication != null ? [var.azure_files_authentication] : []
 
