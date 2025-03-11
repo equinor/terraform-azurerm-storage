@@ -374,7 +374,7 @@ variable "azure_files_authentication_directory_type" {
 }
 
 variable "azure_files_authentication_active_directory" {
-  description = "Parameters needed for directory type AD"
+  description = "The Active Directory configuration for Azure Files identity-based authentication. Required if value of azure_files_authentication_directory_type is \"AD\"."
   default     = null
   nullable    = true
 
