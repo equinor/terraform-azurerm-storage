@@ -369,7 +369,7 @@ variable "azure_files_authentication_directory_type" {
 
   validation {
     error_message = "The active_directory object is only supported when directory_type is AD"
-    condition     = var.azure_files_authentication_directory_type == null ? true : contains(["AD", "AADS", "AADKERB"], var.azure_files_authentication_directory_type)
+    condition     = var.azure_files_authentication_directory_type == null ? true : contains(["AD", "AADDS", "AADKERB"], var.azure_files_authentication_directory_type)
   }
 }
 
