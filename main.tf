@@ -41,21 +41,21 @@ resource "azurerm_storage_account" "this" {
   default_to_oauth_authentication  = var.default_to_oauth_authentication
 
   dynamic "azure_files_authentication" {
-    for_each = var.azure_files_authentication != null ? [var.azure_files_authentication] : []
+    for_each = var.azure_files_authentication_directory_type != null ? [0] : []
 
     content {
-      directory_type = azure_files_authentication.value.directory_type
+      directory_type = var.azure_files_authentication_directory_type
 
       dynamic "active_directory" {
-        for_each = var.azure_files_authentication != null && var.azure_files_authentication.active_directory != null ? [var.azure_files_authentication.active_directory] : []
+        for_each = var.azure_files_authentication_directory_type == "AD" ? [0] : []
 
         content {
-          domain_name         = active_directory.value.domain_name
-          domain_guid         = active_directory.value.domain_guid
-          domain_sid          = active_directory.value.domain_sid
-          storage_sid         = active_directory.value.storage_sid
-          forest_name         = active_directory.value.forest_name
-          netbios_domain_name = active_directory.value.netbios_domain_name
+          domain_name         = var.azure_files_authentication_active_directory.domain_name
+          domain_guid         = var.azure_files_authentication_active_directory.domain_guid
+          domain_sid          = var.azure_files_authentication_active_directory.domain_sid
+          storage_sid         = var.azure_files_authentication_active_directory.storage_sid
+          forest_name         = var.azure_files_authentication_active_directory.forest_name
+          netbios_domain_name = var.azure_files_authentication_active_directory.netbios_domain_name
         }
       }
     }
