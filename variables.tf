@@ -362,7 +362,7 @@ variable "advanced_threat_protection_enabled" {
 }
 
 variable "azure_files_authentication_directory_type" {
-  description = "Determines if azure_files_authentication should be enabled. Possible values are AD, AADS or AADKERB"
+  description = "The type of directory service to use for Azure Files identity-based authentication. Value must be \"AD\" (Active Directory Domain Services), \"AADDS\" (Microsoft Entra Domain Services), \"AADKERB\" (Microsoft Entra Kerberos) or null (identity-based authentication disabled)."
   type        = string
   default     = null
   nullable    = true
