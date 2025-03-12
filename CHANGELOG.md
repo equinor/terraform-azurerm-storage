@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.12.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.11.1...v12.12.0) (2025-03-12)
+
+
+### Features
+
+* configure identity-based authentication for Azure Files ([#259](https://github.com/equinor/terraform-azurerm-storage/issues/259)) ([57a9cc7](https://github.com/equinor/terraform-azurerm-storage/commit/57a9cc7971977fb524e780bc14ff7257a9389c54))
+
 ## [12.11.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.11.0...v12.11.1) (2025-02-06)
 
 

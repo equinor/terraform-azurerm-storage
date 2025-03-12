@@ -42,7 +42,7 @@ Terraform module which creates Azure Storage resources.
 
     module "storage" {
       source  = "equinor/storage/azurerm"
-      version = "~> 12.11"
+      version = "~> 12.12"
 
       account_name               = "example-storage"
       resource_group_name        = azurerm_resource_group.example.name
