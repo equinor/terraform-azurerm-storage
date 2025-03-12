@@ -361,6 +361,33 @@ variable "advanced_threat_protection_enabled" {
   nullable    = false
 }
 
+variable "azure_files_authentication_directory_type" {
+  description = "The type of directory service to use for Azure Files identity-based authentication. Value must be \"AD\" (Active Directory Domain Services), \"AADDS\" (Microsoft Entra Domain Services), \"AADKERB\" (Microsoft Entra Kerberos) or null (identity-based authentication disabled)."
+  type        = string
+  default     = null
+  nullable    = true
+
+  validation {
+    error_message = "Value of azure_files_authentication_directory_type must be \"AD\", \"AADDS\" , \"AADKERB\" or null."
+    condition     = var.azure_files_authentication_directory_type == null ? true : contains(["AD", "AADDS", "AADKERB"], var.azure_files_authentication_directory_type)
+  }
+}
+
+variable "azure_files_authentication_active_directory" {
+  description = "The Active Directory configuration for Azure Files identity-based authentication. Required if value of azure_files_authentication_directory_type is \"AD\"."
+  default     = null
+  nullable    = true
+
+  type = object({
+    domain_name         = string
+    domain_guid         = string
+    domain_sid          = optional(string)
+    storage_sid         = optional(string)
+    forest_name         = optional(string)
+    netbios_domain_name = optional(string)
+  })
+}
+
 variable "tags" {
   description = "A map of tags to assign to the resources."
   type        = map(string)
