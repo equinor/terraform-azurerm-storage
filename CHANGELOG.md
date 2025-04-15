@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.12.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.12.0...v12.12.1) (2025-04-15)
+
+
+### Documentation
+
+* clarify why advanced threat protection is disabled by default ([#261](https://github.com/equinor/terraform-azurerm-storage/issues/261)) ([ea2e4a6](https://github.com/equinor/terraform-azurerm-storage/commit/ea2e4a64ba5acf067081737a209b5d8514b215b5))
+
 ## [12.12.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.11.1...v12.12.0) (2025-03-12)
 
 
