@@ -20,80 +20,44 @@ Terraform module which creates Azure Storage resources.
 
 ## Prerequisites
 
-- Install [Terraform](https://developer.hashicorp.com/terraform/install).
-- Install [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli).
+- Azure role `Contributor` at the resource group scope.
+- Azure role `Log Analytics Contributor` at the Log Analytics workspace scope.
 
 ## Usage
 
-1. Login to Azure:
+```terraform
+provider "azurerm" {
+  storage_use_azuread = true
 
-    ```console
-    az login
-    ```
+  features {}
+}
 
-1. Create a Terraform configuration file `main.tf` and add the following example configuration:
+module "storage" {
+  source  = "equinor/storage/azurerm"
+  version = "~> 12.12"
 
-    ```terraform
-    provider "azurerm" {
-      storage_use_azuread = true
+  account_name               = "example-storage"
+  resource_group_name        = azurerm_resource_group.example.name
+  location                   = azurerm_resource_group.example.location
+  log_analytics_workspace_id = module.log_analytics.workspace_id
 
-      features {}
-    }
+  network_rules_ip_rules = ["1.1.1.1", "2.2.2.2", "3.3.3.3/30"]
+}
 
-    module "storage" {
-      source  = "equinor/storage/azurerm"
-      version = "~> 12.12"
+resource "azurerm_resource_group" "example" {
+  name     = "example-resources"
+  location = "westeurope"
+}
 
-      account_name               = "example-storage"
-      resource_group_name        = azurerm_resource_group.example.name
-      location                   = azurerm_resource_group.example.location
-      log_analytics_workspace_id = module.log_analytics.workspace_id
+module "log_analytics" {
+  source  = "equinor/log-analytics/azurerm"
+  version = "~> 2.3"
 
-      network_rules_ip_rules = ["1.1.1.1", "2.2.2.2", "3.3.3.3/30"]
-    }
-
-    resource "azurerm_resource_group" "example" {
-      name     = "example-resources"
-      location = "westeurope"
-    }
-
-    module "log_analytics" {
-      source  = "equinor/log-analytics/azurerm"
-      version = "~> 2.3"
-
-      workspace_name      = "example-workspace"
-      resource_group_name = azurerm_resource_group.example.name
-      location            = azurerm_resource_group.example.location
-    }
-    ```
-
-1. Install required provider plugins and modules:
-
-    ```console
-    terraform init
-    ```
-
-1. Apply the Terraform configuration:
-
-    ```console
-    terraform apply
-    ```
-
-## Development
-
-1. Login to Azure:
-
-    ```bash
-    az login
-    ```
-
-1. Set environment variables:
-
-    ```bash
-    export ARM_SUBSCRIPTION_ID="<SUBSCRIPTION_ID>"
-    export TF_VAR_resource_group_name="<RESOURCE_GROUP_NAME>"
-    export TF_VAR_location="<LOCATION>"
-    ```
+  workspace_name      = "example-workspace"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
+}
+```
 
 ## Testing
 
