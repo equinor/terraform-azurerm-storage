@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.12.2](https://github.com/equinor/terraform-azurerm-storage/compare/v12.12.1...v12.12.2) (2025-04-22)
+
+
+### Documentation
+
+* update README ([4d5e548](https://github.com/equinor/terraform-azurerm-storage/commit/4d5e548e5f9945631e7418b6a15af6d96164582d))
+
 ## [12.12.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.12.0...v12.12.1) (2025-04-15)
 
 
