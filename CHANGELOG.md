@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.12.3](https://github.com/equinor/terraform-azurerm-storage/compare/v12.12.2...v12.12.3) (2025-04-28)
+
+
+### Documentation
+
+* set valid Storage account name in usage example ([9026e68](https://github.com/equinor/terraform-azurerm-storage/commit/9026e6866949351af10e328c9ac7956ba4aa98d3))
+
 ## [12.12.2](https://github.com/equinor/terraform-azurerm-storage/compare/v12.12.1...v12.12.2) (2025-04-22)
 
 
