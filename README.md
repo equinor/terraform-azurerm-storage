@@ -36,7 +36,7 @@ module "storage" {
   source  = "equinor/storage/azurerm"
   version = "~> 12.12"
 
-  account_name               = "example-storage"
+  account_name               = "examplestorage"
   resource_group_name        = azurerm_resource_group.example.name
   location                   = azurerm_resource_group.example.location
   log_analytics_workspace_id = module.log_analytics.workspace_id
