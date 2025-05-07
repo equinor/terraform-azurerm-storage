@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.13.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.12.3...v12.13.0) (2025-05-07)
+
+
+### Features
+
+* output Data Lake Storage endpoints ([#265](https://github.com/equinor/terraform-azurerm-storage/issues/265)) ([f90ce44](https://github.com/equinor/terraform-azurerm-storage/commit/f90ce44f6e4057402737e6ea9aaf354eadbd44aa))
+
 ## [12.12.3](https://github.com/equinor/terraform-azurerm-storage/compare/v12.12.2...v12.12.3) (2025-04-28)
 
 
