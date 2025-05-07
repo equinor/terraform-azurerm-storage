@@ -68,6 +68,16 @@ output "secondary_file_endpoint" {
   value       = azurerm_storage_account.this.secondary_file_endpoint
 }
 
+output "dfs_endpoint" {
+  description = "The endpoint URL for this Data Lake Storage."
+  value       = azurerm_storage_account.this.primary_dfs_endpoint
+}
+
+output "secondary_dfs_endpoint" {
+  description = "The secondary endpoint URL for this Data Lake Storage."
+  value       = azurerm_storage_account.this.secondary_dfs_endpoint
+}
+
 output "primary_access_key" {
   description = "The primary access key for this Storage account."
   value       = azurerm_storage_account.this.primary_access_key
