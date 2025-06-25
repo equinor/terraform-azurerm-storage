@@ -3,8 +3,9 @@ terraform {
 
   required_providers {
     azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 4.0.0"
+      source = "hashicorp/azurerm"
+      # Version 4.31.0 is required to use the "enabled_metric" argument for the "azurerm_monitor_diagnostic_setting" resource.
+      version = ">= 4.31.0"
     }
   }
 }
