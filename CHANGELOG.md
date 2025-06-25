@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.13.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.13.0...v12.13.1) (2025-06-25)
+
+
+### Bug Fixes
+
+* argument `metric` for resource `azurerm_monitor_diagnostic_setting` has been deprecated ([#267](https://github.com/equinor/terraform-azurerm-storage/issues/267)) ([9d1d017](https://github.com/equinor/terraform-azurerm-storage/commit/9d1d017f88675019ca3e3707cd2352108a8e6c5d))
+
 ## [12.13.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.12.3...v12.13.0) (2025-05-07)
 
 
