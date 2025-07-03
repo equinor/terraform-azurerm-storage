@@ -186,11 +186,84 @@ resource "azurerm_advanced_threat_protection" "this" {
   enabled            = var.advanced_threat_protection_enabled
 }
 
-resource "azurerm_monitor_diagnostic_setting" "this" {
-  for_each = toset(["blob", "queue", "table", "file"])
-
+resource "azurerm_monitor_diagnostic_setting" "blob" {
   name                       = var.diagnostic_setting_name
-  target_resource_id         = "${azurerm_storage_account.this.id}/${each.value}Services/default"
+  target_resource_id         = "${azurerm_storage_account.this.id}/blobServices/default"
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+
+  # Ref: https://registry.terraform.io/providers/hashicorp/azurerm/3.65.0/docs/resources/monitor_diagnostic_setting#log_analytics_destination_type
+  log_analytics_destination_type = null
+
+  dynamic "enabled_log" {
+    for_each = toset(var.diagnostic_setting_enabled_log_categories)
+
+    content {
+      category = enabled_log.value
+    }
+  }
+
+  dynamic "enabled_metric" {
+    for_each = toset(var.diagnostic_setting_enabled_metric_categories)
+
+    content {
+      category = enabled_metric.value
+    }
+  }
+}
+
+resource "azurerm_monitor_diagnostic_setting" "queue" {
+  name                       = var.diagnostic_setting_name
+  target_resource_id         = "${azurerm_storage_account.this.id}/queueServices/default"
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+
+  # Ref: https://registry.terraform.io/providers/hashicorp/azurerm/3.65.0/docs/resources/monitor_diagnostic_setting#log_analytics_destination_type
+  log_analytics_destination_type = null
+
+  dynamic "enabled_log" {
+    for_each = toset(var.diagnostic_setting_enabled_log_categories)
+
+    content {
+      category = enabled_log.value
+    }
+  }
+
+  dynamic "enabled_metric" {
+    for_each = toset(var.diagnostic_setting_enabled_metric_categories)
+
+    content {
+      category = enabled_metric.value
+    }
+  }
+}
+
+resource "azurerm_monitor_diagnostic_setting" "table" {
+  name                       = var.diagnostic_setting_name
+  target_resource_id         = "${azurerm_storage_account.this.id}/tableServices/default"
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+
+  # Ref: https://registry.terraform.io/providers/hashicorp/azurerm/3.65.0/docs/resources/monitor_diagnostic_setting#log_analytics_destination_type
+  log_analytics_destination_type = null
+
+  dynamic "enabled_log" {
+    for_each = toset(var.diagnostic_setting_enabled_log_categories)
+
+    content {
+      category = enabled_log.value
+    }
+  }
+
+  dynamic "enabled_metric" {
+    for_each = toset(var.diagnostic_setting_enabled_metric_categories)
+
+    content {
+      category = enabled_metric.value
+    }
+  }
+}
+
+resource "azurerm_monitor_diagnostic_setting" "file" {
+  name                       = var.diagnostic_setting_name
+  target_resource_id         = "${azurerm_storage_account.this.id}/fileServices/default"
   log_analytics_workspace_id = var.log_analytics_workspace_id
 
   # Ref: https://registry.terraform.io/providers/hashicorp/azurerm/3.65.0/docs/resources/monitor_diagnostic_setting#log_analytics_destination_type
