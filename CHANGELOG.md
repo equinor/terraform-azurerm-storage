@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.13.2](https://github.com/equinor/terraform-azurerm-storage/compare/v12.13.1...v12.13.2) (2025-07-03)
+
+
+### Code Refactoring
+
+* create explicit diagnostic setting resources ([#269](https://github.com/equinor/terraform-azurerm-storage/issues/269)) ([3097b37](https://github.com/equinor/terraform-azurerm-storage/commit/3097b37b8787a701599c555252d764d30ef3d3d8))
+
 ## [12.13.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.13.0...v12.13.1) (2025-06-25)
 
 
