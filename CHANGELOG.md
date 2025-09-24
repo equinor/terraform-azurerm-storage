@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.13.3](https://github.com/equinor/terraform-azurerm-storage/compare/v12.13.2...v12.13.3) (2025-09-24)
+
+
+### Documentation
+
+* update badges ([cab7d75](https://github.com/equinor/terraform-azurerm-storage/commit/cab7d755381fead78b996ec3edcf75b99356e227))
+
 ## [12.13.2](https://github.com/equinor/terraform-azurerm-storage/compare/v12.13.1...v12.13.2) (2025-07-03)
 
 
