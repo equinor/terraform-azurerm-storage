@@ -72,7 +72,11 @@ resource "azurerm_storage_account" "this" {
       versioning_enabled = (!local.is_premium_data_lake_storage && !local.is_premium_gpv2_storage && !local.is_standard_data_lake_storage) ? var.blob_versioning_enabled : false
 
       # Configure change feed if supported.
-      change_feed_enabled = (!local.is_premium_data_lake_storage && !local.is_premium_gpv2_storage && !local.is_standard_data_lake_storage) ? var.blob_change_feed_enabled : false
+      # Change feed is not supported on HNS-enabled storage accounts (Data Lake Storage),
+      # but we don't disable by default because Azure requires change_feed_enabled = true in some cases, e.g. when Object
+      # Replication is enabled. Setting it to false when Object Replication is enabled will
+      # cause Azure to return an error.
+      change_feed_enabled = (!local.is_premium_gpv2_storage) ? var.blob_change_feed_enabled : false
 
       # Configure Access Tracking (Optional)
       last_access_time_enabled = var.last_access_time_enabled
