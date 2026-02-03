@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.13.6](https://github.com/equinor/terraform-azurerm-storage/compare/v12.13.5...v12.13.6) (2026-02-03)
+
+
+### Bug Fixes
+
+* remove restriction preventing change feed on data lake storage ([#274](https://github.com/equinor/terraform-azurerm-storage/issues/274)) ([e293a25](https://github.com/equinor/terraform-azurerm-storage/commit/e293a25a75b6f2185a5725d831db2a9993201751))
+
 ## [12.13.5](https://github.com/equinor/terraform-azurerm-storage/compare/v12.13.4...v12.13.5) (2025-09-30)
 
 
