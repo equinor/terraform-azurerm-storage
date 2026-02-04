@@ -76,7 +76,8 @@ resource "azurerm_storage_account" "this" {
       # but we don't disable by default because Azure requires change_feed_enabled = true in some cases, e.g. when Object
       # Replication is enabled. Setting it to false when Object Replication is enabled will
       # cause Azure to return an error.
-      change_feed_enabled = (!local.is_premium_gpv2_storage) ? var.blob_change_feed_enabled : false
+      change_feed_enabled           = (!local.is_premium_gpv2_storage) ? var.blob_change_feed_enabled : false
+      change_feed_retention_in_days = (!local.is_premium_gpv2_storage && var.blob_change_feed_enabled) ? var.blob_change_feed_retention_in_days : null
 
       # Configure Access Tracking (Optional)
       last_access_time_enabled = var.last_access_time_enabled

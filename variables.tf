@@ -158,6 +158,18 @@ variable "blob_change_feed_enabled" {
   nullable    = false
 }
 
+variable "blob_change_feed_retention_in_days" {
+  description = "The number of days that change feed events should be retained. Value must be between 1 and 146000."
+  type        = number
+  default     = 7
+  nullable    = false
+
+  validation {
+    condition     = var.blob_change_feed_retention_in_days >= 1 && var.blob_change_feed_retention_in_days <= 146000
+    error_message = "Blob change feed retention in days must be between 1 and 146000."
+  }
+}
+
 variable "last_access_time_enabled" {
   description = "Is last access time tracking enabled for this Blob Storage?"
   type        = bool
