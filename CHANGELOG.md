@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.14.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.13.6...v12.14.0) (2026-02-04)
+
+
+### Features
+
+* add new variable `blob_change_feed_retention_in_days` ([#276](https://github.com/equinor/terraform-azurerm-storage/issues/276)) ([0271f1a](https://github.com/equinor/terraform-azurerm-storage/commit/0271f1a73915577000661724a6ae158675ae8a82))
+
 ## [12.13.6](https://github.com/equinor/terraform-azurerm-storage/compare/v12.13.5...v12.13.6) (2026-02-03)
 
 
