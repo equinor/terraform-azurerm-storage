@@ -181,6 +181,33 @@ resource "azurerm_storage_account" "this" {
   }
 }
 
+resource "azurerm_private_endpoint" "this" {
+  for_each = var.private_endpoints
+
+  name                          = each.value.name
+  resource_group_name           = var.resource_group_name
+  location                      = var.location
+  custom_network_interface_name = coalesce(each.value.network_interface_name, "${each.value.name}-nic") # By default, Azure Portal appends a "-nic" suffix
+  subnet_id                     = each.value.subnet_id
+
+  private_service_connection {
+    name                           = each.value.name # Azure Portal default
+    private_connection_resource_id = azurerm_storage_account.this.id
+    subresource_names              = [each.value.subresource_name]
+
+    # The value of "is_manual_connection" should only be set to true if you don't own the target Storage account.
+    # Since the target Storage account is created by this module, you own it, and the value should always be set to false.
+    is_manual_connection = false
+  }
+
+  private_dns_zone_group {
+    name                 = "default" # Azure Portal default
+    private_dns_zone_ids = each.value.private_dns_zone_ids
+  }
+
+  tags = var.tags
+}
+
 resource "azurerm_advanced_threat_protection" "this" {
   target_resource_id = azurerm_storage_account.this.id
   enabled            = var.advanced_threat_protection_enabled

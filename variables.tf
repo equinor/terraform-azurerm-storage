@@ -300,6 +300,19 @@ variable "network_rules_ip_rules" {
   }
 }
 
+variable "private_endpoints" {
+  description = "A map of private endpoints to create for this Storage account. A dedicated subnet for private endpoints is recommended. Subresource name must be \"blob\" (Blob Storage), \"table\" (Table Storage), \"queue\" (Queue Storage), \"file\" (File Storage) or \"dfs\" (Data Lake Storage)."
+  type = map(object({
+    name                   = string
+    network_interface_name = optional(string)
+    subnet_id              = string
+    subresource_name       = string
+    private_dns_zone_ids   = list(string)
+  }))
+  nullable = false
+  default  = {}
+}
+
 variable "private_link_accesses" {
   description = "A list of private link accesses to configure for this Storage account."
 
