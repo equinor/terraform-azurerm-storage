@@ -298,8 +298,13 @@ run "network_rules_disabled" {
   }
 
   assert {
-    condition     = length(azurerm_storage_account.this.network_rules) == 0
-    error_message = "Network rules block created when it should not have been"
+    condition     = length(azurerm_storage_account.this.network_rules) == 1
+    error_message = "Network rules block not created when it should have been"
+  }
+
+  assert {
+    condition     = try(azurerm_storage_account.this.network_rules[0].default_action, null) == "Allow"
+    error_message = "Invalid network rules default action"
   }
 }
 
