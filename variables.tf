@@ -165,8 +165,15 @@ variable "blob_change_feed_retention_in_days" {
   nullable    = true
 
   validation {
-    condition     = var.blob_change_feed_retention_in_days >= 1 && var.blob_change_feed_retention_in_days <= 146000 || var.blob_change_feed_retention_in_days == null
-    error_message = "Blob change feed retention in days must be between 1 and 146000 or null."
+    condition = (
+      var.blob_change_feed_retention_in_days == null
+      ? true
+      : (
+        var.blob_change_feed_retention_in_days >= 1 &&
+        var.blob_change_feed_retention_in_days <= 146000
+      )
+    )
+    error_message = "Must be null or between 1 and 146000."
   }
 }
 
