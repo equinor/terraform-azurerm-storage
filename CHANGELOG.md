@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.14.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.14.0...v12.14.1) (2026-10-06)
+
+
+### Bug Fixes
+
+* add option to keep all change feed events ([ca33543](https://github.com/equinor/terraform-azurerm-storage/commit/ca335436363042409cf20981cc64362868b2f70a))
+
 ## [12.14.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.13.6...v12.14.0) (2026-02-04)
 
 
