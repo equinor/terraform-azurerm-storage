@@ -159,14 +159,14 @@ variable "blob_change_feed_enabled" {
 }
 
 variable "blob_change_feed_retention_in_days" {
-  description = "The number of days that change feed events should be retained. Value must be between 1 and 146000."
+  description = "The number of days that change feed events should be retained. Value must be between 1 and 146000. Set to null for keep all."
   type        = number
   default     = 7
-  nullable    = false
+  nullable    = true
 
   validation {
-    condition     = var.blob_change_feed_retention_in_days >= 1 && var.blob_change_feed_retention_in_days <= 146000
-    error_message = "Blob change feed retention in days must be between 1 and 146000."
+    condition     = var.blob_change_feed_retention_in_days >= 1 && var.blob_change_feed_retention_in_days <= 146000 || var.blob_change_feed_retention_in_days == null
+    error_message = "Blob change feed retention in days must be between 1 and 146000 or null."
   }
 }
 
