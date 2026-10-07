@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.15.0](https://github.com/equinor/terraform-azurerm-storage/compare/v12.14.1...v12.15.0) (2026-10-07)
+
+
+### Features
+
+* create private endpoints ([#278](https://github.com/equinor/terraform-azurerm-storage/issues/278)) ([a3102ca](https://github.com/equinor/terraform-azurerm-storage/commit/a3102cacceefecdc24c053640a8e81aea48e65d9))
+
 ## [12.14.1](https://github.com/equinor/terraform-azurerm-storage/compare/v12.14.0...v12.14.1) (2026-10-06)
 
 
