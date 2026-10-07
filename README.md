@@ -29,7 +29,7 @@ provider "azurerm" {
 
 module "storage" {
   source  = "equinor/storage/azurerm"
-  version = "~> 12.14"
+  version = "~> 12.15"
 
   account_name               = "examplestorage"
   resource_group_name        = azurerm_resource_group.example.name
